@@ -1,0 +1,69 @@
+<div class="login-container d-flex align-items-center justify-content-center min-vh-100">
+  <div class="card shadow-lg border-0 rounded-4" style="width: 100%; max-width: 400px;">
+    <div class="card-body p-5">
+
+      <div class="text-center mb-4">
+        <h1 class="h3 fw-bold text-primary">2Do App</h1>
+        <p class="text-muted">Welcome back! Please login.</p>
+      </div>
+
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+
+        <div class="form-floating mb-3">
+          <input
+            type="email"
+            class="form-control"
+            id="emailInput"
+            placeholder="name@example.com"
+            formControlName="email"
+            [class.is-invalid]="isSubmitted && f['email'].errors"
+          >
+          <label for="emailInput">Email address</label>
+
+          @if (isSubmitted && f['email'].errors) {
+            <div class="invalid-feedback">
+              @if (f['email'].errors['required']) {
+                <div>Email is required</div>
+              }
+              @if (f['email'].errors['email']) {
+                <div>Email must be valid</div>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="form-floating mb-4">
+          <input
+            type="password"
+            class="form-control"
+            id="passwordInput"
+            placeholder="Password"
+            formControlName="password"
+            [class.is-invalid]="isSubmitted && f['password'].errors"
+          >
+          <label for="passwordInput">Password</label>
+
+          @if (isSubmitted && f['password'].errors) {
+            <div class="invalid-feedback">
+              @if (f['password'].errors['required']) {
+                <div>Password is required</div>
+              }
+              @if (f['password'].errors['minlength']) {
+                <div>Password must be at least 6 characters</div>
+              }
+            </div>
+          }
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100 py-2 fs-5 fw-semibold rounded-3">
+          Login
+        </button>
+
+        <div class="text-center mt-3">
+          <small class="text-muted">Don't have an account? <a routerLink="/register" class="text-decoration-none">Sign up</a></small>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>
