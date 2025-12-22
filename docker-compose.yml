@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  frontend:
+    container_name: 2do-frontend
+    # Build the image from the Dockerfile in the current directory
+    build: .
+    # Map port 80 on the host to port 80 inside the container
+    # You can access the app at http://localhost
+    ports:
+      - "4200:80"
+    # Automatically restart the container if it crashes or the daemon restarts
+    restart: always
