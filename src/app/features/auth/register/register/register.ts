@@ -1,7 +1,7 @@
 import {Component, inject, signal} from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {AuthService} from '../../../../core/services/auth/auth.service';
-import {Router} from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
 import {RegisterRequest} from '../../../../core/models/register-request.model';
 
 /**
@@ -16,7 +16,8 @@ import {RegisterRequest} from '../../../../core/models/register-request.model';
 @Component({
   selector: 'app-register',
   imports: [
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RouterLink
   ],
   templateUrl: './register.html',
   styleUrl: './register.scss',
