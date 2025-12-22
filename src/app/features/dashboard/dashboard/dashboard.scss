@@ -1,0 +1,40 @@
+.task-card {
+  transition: all 0.25s ease-in-out;
+  border-radius: 12px;
+  background-color: #fff;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08) !important;
+  }
+
+  // Completed tasks styling
+  &.task-completed {
+    background-color: #f8f9fa; // Slightly gray background
+    opacity: 0.85;
+
+    .card-title {
+      color: #6c757d !important; // Muted text for title
+    }
+  }
+
+  // Left border for completed tasks
+  &.border-start-success {
+    border-left: 5px solid #198754 !important;
+  }
+}
+
+.border-dashed {
+  border-style: dashed !important;
+  border-width: 2px !important;
+}
+
+// Modal customization
+.modal-content {
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.modal-header {
+  border-bottom: 0;
+}

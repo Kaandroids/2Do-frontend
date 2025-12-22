@@ -39,7 +39,7 @@ export class Login {
 
     this.authService.login(request).subscribe({
       next: (response) => {
-        alert('Login Successfully!');
+        this.router.navigate(['/dashboard']);
       },
       error: (error) => {
         console.error('Error:', error);
