@@ -2,6 +2,7 @@ import {inject, Injectable} from '@angular/core';
 import {AuthResponse, LoginRequest} from '../../models/auth.models';
 import {Observable, tap} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
+import {RegisterRequest} from '../../models/register-request.model'
 
 /**
  * Service responsible for managing user authentication and session state.
@@ -16,8 +17,26 @@ export class AuthService {
   /** Key used to store the JWT token in the browser's LocalStorage. */
   private readonly TOKEN_KEY = 'auth_token';
 
+  /**
+   * Authenticates the user with the provided credentials.
+   * Uses the `tap` operator to automatically persist the JWT token upon a successful response.
+   * @param request - The login payload containing email and password.
+   * @returns An Observable containing the authentication response (token).
+   */
   login(request: LoginRequest): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(`${this.API_URL}/authenticate`, request).pipe(
+    return this.http.post<AuthResponse>(this.API_URL + '/authenticate', request).pipe(
+      tap(response => this.saveToken(response.token))
+    );
+  }
+
+  /**
+   * Registers a new user and immediately establishes a session.
+   * Automatically saves the returned token to enable "auto-login" after registration.
+   * @param request - The registration payload (name, email, password).
+   * @returns An Observable of the response.
+   */
+  register(request: RegisterRequest): Observable<any> {
+    return this.http.post<AuthResponse>(this.API_URL +'/register', request).pipe(
       tap(response => this.saveToken(response.token))
     );
   }
