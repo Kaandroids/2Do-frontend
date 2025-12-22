@@ -110,6 +110,10 @@ export class Dashboard implements OnInit {
     });
   }
 
+  /**
+   * Permanently deletes a task by ID after user confirmation.
+   * Updates the local list upon success to avoid page reload.
+   */
   onDelete(id: number): void {
     if(confirm('Are you sure you want to delete this task?')) {
       // Optimistic delete: remove from UI first (or after success)
@@ -119,9 +123,23 @@ export class Dashboard implements OnInit {
     }
   }
 
+  /**
+   * Logs out the current user by clearing the session and redirects to the login page.
+   */
   onLogout(): void {
     this.authService.logout();
     this.router.navigate(['/login']);
+  }
+
+  /**
+   * Toggles task completion status with Optimistic UI update.
+   */
+  onToggleTask(task: TaskResponse) {
+    this.taskList.update(
+      tasks => tasks.map(t => t.id === task.id ? {...t, completed: !t.completed} : t),
+    );
+
+    this.taskService.toggleTaskStatus(task).subscribe();
   }
 
 }

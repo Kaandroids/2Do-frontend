@@ -47,4 +47,14 @@ export class TaskService {
   deleteTask(id: number): Observable<void> {
     return this.http.delete<void>(this.API_URL + '/' + id);
   }
+
+  /**
+   * Toggles the task's completion status.
+   * Creates a modified copy of the task and sends a full update (PUT) to the server.
+   */
+  toggleTaskStatus(task: TaskResponse): Observable<TaskResponse> {
+    const updatedTask: TaskResponse = {...task, completed: !task.completed};
+    return this.http.put<TaskResponse>(this.API_URL + '/' + task.id, updatedTask);
+  }
+
 }

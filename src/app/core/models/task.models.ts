@@ -37,6 +37,11 @@ export interface CreateTaskRequest {
   dueDate?: string;
 }
 
+/**
+ * Generic wrapper interface for paginated API responses.
+ * Contains the actual data list (content) and metadata for pagination controls (e.g., total pages, current page).
+ * @template T - The type of the content items (e.g., Task, User).
+ */
 export interface Page<T> {
   content: T[];
   totalElements: number;
