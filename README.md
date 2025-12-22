@@ -4,6 +4,8 @@
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue?logo=typescript&logoColor=white)
 ![Bootstrap](https://img.shields.io/badge/Bootstrap-5-purple?logo=bootstrap&logoColor=white)
 ![RxJS](https://img.shields.io/badge/RxJS-Reactive-B7178C)
+![Docker](https://img.shields.io/badge/Docker-2496ED?logo=docker&logoColor=white)
+![Nginx](https://img.shields.io/badge/Nginx-009639?logo=nginx&logoColor=white)
 
 ## 📖 About The Project
 
@@ -25,6 +27,7 @@ You can find the backend source code, Docker configuration, and API documentatio
 * **Styling:** SCSS (Sass) & Bootstrap 5
 * **State Management:** RxJS (Reactive Extensions)
 * **HTTP Client:** Angular `HttpClient` with Functional Interceptors
+* **Deployment:** Docker & Nginx (Multi-Stage Build)
 * **Forms:** Reactive Forms (Strict Typed)
 * **Design System:** Bootstrap 5 & Bootstrap Icons
 
@@ -61,7 +64,9 @@ src/app/
 * **Reactive Forms:** Robust form handling with strict TypeScript typing, run-time validation, and immediate user feedback.
 * **Modular Architecture:** A clean separation of concerns using `Core`, `Features`, and `Shared` modules to ensure scalability.
 * **Responsive Design:** Mobile-first user interface built with **Bootstrap 5** Grid System and SCSS.
+* **Production-Ready Docker:** Containerized application using multi-stage builds. Served via Nginx for high performance and low footprint.
 * **Standalone Components:** Utilizes modern Angular 17+ architecture, eliminating the need for complex `NgModules`.
+* **Responsive Design:** Mobile-first user interface built with Bootstrap 5 Grid System and SCSS.
 
 ## 🏁 Getting Started
 
@@ -73,7 +78,20 @@ Ensure you have the following installed:
 * **NPM** (Node Package Manager)
 * **Angular CLI** (Install globally via `npm install -g @angular/cli`)
 
-### Installation
+## 🏁 Getting Started
+
+You can run this project in two ways: using **Docker** (Recommended for consistency) or standard **Local Development**.
+
+### Prerequisites
+* **Git**
+* **Docker & Docker Compose** (For Option A)
+* **Node.js v18+ & Angular CLI** (For Option B)
+
+---
+
+### Option A: Docker (Recommended) 🐳
+
+This method builds a production-ready image served by Nginx. It is the closest simulation to a real production environment.
 
 1.  **Clone the repository**
     ```bash
@@ -81,19 +99,32 @@ Ensure you have the following installed:
     cd 2Do-frontend
     ```
 
-2.  **Install Dependencies**
-    This will install all required packages listed in `package.json`.
+2.  **Run with Docker Compose**
+    ```bash
+    docker-compose up -d --build
+    ```
+
+3.  **Access the App**
+    Open your browser and navigate to: `http://localhost:4200`
+
+> **⚠️ Note on Hot Reload:** Running via Docker serves a static production build. **Hot Reload (Live Refresh) does NOT work** in this mode. You must rebuild the container to see code changes. Use Option B for active development.
+
+---
+
+### Option B: Local Development (Hot Reload) 🔥
+
+Use this method if you are actively writing code and need instant feedback.
+
+1.  **Install Dependencies**
     ```bash
     npm install
     ```
 
-3.  **Run the Development Server**
-    Start the application in development mode.
+2.  **Run the Development Server**
     ```bash
     ng serve
     ```
-    Once started, navigate to `http://localhost:4200/` in your browser. The application will automatically reload if you change any source files.
-
+    Navigate to `http://localhost:4200/`. The application will automatically reload if you change any source files.
 ## 🔌 API Configuration
 
 This frontend application is configured to consume the **2Do Backend API**.
