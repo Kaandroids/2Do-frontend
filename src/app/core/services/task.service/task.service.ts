@@ -2,6 +2,7 @@ import {inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {CreateTaskRequest, Page, TaskResponse} from '../../models/task.models';
+import {environment} from '../../../../environments/environment';
 
 /**
  * Service responsible for managing Task-related HTTP operations.
@@ -14,7 +15,7 @@ import {CreateTaskRequest, Page, TaskResponse} from '../../models/task.models';
 export class TaskService {
   private readonly http = inject(HttpClient)
   // TODO: Move base URL to environment configuration for production
-  private readonly API_URL = 'http://localhost:8080/api/v1/tasks';
+  private readonly API_URL = `${environment.apiUrl}/tasks`;
 
   /**
    * Fetches the list of tasks belonging to the authenticated user.

@@ -3,6 +3,7 @@ import {AuthResponse, LoginRequest} from '../../models/auth.models';
 import {Observable, tap} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {RegisterRequest} from '../../models/register-request.model'
+import {environment} from '../../../../environments/environment';
 
 /**
  * Service responsible for managing user authentication and session state.
@@ -12,7 +13,7 @@ import {RegisterRequest} from '../../models/register-request.model'
 export class AuthService {
   private readonly http = inject(HttpClient);
   // TODO: Move this to environment.ts for production readiness
-  private readonly API_URL = 'http://localhost:8080/api/v1/auth';
+  private readonly API_URL = environment.apiUrl;
 
   /** Key used to store the JWT token in the browser's LocalStorage. */
   private readonly TOKEN_KEY = 'auth_token';
