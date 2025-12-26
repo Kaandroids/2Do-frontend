@@ -13,7 +13,7 @@ import {environment} from '../../../../environments/environment';
 export class AuthService {
   private readonly http = inject(HttpClient);
   // TODO: Move this to environment.ts for production readiness
-  private readonly API_URL = environment.apiUrl;
+  private readonly API_URL = environment.apiUrl + "/auth";
 
   /** Key used to store the JWT token in the browser's LocalStorage. */
   private readonly TOKEN_KEY = 'auth_token';
