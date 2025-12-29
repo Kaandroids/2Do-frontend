@@ -12,7 +12,7 @@ import {environment} from '../../../../environments/environment';
 @Injectable({providedIn: 'root'})
 export class AuthService {
   private readonly http = inject(HttpClient);
-  // TODO: Move this to environment.ts for production readiness
+
   private readonly API_URL = environment.apiUrl + "/auth";
 
   /** Key used to store the JWT token in the browser's LocalStorage. */

@@ -14,7 +14,7 @@ import {environment} from '../../../../environments/environment';
 @Injectable({providedIn: 'root'})
 export class TaskService {
   private readonly http = inject(HttpClient)
-  // TODO: Move base URL to environment configuration for production
+
   private readonly API_URL = `${environment.apiUrl}/tasks`;
 
   /**
