@@ -34,6 +34,12 @@ export class Login {
 
   get f() { return this.loginForm.controls; }
 
+  ngOnInit() {
+    if (this.authService.isLoggedIn()) {
+      this.router.navigate(['/dashboard']);
+    }
+  }
+
   onSubmit() {
     this.isSubmitted.set(true);
     this.errorMessage.set(null)
