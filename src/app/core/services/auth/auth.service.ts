@@ -1,6 +1,6 @@
 import {inject, Injectable} from '@angular/core';
 import {AuthResponse, LoginRequest} from '../../models/auth.models';
-import {Observable, tap} from 'rxjs';
+import {catchError, Observable, tap, throwError} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {RegisterRequest} from '../../models/register-request.model'
 import {environment} from '../../../../environments/environment';
@@ -57,8 +57,19 @@ export class AuthService {
    * Terminates the user session by removing the token from storage.
    * Should be called when the user clicks "Logout".
    */
-  logout(): void {
-    localStorage.removeItem(this.TOKEN_KEY);
+  logout(): Observable<any> {
+
+    return this.http.post(this.API_URL + '/logout', null).pipe(
+      tap(
+        () => {
+          localStorage.removeItem(this.TOKEN_KEY);
+        }
+      ),
+      catchError((err) => {
+        localStorage.removeItem(this.TOKEN_KEY);
+        return throwError(() => err);
+      })
+    )
   }
 
   /**
