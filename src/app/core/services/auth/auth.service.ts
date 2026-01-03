@@ -69,7 +69,7 @@ export class AuthService {
         localStorage.removeItem(this.TOKEN_KEY);
         return throwError(() => err);
       })
-    )
+    ).subscribe();
   }
 
   /**
