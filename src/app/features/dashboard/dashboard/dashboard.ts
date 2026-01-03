@@ -127,7 +127,7 @@ export class Dashboard implements OnInit {
    * Logs out the current user by clearing the session and redirects to the login page.
    */
   onLogout(): void {
-    this.authService.logout();
+    this.authService.logout().subscribe();
     this.router.navigate(['/login']);
   }
 
