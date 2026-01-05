@@ -1,11 +1,14 @@
-import {Component, inject, OnInit, signal} from '@angular/core';
+import {Component, computed, inject, OnInit, signal} from '@angular/core';
 import {TaskService} from '../../../core/services/task.service/task.service';
 import {AuthService} from '../../../core/services/auth/auth.service';
 import {Router} from '@angular/router';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
-import {CreateTaskRequest, TaskResponse} from '../../../core/models/task.models';
+import {AiTaskResponse, CreateTaskRequest, TaskResponse} from '../../../core/models/task.models';
 import {DatePipe} from '@angular/common';
 import {finalize} from 'rxjs';
+import {VoiceRecordingService} from '../../../core/services/task.service/voice-recording.service';
+import {HttpClient} from '@angular/common/http';
+import {environment} from '../../../../environments/environment';
 
 @Component({
   selector: 'app-dashboard',
@@ -23,12 +26,19 @@ export class Dashboard implements OnInit {
   private readonly authService = inject(AuthService);
   private readonly router = inject(Router);
   private readonly fb = inject(FormBuilder)
+  private readonly voiceService = inject(VoiceRecordingService)
+  private readonly http = inject(HttpClient);
+
+
 
   /** Holds the list of tasks fetched from the API. */
   taskList = signal<TaskResponse[]>([]);
 
   /** Loading state for the task list. */
   isLoading = signal<boolean>(false);
+
+  isRecording = computed(() => this.voiceService.isRecording());
+  isProcessing = signal<boolean>(false);
 
   /** Reactive Form for creating a new task. */
   createTaskForm: FormGroup;
@@ -140,6 +150,60 @@ export class Dashboard implements OnInit {
     );
 
     this.taskService.toggleTaskStatus(task).subscribe();
+  }
+
+
+  async onAiTaskClick() {
+    if (this.isRecording()) {
+      await this.stopAndAnalyze();
+    } else {
+      await this.startRecording();
+    }
+  }
+
+  private async startRecording() {
+    try {
+      await this.voiceService.startRecording();
+    } catch (error) {
+      alert('Please grant microphone permission!');
+    }
+  }
+
+  private async stopAndAnalyze() {
+    this.isProcessing.set(true);
+    const audioFile = await this.voiceService.stopRecording();
+
+    const formData = new FormData();
+    formData.append('file', audioFile);
+
+    this.http.post<AiTaskResponse>(`${environment.apiUrl}/tasks/ai-generate`, formData)
+      .pipe(finalize(() => this.isProcessing.set(false)))
+    .subscribe({
+      next: (res) => {
+        if (res.isTaskDetected) {
+          this.createTaskForm.patchValue({
+            title: res.title,
+            description: res.description,
+            priority: res.priority || 'MEDIUM',
+            dueDate: res.dueDate ? this.formatDateForInput(res.dueDate) : ''
+          });
+          setTimeout(() => {
+            const openStandardBtn = document.querySelector('[data-bs-target="#addTaskModal"]') as HTMLElement;
+            openStandardBtn?.click();
+          }, 400);
+        } else {
+          alert('Sorry, I couldn\'t recognize a task. Could you please try again?');
+        }
+      },
+      error: error => {
+        console.error(error);
+      }
+    })
+  }
+
+  private formatDateForInput(dateString: string): string {
+    if (!dateString) return '';
+    return dateString.substring(0, 16);
   }
 
 }

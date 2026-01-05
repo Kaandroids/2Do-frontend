@@ -52,3 +52,11 @@ export interface Page<T> {
   last: boolean;
   empty: boolean;
 }
+
+export interface AiTaskResponse {
+  title: string | null;
+  description: string | null;
+  priority: 'LOW' | 'MEDIUM' | 'HIGH';
+  dueDate: string | null;
+  isTaskDetected: boolean;
+}
