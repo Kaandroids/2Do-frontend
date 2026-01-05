@@ -67,3 +67,38 @@
     transform: translateY(0);
   }
 }
+
+.ai-mic-btn {
+  width: 100px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease-in-out;
+}
+
+.recording-active {
+  background-color: #dc3545 !important;
+  color: white !important;
+  animation: pulse-red 1.5s infinite;
+}
+
+.processing-active {
+  border-color: #ffc107 !important;
+  background-color: #fff9e6;
+}
+
+@keyframes pulse-red {
+  0% { box-shadow: 0 0 0 0 rgba(220, 53, 69, 0.7); }
+  70% { box-shadow: 0 0 0 15px rgba(220, 53, 69, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(220, 53, 69, 0); }
+}
+
+.animate-pulse {
+  animation: text-fade 1.2s infinite ease-in-out;
+}
+
+@keyframes text-fade {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}

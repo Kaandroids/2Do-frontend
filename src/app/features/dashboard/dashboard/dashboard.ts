@@ -206,6 +206,13 @@ export class Dashboard implements OnInit {
     return dateString.substring(0, 16);
   }
 
+  onCloseAiModal(): void {
+    if (this.isRecording()) {
+      this.voiceService.abortRecording();
+    }
+    this.isProcessing.set(false);
+  }
+
 }
 
 

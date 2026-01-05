@@ -52,4 +52,14 @@ export class VoiceRecordingService {
     await audio.play();
   }
 
+  abortRecording(): void {
+    if (this.mediaRecorder && this.mediaRecorder.state !== 'inactive') {
+      this.mediaRecorder.stop();
+    }
+
+    this.mediaRecorder?.stream.getTracks().forEach((track) => track.stop());
+    this.isRecording.set(false);
+    this.audioChunks = [];
+  }
+
 }
