@@ -12,6 +12,7 @@
 ## 🚀 Live Demo
 Access the latest version of the application here:
 👉 **[2Do Web Application](https://gentle-cliff-06c31ee03.6.azurestaticapps.net/)**
+> ⏱️ **Note:** Please allow **15-20 seconds** for the initial request. The backend Docker container may take a moment to wake up if it has been idle.
 
 ## 📖 About The Project
 

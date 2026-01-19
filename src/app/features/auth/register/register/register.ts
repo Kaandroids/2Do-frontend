@@ -63,6 +63,14 @@ export class Register {
         console.log('User registered successfully.');
         this.router.navigate(['/dashboard']);
       },
+      error: (err) => {
+        console.error('Registration failed:', err);
+
+        const message = err?.error?.message || 'A server error occurred';
+
+        this.errorMessage.set(message);
+        this.isLoading.set(false);
+      },
       complete: () => {
         this.isLoading.set(false);
       }
