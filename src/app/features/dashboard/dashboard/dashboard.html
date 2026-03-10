@@ -1,9 +1,10 @@
-<nav class="navbar navbar-dark bg-primary mb-4 px-4 shadow-sm">
-  <span class="navbar-brand mb-0 h1 fw-bold">
-    <i class="bi bi-check2-square me-2"></i>2Do Dashboard
+<nav class="navbar navbar-app mb-4 px-4">
+  <span class="navbar-brand-wrap">
+    <span class="brand-icon"><i class="bi bi-check2-square"></i></span>
+    2Do
   </span>
   <div class="d-flex align-items-center gap-3">
-    <button (click)="onLogout()" class="btn btn-outline-light btn-sm d-flex align-items-center">
+    <button (click)="onLogout()" class="btn-logout d-flex align-items-center">
       <i class="bi bi-box-arrow-right me-2"></i> Logout
     </button>
   </div>
@@ -22,16 +23,16 @@
     <div class="row g-4">
 
       <div class="col-12 d-flex justify-content-between align-items-center">
-        <h4 class="text-secondary fw-bold m-0">
-          My Tasks <span class="badge bg-secondary ms-2 rounded-pill">{{ taskList().length }}</span>
+        <h4 class="section-title m-0">
+          My Tasks <span class="task-count">{{ taskList().length }}</span>
         </h4>
 
         <div class="d-flex gap-2">
-          <button class="btn btn-ai-orange shadow-sm d-flex align-items-center fw-bold"
+          <button class="btn btn-ai-orange d-flex align-items-center"
                   data-bs-toggle="modal" data-bs-target="#addAiTaskModal">
             <i class="bi bi-mic me-2"></i> AI Voice Task
           </button>
-          <button class="btn btn-success shadow-sm d-flex align-items-center"
+          <button class="btn btn-app-primary d-flex align-items-center"
                   data-bs-toggle="modal" data-bs-target="#addTaskModal">
             <i class="bi bi-plus-lg me-2"></i> New Task
           </button>
@@ -42,7 +43,7 @@
 
       @if (taskList().length === 0) {
         <div class="col-12">
-          <div class="text-center py-5 bg-light rounded-4 border border-dashed">
+          <div class="text-center py-5 empty-state border-dashed">
             <i class="bi bi-clipboard-data display-1 text-secondary opacity-25"></i>
             <h5 class="mt-3 text-muted">No tasks found</h5>
             <p class="text-muted small">Click "New Task" to create your first todo!</p>
@@ -125,9 +126,9 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content border-0 shadow-lg">
 
-      <div class="modal-header bg-primary text-white">
-        <h5 class="modal-title fw-bold"><i class="bi bi-plus-circle me-2"></i>Create New Task</h5>
-        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close" id="closeModalBtn"></button>
+      <div class="modal-header modal-header-primary">
+        <h5 class="modal-title"><i class="bi bi-plus-circle me-2"></i>Create New Task</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="closeModalBtn"></button>
       </div>
 
       <div class="modal-body p-4">
@@ -185,8 +186,8 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content border-0 shadow-lg">
 
-      <div class="modal-header bg-warning text-dark">
-        <h5 class="modal-title fw-bold">
+      <div class="modal-header modal-header-ai">
+        <h5 class="modal-title">
           <i class="bi bi-robot me-2"></i>AI Voice Task
         </h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" [disabled]="isProcessing()"></button>

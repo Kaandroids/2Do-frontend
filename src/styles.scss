@@ -1,1 +1,142 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+// ─── Bootstrap token overrides (must load AFTER bootstrap.min.css) ────────────
+:root {
+  // Primary palette → indigo
+  --bs-primary:             #6366f1;
+  --bs-primary-rgb:         99, 102, 241;
+  --bs-primary-text-emphasis: #4338ca;
+  --bs-primary-bg-subtle:   rgba(99, 102, 241, 0.1);
+  --bs-primary-border-subtle: rgba(99, 102, 241, 0.25);
+
+  // Links
+  --bs-link-color:          #6366f1;
+  --bs-link-color-rgb:      99, 102, 241;
+  --bs-link-hover-color:    #4f46e5;
+  --bs-link-hover-color-rgb: 79, 70, 229;
+
+  // Focus ring → indigo
+  --bs-focus-ring-color:    rgba(99, 102, 241, 0.25);
+  --bs-focus-ring-width:    0.2rem;
+
+  // App design tokens
+  --color-primary:          #6366f1;
+  --color-primary-end:      #8b5cf6;
+  --color-bg:               #f8fafc;
+  --color-surface:          #ffffff;
+  --color-border:           rgba(15, 23, 42, 0.1);
+  --color-text:             #0f172a;
+  --color-text-secondary:   #64748b;
+}
+
+// ─── Global base ──────────────────────────────────────────────────────────────
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// ─── Links ────────────────────────────────────────────────────────────────────
+a {
+  color: #6366f1;
+  &:hover { color: #4f46e5; }
+}
+
+// ─── btn-primary ──────────────────────────────────────────────────────────────
+.btn-primary {
+  --bs-btn-bg:               #6366f1;
+  --bs-btn-border-color:     #6366f1;
+  --bs-btn-hover-bg:         #4f46e5;
+  --bs-btn-hover-border-color: #4f46e5;
+  --bs-btn-active-bg:        #4338ca;
+  --bs-btn-active-border-color: #4338ca;
+  --bs-btn-disabled-bg:      #6366f1;
+  --bs-btn-disabled-border-color: #6366f1;
+  --bs-btn-focus-shadow-rgb: 99, 102, 241;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  border: none;
+  font-weight: 600;
+  box-shadow: 0 4px 20px rgba(99, 102, 241, 0.3);
+  transition: opacity 0.2s, transform 0.15s, box-shadow 0.2s;
+
+  &:hover, &:focus-visible {
+    background: linear-gradient(135deg, #4f46e5, #7c3aed);
+    border: none;
+    transform: translateY(-1px);
+    box-shadow: 0 8px 25px rgba(99, 102, 241, 0.45);
+  }
+
+  &:active { transform: scale(0.97) !important; }
+
+  &:disabled, &.disabled {
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    opacity: 0.6;
+    border: none;
+  }
+}
+
+// ─── btn-outline-primary (used by some Bootstrap states) ──────────────────────
+.btn-outline-primary {
+  --bs-btn-color:             #6366f1;
+  --bs-btn-border-color:      #6366f1;
+  --bs-btn-hover-bg:          #6366f1;
+  --bs-btn-hover-border-color: #6366f1;
+  --bs-btn-active-bg:         #4f46e5;
+  --bs-btn-focus-shadow-rgb:  99, 102, 241;
+}
+
+// ─── Form controls — remove Bootstrap's blue focus ring ──────────────────────
+.form-control,
+.form-select {
+  border-color: rgba(15, 23, 42, 0.15);
+  color: var(--color-text);
+  background-color: rgba(15, 23, 42, 0.03);
+  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+
+  &:hover {
+    border-color: rgba(15, 23, 42, 0.25);
+  }
+
+  &:focus {
+    border-color: rgba(99, 102, 241, 0.55);
+    background-color: rgba(99, 102, 241, 0.04);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+    color: var(--color-text);
+    outline: none;
+  }
+
+  &.is-invalid:focus {
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15);
+  }
+}
+
+// Bootstrap's floating label active color
+.form-floating {
+  > .form-control:focus ~ label,
+  > .form-control:not(:placeholder-shown) ~ label,
+  > .form-select ~ label {
+    color: #6366f1;
+    opacity: 1;
+  }
+
+  > label { color: var(--color-text-secondary); }
+}
+
+// ─── Spinner ──────────────────────────────────────────────────────────────────
+.text-primary { color: #6366f1 !important; }
+.spinner-border.text-primary { color: #6366f1 !important; }
+
+// ─── Badge bg-secondary (task count in dashboard) ─────────────────────────────
+// left untouched — only primary/blue accents are replaced
+
+// ─── Pagination, breadcrumb and other components that bleed blue ──────────────
+.page-link { color: #6366f1; }
+.page-link:hover { color: #4f46e5; }
+.page-item.active .page-link {
+  background-color: #6366f1;
+  border-color: #6366f1;
+}
