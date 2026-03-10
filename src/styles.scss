@@ -1,1 +1,85 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+// ─── Bootstrap Primary Color Override ────────────────────────────────────────
+:root {
+  --bs-primary:            #6366f1;
+  --bs-primary-rgb:        99, 102, 241;
+  --bs-link-color:         #6366f1;
+  --bs-link-hover-color:   #4f46e5;
+
+  // App design tokens
+  --color-primary:         #6366f1;
+  --color-primary-end:     #8b5cf6;
+  --color-bg:              #f8fafc;
+  --color-surface:         #ffffff;
+  --color-border:          rgba(15, 23, 42, 0.1);
+  --color-border-hover:    rgba(15, 23, 42, 0.2);
+  --color-text:            #0f172a;
+  --color-text-secondary:  #64748b;
+  --shadow-card:           0 4px 24px rgba(15, 23, 42, 0.08), 0 1px 4px rgba(15, 23, 42, 0.05);
+  --shadow-primary:        0 8px 25px rgba(99, 102, 241, 0.35);
+}
+
+// ─── Global Reset & Base ──────────────────────────────────────────────────────
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// ─── Bootstrap btn-primary Override ──────────────────────────────────────────
+.btn-primary {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-end));
+  border: none;
+  font-weight: 600;
+  box-shadow: 0 4px 20px rgba(99, 102, 241, 0.3);
+  transition: opacity 0.2s, transform 0.15s, box-shadow 0.2s;
+
+  &:hover, &:focus {
+    background: linear-gradient(135deg, #4f46e5, #7c3aed);
+    border: none;
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-primary);
+  }
+
+  &:active { transform: scale(0.97); }
+
+  &:disabled {
+    background: linear-gradient(135deg, var(--color-primary), var(--color-primary-end));
+    opacity: 0.6;
+  }
+}
+
+// ─── Form Controls ────────────────────────────────────────────────────────────
+.form-control,
+.form-select {
+  border-color: var(--color-border);
+  color: var(--color-text);
+  background-color: rgba(15, 23, 42, 0.03);
+  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+
+  &:focus {
+    border-color: rgba(99, 102, 241, 0.5);
+    background-color: rgba(99, 102, 241, 0.04);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.12);
+    color: var(--color-text);
+  }
+}
+
+.form-floating label {
+  color: var(--color-text-secondary);
+  font-size: 0.9rem;
+}
+
+// ─── Links ────────────────────────────────────────────────────────────────────
+a {
+  color: var(--color-primary);
+  &:hover { color: #4f46e5; }
+}
+
+// ─── Spinner ──────────────────────────────────────────────────────────────────
+.spinner-border.text-primary { color: var(--color-primary) !important; }
