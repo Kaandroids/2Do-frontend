@@ -73,6 +73,15 @@ export class AuthService {
   }
 
   /**
+   * Clears the local session immediately without making an HTTP call.
+   * Use this when the token is already invalid (e.g. 401/403 responses)
+   * so we don't get stuck waiting for a logout request that will also fail.
+   */
+  clearSession(): void {
+    localStorage.removeItem(this.TOKEN_KEY);
+  }
+
+  /**
    * Checks if the user is currently authenticated based on token existence.
    * @returns `true` if a token exists, otherwise `false`.
    */

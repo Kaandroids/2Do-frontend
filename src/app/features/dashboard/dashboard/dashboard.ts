@@ -74,8 +74,8 @@ export class Dashboard implements OnInit {
           console.error('Failed to load tasks: ' + error);
           this.isLoading.set(false);
           if (error.status === 403 || error.status === 401) {
-            this.authService.logout();
-            this.router.navigate(['login']);
+            this.authService.clearSession();
+            this.router.navigate(['/login']);
           }
         }
       }
@@ -137,8 +137,13 @@ export class Dashboard implements OnInit {
    * Logs out the current user by clearing the session and redirects to the login page.
    */
   onLogout(): void {
-    this.authService.logout().subscribe();
-    this.router.navigate(['/login']);
+    this.authService.logout().subscribe({
+      complete: () => this.router.navigate(['/login']),
+      error: () => {
+        this.authService.clearSession();
+        this.router.navigate(['/login']);
+      }
+    });
   }
 
   /**
