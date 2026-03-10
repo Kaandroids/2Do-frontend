@@ -1,127 +1,132 @@
-<nav class="navbar navbar-app mb-4 px-4">
-  <span class="navbar-brand-wrap">
-    <span class="brand-icon"><i class="bi bi-check2-square"></i></span>
-    2Do
-  </span>
-  <div class="d-flex align-items-center gap-3">
-    <button (click)="onLogout()" class="btn-logout d-flex align-items-center">
-      <i class="bi bi-box-arrow-right me-2"></i> Logout
-    </button>
-  </div>
-</nav>
+<div class="dash-layout">
 
-<div class="container pb-5">
-
-  @if (isLoading()) {
-    <div class="d-flex flex-column align-items-center mt-5">
-      <div class="spinner-border text-primary" role="status"></div>
-      <p class="mt-2 text-muted">Loading your tasks...</p>
+  <!-- ─── Top Bar ─────────────────────────────────────────────────────────── -->
+  <header class="dash-topbar">
+    <div class="dash-topbar-left">
+      <span class="brand-icon"><i class="bi bi-check2-square"></i></span>
+      <span class="brand-name">2Do</span>
     </div>
-  }
+    <button (click)="onLogout()" class="btn-logout">
+      <i class="bi bi-box-arrow-right me-2"></i>Logout
+    </button>
+  </header>
 
-  @if (!isLoading()) {
-    <div class="row g-4">
+  <!-- ─── Body ──────────────────────────────────────────────────────────────── -->
+  <div class="dash-body">
 
-      <div class="col-12 d-flex justify-content-between align-items-center">
-        <h4 class="section-title m-0">
-          My Tasks <span class="task-count">{{ taskList().length }}</span>
-        </h4>
+    <!-- Left Sidebar -->
+    <aside class="dash-sidebar">
+      <nav class="sidebar-nav">
+        <a class="sidebar-item sidebar-item--active">
+          <i class="bi bi-check2-square"></i>
+          <span>My Tasks</span>
+        </a>
+      </nav>
+    </aside>
 
-        <div class="d-flex gap-2">
-          <button class="btn btn-ai-orange d-flex align-items-center"
-                  data-bs-toggle="modal" data-bs-target="#addAiTaskModal">
-            <i class="bi bi-mic me-2"></i> AI Voice Task
-          </button>
-          <button class="btn btn-app-primary d-flex align-items-center"
-                  data-bs-toggle="modal" data-bs-target="#addTaskModal">
-            <i class="bi bi-plus-lg me-2"></i> New Task
-          </button>
-        </div>
+    <!-- Main Content -->
+    <main class="dash-main">
 
-
-      </div>
-
-      @if (taskList().length === 0) {
-        <div class="col-12">
-          <div class="text-center py-5 empty-state border-dashed">
-            <i class="bi bi-clipboard-data display-1 text-secondary opacity-25"></i>
-            <h5 class="mt-3 text-muted">No tasks found</h5>
-            <p class="text-muted small">Click "New Task" to create your first todo!</p>
-          </div>
+      @if (isLoading()) {
+        <div class="dash-loading">
+          <div class="spinner-border text-primary" role="status"></div>
+          <p>Loading your tasks...</p>
         </div>
       }
 
-      @for (task of taskList(); track task.id) {
-        <div class="col-md-6 col-lg-4">
-          <div class="card h-100 shadow-sm border-0 task-card"
-               [class.border-start-success]="task.completed"
-               [class.task-completed]="task.completed">
+      @if (!isLoading()) {
+        <!-- Page Header -->
+        <div class="page-header">
+          <h1 class="page-title">
+            My Tasks
+            <span class="task-pill">{{ taskList().length }}</span>
+          </h1>
+          <div class="page-actions">
+            <button class="btn-ai"
+                    data-bs-toggle="modal" data-bs-target="#addAiTaskModal">
+              <i class="bi bi-mic-fill"></i> AI Voice Task
+            </button>
+            <button class="btn-new"
+                    data-bs-toggle="modal" data-bs-target="#addTaskModal">
+              <i class="bi bi-plus-lg"></i> New Task
+            </button>
+          </div>
+        </div>
 
-            <div class="card-body">
-              <div class="d-flex justify-content-between align-items-start mb-2">
-                <span class="badge rounded-pill shadow-sm"
-                      [class.text-bg-danger]="task.priority === 'HIGH'"
-                      [class.text-bg-warning]="task.priority === 'MEDIUM'"
-                      [class.text-bg-info]="task.priority === 'LOW'">
+        <!-- Empty State -->
+        @if (taskList().length === 0) {
+          <div class="empty-state">
+            <i class="bi bi-clipboard-check"></i>
+            <h5>No tasks yet</h5>
+            <p>Click "New Task" to create your first todo.</p>
+          </div>
+        }
+
+        <!-- Task Grid -->
+        <div class="task-grid">
+          @for (task of taskList(); track task.id) {
+            <div class="task-card" [class.task-card--done]="task.completed">
+
+              <div class="task-card__header">
+                <span class="priority-badge"
+                      [class.priority-badge--high]="task.priority === 'HIGH'"
+                      [class.priority-badge--medium]="task.priority === 'MEDIUM'"
+                      [class.priority-badge--low]="task.priority === 'LOW'">
                   {{ task.priority }}
                 </span>
-
                 @if (task.dueDate) {
-                  <small class="text-muted fw-semibold" title="Due Date">
-                    <i class="bi bi-calendar-event me-1"></i>
+                  <span class="due-date">
+                    <i class="bi bi-calendar3"></i>
                     {{ task.dueDate | date:'mediumDate' }}
-                  </small>
+                  </span>
                 }
               </div>
 
-              <h5 class="card-title fw-bold text-dark mt-2"
-                  [class.text-decoration-line-through]="task.completed">
+              <h3 class="task-card__title" [class.task-card__title--done]="task.completed">
                 {{ task.title }}
-              </h5>
+              </h3>
 
-              <p class="card-text text-muted small mb-3">
+              <p class="task-card__desc">
                 {{ task.description || 'No description provided.' }}
               </p>
 
-              <div class="mt-auto">
-                @if (task.completed) {
-                  <span class="badge bg-success-subtle text-success border border-success px-2 py-1">
+              <div class="task-card__footer">
+                <span class="status-badge" [class.status-badge--done]="task.completed">
+                  @if (task.completed) {
                     <i class="bi bi-check-circle-fill me-1"></i> Completed
-                  </span>
-                } @else {
-                  <span class="badge bg-light text-secondary border px-2 py-1">
+                  } @else {
                     <i class="bi bi-hourglass-split me-1"></i> Pending
-                  </span>
-                }
+                  }
+                </span>
+
+                <div class="task-card__actions">
+                  <button class="btn-action btn-action--complete"
+                          [class.btn-action--undo]="task.completed"
+                          (click)="onToggleTask(task)"
+                          [title]="task.completed ? 'Mark as Pending' : 'Mark as Completed'">
+                    @if (task.completed) {
+                      <i class="bi bi-arrow-counterclockwise me-1"></i> Undo
+                    } @else {
+                      <i class="bi bi-check-lg me-1"></i> Complete
+                    }
+                  </button>
+                  <button class="btn-action btn-action--delete"
+                          (click)="onDelete(task.id)" title="Delete">
+                    <i class="bi bi-trash"></i>
+                  </button>
+                </div>
               </div>
+
             </div>
-
-            <div class="card-footer bg-white border-top-0 d-flex justify-content-end gap-2 pb-3 pt-0">
-
-              <button class="btn btn-sm d-flex align-items-center"
-                      (click)="onToggleTask(task)"
-                      [class.btn-outline-success]="!task.completed"
-                      [class.btn-outline-secondary]="task.completed"
-                      [title]="task.completed ? 'Mark as Pending' : 'Mark as Completed'">
-
-                @if (task.completed) {
-                  <i class="bi bi-arrow-counterclockwise me-1"></i> Undo
-                } @else {
-                  <i class="bi bi-check-lg me-1"></i> Complete
-                }
-              </button>
-
-              <button class="btn btn-sm btn-outline-danger border-0" (click)="onDelete(task.id)" title="Delete Task">
-                <i class="bi bi-trash"></i>
-              </button>
-            </div>
-          </div>
+          }
         </div>
       }
-    </div>
-  }
+
+    </main>
+  </div>
 </div>
 
+<!-- ─── Create Task Modal ──────────────────────────────────────────────────── -->
 <div class="modal fade" id="addTaskModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content border-0 shadow-lg">
@@ -135,38 +140,38 @@
         <form [formGroup]="createTaskForm" (ngSubmit)="onCreateTask()">
 
           <div class="mb-3">
-            <label class="form-label fw-semibold text-secondary small">TASK TITLE <span class="text-danger">*</span></label>
-            <input type="text" class="form-control form-control-lg fs-6" formControlName="title" placeholder="What needs to be done?"
+            <label class="form-label">TASK TITLE <span class="text-danger">*</span></label>
+            <input type="text" class="form-control" formControlName="title"
+                   placeholder="What needs to be done?"
                    [class.is-invalid]="createTaskForm.get('title')?.invalid && createTaskForm.get('title')?.touched">
-
             @if (createTaskForm.get('title')?.invalid && createTaskForm.get('title')?.touched) {
               <div class="invalid-feedback">Title is required (min 3 chars).</div>
             }
           </div>
 
           <div class="mb-3">
-            <label class="form-label fw-semibold text-secondary small">DESCRIPTION</label>
+            <label class="form-label">DESCRIPTION</label>
             <textarea class="form-control" formControlName="description" rows="3" placeholder="Add more details..."></textarea>
           </div>
 
           <div class="row">
             <div class="col-md-6 mb-3">
-              <label class="form-label fw-semibold text-secondary small">PRIORITY <span class="text-danger">*</span></label>
+              <label class="form-label">PRIORITY <span class="text-danger">*</span></label>
               <select class="form-select" formControlName="priority">
                 <option value="HIGH">🔴 High</option>
                 <option value="MEDIUM">🟡 Medium</option>
                 <option value="LOW">🔵 Low</option>
               </select>
             </div>
-
             <div class="col-md-6 mb-3">
-              <label class="form-label fw-semibold text-secondary small">DUE DATE</label>
+              <label class="form-label">DUE DATE</label>
               <input type="datetime-local" class="form-control" formControlName="dueDate">
             </div>
           </div>
 
-          <div class="d-grid mt-4">
-            <button type="submit" class="btn btn-primary py-2 fw-bold" [disabled]="createTaskForm.invalid || isSubmitting()">
+          <div class="d-grid mt-3">
+            <button type="submit" class="btn btn-primary py-2 fw-bold"
+                    [disabled]="createTaskForm.invalid || isSubmitting()">
               @if (isSubmitting()) {
                 <span class="spinner-border spinner-border-sm me-2"></span> Saving...
               } @else {
@@ -182,19 +187,17 @@
   </div>
 </div>
 
+<!-- ─── AI Voice Modal ─────────────────────────────────────────────────────── -->
 <div class="modal fade" id="addAiTaskModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content border-0 shadow-lg">
 
       <div class="modal-header modal-header-ai">
-        <h5 class="modal-title">
-          <i class="bi bi-robot me-2"></i>AI Voice Task
-        </h5>
+        <h5 class="modal-title"><i class="bi bi-robot me-2"></i>AI Voice Task</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" [disabled]="isProcessing()"></button>
       </div>
 
       <div class="modal-body p-5 text-center">
-
         <div class="mb-4 d-flex justify-content-center">
           <button type="button"
                   (click)="onAiTaskClick()"
@@ -202,9 +205,8 @@
                   class="btn btn-outline-danger rounded-circle p-4 shadow-sm ai-mic-btn"
                   [class.recording-active]="isRecording()"
                   [class.processing-active]="isProcessing()">
-
             @if (isProcessing()) {
-              <div class="spinner-border text-warning" style="width: 3rem; height: 3rem;" role="status">
+              <div class="spinner-border text-warning" style="width:3rem;height:3rem" role="status">
                 <span class="visually-hidden">Analyzing...</span>
               </div>
             } @else {
@@ -215,21 +217,21 @@
 
         <div class="status-container">
           @if (isProcessing()) {
-            <h5 class="fw-bold text-warning animate-pulse">Thinking...</h5>
-            <p class="text-muted">Analyzing your voice recording and extracting task details.</p>
+            <h5 class="fw-bold animate-pulse" style="color:#6366f1">Thinking...</h5>
+            <p class="text-muted">Analyzing your voice and extracting task details.</p>
           } @else if (isRecording()) {
             <h5 class="fw-bold text-danger">Listening...</h5>
-            <p class="text-muted">Recording your voice, click the stop icon when finished.</p>
+            <p class="text-muted">Recording — click stop when finished.</p>
           } @else {
-            <h5 class="fw-bold">Ready to Record</h5>
-            <p class="text-muted">Click the microphone and tell me your task.</p>
+            <h5 class="fw-bold" style="color:#0f172a">Ready to Record</h5>
+            <p class="text-muted">Click the mic and describe your task.</p>
           }
         </div>
-
       </div>
 
       <div class="modal-footer border-top-0 px-4 pb-4">
-        <button type="button" class="btn btn-light fw-semibold w-100" data-bs-dismiss="modal" [disabled]="isProcessing()" (click)="onCloseAiModal()">
+        <button type="button" class="btn btn-light fw-semibold w-100"
+                data-bs-dismiss="modal" [disabled]="isProcessing()" (click)="onCloseAiModal()">
           Cancel & Close
         </button>
       </div>
