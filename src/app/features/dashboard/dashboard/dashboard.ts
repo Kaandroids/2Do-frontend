@@ -129,6 +129,7 @@ export class Dashboard implements OnInit {
 
   selectGroup(id: number | null): void {
     this.activeGroupId.set(id);
+    this.activeView.set('tasks');
     this.loadTasks();
     this.loadGroupMembers();
   }
