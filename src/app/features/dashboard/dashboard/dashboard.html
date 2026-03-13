@@ -284,19 +284,63 @@
             </div>
           </div>
 
-          <!-- Assignee dropdown — only shown in group context -->
-          @if (activeGroupId() !== null && groupMembers().length > 0) {
+          <!-- Group toggle -->
+          <div class="mb-3">
+            <div class="task-form-toggle">
+              <input type="checkbox" class="task-form-toggle__check" id="isForGroupCheck"
+                     formControlName="isForGroup">
+              <label class="task-form-toggle__label" for="isForGroupCheck">
+                <i class="bi bi-people me-1"></i> This is a group task
+              </label>
+            </div>
+          </div>
+
+          @if (createTaskForm.get('isForGroup')?.value) {
+            <!-- Group selector -->
             <div class="mb-3">
-              <label class="form-label">ASSIGN TO</label>
-              <select class="form-select" formControlName="assigneeId">
-                <option [value]="null">— Unassigned —</option>
-                @for (member of groupMembers(); track member.userId) {
-                  <option [value]="member.userId">
-                    {{ member.firstName }} {{ member.lastName }}
-                  </option>
+              <label class="form-label">GROUP</label>
+              <select class="form-select" formControlName="groupId">
+                <option [ngValue]="null">— Select a group —</option>
+                @for (g of myGroups(); track g.id) {
+                  <option [ngValue]="g.id">{{ g.name }}</option>
                 }
               </select>
             </div>
+
+            @if (formMembers().length > 0) {
+              <!-- Mention members -->
+              <div class="mb-3">
+                <label class="form-label">MENTION MEMBERS</label>
+                <div class="task-mention-list">
+                  @for (member of formMembers(); track member.userId) {
+                    <div class="task-mention-item"
+                         [class.task-mention-item--selected]="isMentioned(member.userId)"
+                         (click)="toggleMention(member.userId)">
+                      <div class="task-mention-avatar">
+                        {{ member.firstName[0] }}{{ member.lastName[0] }}
+                      </div>
+                      <span>{{ member.firstName }} {{ member.lastName }}</span>
+                      @if (isMentioned(member.userId)) {
+                        <i class="bi bi-check-circle-fill ms-auto"></i>
+                      }
+                    </div>
+                  }
+                </div>
+              </div>
+
+              @if ((createTaskForm.get('mentionedUserIds')?.value)?.length > 0) {
+                <!-- Visibility toggle -->
+                <div class="mb-3">
+                  <div class="task-form-toggle task-form-toggle--privacy">
+                    <input type="checkbox" class="task-form-toggle__check" id="isPrivateCheck"
+                           formControlName="isPrivate">
+                    <label class="task-form-toggle__label" for="isPrivateCheck">
+                      <i class="bi bi-eye-slash me-1"></i> Only visible to mentioned members
+                    </label>
+                  </div>
+                </div>
+              }
+            }
           }
 
           <div class="d-grid mt-3">

@@ -29,6 +29,8 @@ export interface TaskResponse {
   assigneeId?: number;
   assigneeFirstName?: string;
   assigneeLastName?: string;
+  mentionedUserIds?: number[];
+  isPrivate?: boolean;
 }
 
 /**
@@ -41,6 +43,8 @@ export interface CreateTaskRequest {
   dueDate?: string;
   groupId?: number;
   assigneeId?: number;
+  mentionedUserIds?: number[];
+  isPrivate?: boolean;
 }
 
 /**

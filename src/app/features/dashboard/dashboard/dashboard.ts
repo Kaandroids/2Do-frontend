@@ -53,6 +53,7 @@ export class Dashboard implements OnInit {
     this.myGroups().find((g) => g.id === this.activeGroupId()) ?? null
   );
   groupMembers = signal<GroupMember[]>([]);
+  formMembers = signal<GroupMember[]>([]);
 
   createTaskForm: FormGroup;
 
@@ -62,7 +63,28 @@ export class Dashboard implements OnInit {
       description: [''],
       priority: ['MEDIUM'],
       dueDate: [''],
+      isForGroup: [false],
+      groupId: [null],
       assigneeId: [null],
+      mentionedUserIds: [[] as number[]],
+      isPrivate: [false],
+    });
+
+    this.createTaskForm.get('isForGroup')!.valueChanges.subscribe((checked) => {
+      if (!checked) {
+        this.createTaskForm.patchValue({ groupId: null, mentionedUserIds: [], isPrivate: false });
+        this.formMembers.set([]);
+      }
+    });
+
+    this.createTaskForm.get('groupId')!.valueChanges.subscribe((gid) => {
+      this.formMembers.set([]);
+      this.createTaskForm.patchValue({ mentionedUserIds: [], isPrivate: false });
+      if (gid) {
+        this.groupService.getGroupMembers(Number(gid)).subscribe({
+          next: (members) => this.formMembers.set(members.filter(m => !m.isOwner)),
+        });
+      }
     });
   }
 
@@ -109,6 +131,18 @@ export class Dashboard implements OnInit {
     this.activeGroupId.set(id);
     this.loadTasks();
     this.loadGroupMembers();
+  }
+
+  isMentioned(userId: number): boolean {
+    return (this.createTaskForm.get('mentionedUserIds')!.value as number[]).includes(userId);
+  }
+
+  toggleMention(userId: number): void {
+    const ctrl = this.createTaskForm.get('mentionedUserIds')!;
+    const current: number[] = [...(ctrl.value as number[])];
+    const idx = current.indexOf(userId);
+    idx === -1 ? current.push(userId) : current.splice(idx, 1);
+    ctrl.setValue(current);
   }
 
   taskGroupName(groupId: number | undefined): string {
@@ -158,8 +192,10 @@ export class Dashboard implements OnInit {
       description: formValue.description,
       priority: formValue.priority,
       dueDate: formValue.dueDate || undefined,
-      groupId: this.activeGroupId() ?? undefined,
+      groupId: formValue.isForGroup ? (formValue.groupId ?? undefined) : (this.activeGroupId() ?? undefined),
       assigneeId: formValue.assigneeId || undefined,
+      mentionedUserIds: formValue.mentionedUserIds?.length ? formValue.mentionedUserIds : undefined,
+      isPrivate: formValue.isPrivate ?? false,
     };
 
     this.taskService
@@ -168,7 +204,8 @@ export class Dashboard implements OnInit {
       .subscribe({
         next: (data) => {
           this.taskList.update((prev) => [data, ...prev]);
-          this.createTaskForm.reset({ priority: 'MEDIUM' });
+          this.createTaskForm.reset({ priority: 'MEDIUM', isForGroup: false, mentionedUserIds: [], isPrivate: false });
+          this.formMembers.set([]);
           const closeBtn = document.getElementById('closeModalBtn');
           if (closeBtn) closeBtn.click();
         },
