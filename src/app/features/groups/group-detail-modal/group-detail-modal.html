@@ -155,47 +155,6 @@
                 }
               </div>
 
-              <div class="mb-4">
-                <label class="gd-label">PERMISSIONS</label>
-                <div class="gd-perm-checks">
-                  <label class="gd-perm-check">
-                    <input type="checkbox" formControlName="canCreate">
-                    <div class="gd-perm-check__box">
-                      <i class="bi bi-plus-circle"></i>
-                      <span>Create Tasks</span>
-                    </div>
-                  </label>
-                  <label class="gd-perm-check">
-                    <input type="checkbox" formControlName="canEdit">
-                    <div class="gd-perm-check__box">
-                      <i class="bi bi-pencil"></i>
-                      <span>Edit Tasks</span>
-                    </div>
-                  </label>
-                  <label class="gd-perm-check">
-                    <input type="checkbox" formControlName="canDelete">
-                    <div class="gd-perm-check__box">
-                      <i class="bi bi-trash"></i>
-                      <span>Delete Tasks</span>
-                    </div>
-                  </label>
-                  <label class="gd-perm-check">
-                    <input type="checkbox" formControlName="canInvite">
-                    <div class="gd-perm-check__box">
-                      <i class="bi bi-person-plus"></i>
-                      <span>Invite Members</span>
-                    </div>
-                  </label>
-                  <label class="gd-perm-check">
-                    <input type="checkbox" formControlName="canManage">
-                    <div class="gd-perm-check__box gd-perm-check__box--master">
-                      <i class="bi bi-shield-check"></i>
-                      <span>Master</span>
-                    </div>
-                  </label>
-                </div>
-              </div>
-
               <button type="submit" class="btn-invite w-100"
                       [disabled]="inviteForm.invalid || isInviting()">
                 @if (isInviting()) {

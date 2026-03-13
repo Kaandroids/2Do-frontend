@@ -29,11 +29,6 @@ export class GroupDetailModal implements OnChanges {
 
   inviteForm: FormGroup = this.fb.group({
     inviteeEmail: ['', [Validators.required, Validators.email]],
-    canCreate: [false],
-    canEdit: [false],
-    canDelete: [false],
-    canInvite: [false],
-    canManage: [false],
   });
 
   editForm: FormGroup = this.fb.group({
@@ -78,15 +73,9 @@ export class GroupDetailModal implements OnChanges {
     this.isInviting.set(true);
 
     const v = this.inviteForm.value;
-    const permissions: GroupPermission[] = [];
-    if (v.canCreate) permissions.push('CAN_CREATE');
-    if (v.canEdit) permissions.push('CAN_EDIT');
-    if (v.canDelete) permissions.push('CAN_DELETE');
-    if (v.canInvite) permissions.push('CAN_INVITE');
-    if (v.canManage) permissions.push('CAN_MANAGE');
 
     this.groupService
-      .inviteMember(this.group.id, { inviteeEmail: v.inviteeEmail, permissions })
+      .inviteMember(this.group.id, { inviteeEmail: v.inviteeEmail, permissions: [] })
       .pipe(finalize(() => this.isInviting.set(false)))
       .subscribe({
         next: () => {
