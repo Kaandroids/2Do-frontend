@@ -413,6 +413,43 @@ $surface:    #ffffff;
   flex: 1;
 }
 
+// ─── Creator & Mention Chips ──────────────────────────────────────────────────
+.creator-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.05);
+  color: $muted;
+  font-size: 0.72rem;
+  font-weight: 500;
+  width: fit-content;
+
+  i { font-size: 0.65rem; }
+}
+
+.mention-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+}
+
+.mention-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2rem;
+  padding: 0.18rem 0.5rem;
+  border-radius: 999px;
+  background: rgba(99, 102, 241, 0.08);
+  color: $primary;
+  border: 1px solid rgba(99, 102, 241, 0.2);
+  font-size: 0.68rem;
+  font-weight: 600;
+
+  i { font-size: 0.65rem; }
+}
+
 // ─── Assignee Chip ────────────────────────────────────────────────────────────
 .assignee-chip {
   display: inline-flex;

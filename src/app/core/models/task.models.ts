@@ -16,6 +16,8 @@ export type Priority = 'HIGH' | 'MEDIUM' | 'LOW';
 export interface TaskResponse {
   id: number;
   userId: number;
+  creatorFirstName?: string;
+  creatorLastName?: string;
   title: string;
   description: string;
   /**
@@ -30,6 +32,7 @@ export interface TaskResponse {
   assigneeFirstName?: string;
   assigneeLastName?: string;
   mentionedUserIds?: number[];
+  mentionedUserNames?: string[];
   isPrivate?: boolean;
 }
 
