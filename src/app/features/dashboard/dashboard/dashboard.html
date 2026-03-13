@@ -28,21 +28,11 @@
 
         <!-- Tasks -->
         <a class="sidebar-item"
-           [class.sidebar-item--active]="activeView() === 'tasks' && activeGroupId() === null"
+           [class.sidebar-item--active]="activeView() === 'tasks'"
            (click)="selectGroup(null)">
           <i class="bi bi-check2-square"></i>
           <span>Tasks</span>
         </a>
-
-        <!-- Group task sub-items -->
-        @for (group of myGroups(); track group.id) {
-          <a class="sidebar-item sidebar-item--group"
-             [class.sidebar-item--active]="activeView() === 'tasks' && activeGroupId() === group.id"
-             (click)="selectGroup(group.id)">
-            <i class="bi bi-people"></i>
-            <span class="sidebar-item__label">{{ group.name }}</span>
-          </a>
-        }
 
         <!-- Groups -->
         <a class="sidebar-item"
