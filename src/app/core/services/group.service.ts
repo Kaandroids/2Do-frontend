@@ -23,6 +23,10 @@ export class GroupService {
     return this.http.post<Group>(this.API_URL, request);
   }
 
+  updateGroup(groupId: number, request: CreateGroupRequest): Observable<Group> {
+    return this.http.put<Group>(`${this.API_URL}/${groupId}`, request);
+  }
+
   deleteGroup(groupId: number): Observable<void> {
     return this.http.delete<void>(`${this.API_URL}/${groupId}`);
   }

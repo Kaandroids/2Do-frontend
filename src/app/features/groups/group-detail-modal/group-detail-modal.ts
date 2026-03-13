@@ -18,11 +18,12 @@ export class GroupDetailModal implements OnChanges {
   @Output() groupDeleted = new EventEmitter<number>();
   @Output() groupChanged = new EventEmitter<void>();
 
-  activeTab = signal<'members' | 'invite'>('members');
+  activeTab = signal<'members' | 'invite' | 'edit'>('members');
   members = signal<GroupMember[]>([]);
   isLoadingMembers = signal(false);
   isInviting = signal(false);
   isDeleting = signal(false);
+  isSavingEdit = signal(false);
 
   inviteForm: FormGroup = this.fb.group({
     inviteeEmail: ['', [Validators.required, Validators.email]],
@@ -31,10 +32,19 @@ export class GroupDetailModal implements OnChanges {
     canDelete: [false],
   });
 
+  editForm: FormGroup = this.fb.group({
+    name: ['', [Validators.required, Validators.maxLength(100)]],
+    description: [''],
+  });
+
   ngOnChanges(): void {
     if (this.group) {
       this.activeTab.set('members');
       this.loadMembers();
+      this.editForm.patchValue({
+        name: this.group.name,
+        description: this.group.description ?? '',
+      });
     }
   }
 
@@ -95,6 +105,21 @@ export class GroupDetailModal implements OnChanges {
             list.map((m) => (m.userId === member.userId ? { ...m, permissions: updated } : m))
           ),
         error: () => alert('Failed to update permissions.'),
+      });
+  }
+
+  onSaveEdit(): void {
+    if (this.editForm.invalid || !this.group) return;
+    this.isSavingEdit.set(true);
+    this.groupService
+      .updateGroup(this.group.id, this.editForm.value)
+      .pipe(finalize(() => this.isSavingEdit.set(false)))
+      .subscribe({
+        next: () => {
+          this.groupChanged.emit();
+          this.activeTab.set('members');
+        },
+        error: () => alert('Failed to update group.'),
       });
   }
 
