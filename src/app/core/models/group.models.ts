@@ -1,4 +1,4 @@
-export type GroupPermission = 'CAN_CREATE' | 'CAN_EDIT' | 'CAN_DELETE';
+export type GroupPermission = 'CAN_CREATE' | 'CAN_EDIT' | 'CAN_DELETE' | 'CAN_INVITE' | 'CAN_MANAGE';
 
 export type InvitationStatus = 'PENDING' | 'ACCEPTED' | 'DECLINED';
 

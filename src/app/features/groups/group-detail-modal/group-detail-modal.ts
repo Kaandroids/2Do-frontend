@@ -25,11 +25,15 @@ export class GroupDetailModal implements OnChanges {
   isDeleting = signal(false);
   isSavingEdit = signal(false);
 
+  readonly allPerms: GroupPermission[] = ['CAN_CREATE', 'CAN_EDIT', 'CAN_DELETE', 'CAN_INVITE', 'CAN_MANAGE'];
+
   inviteForm: FormGroup = this.fb.group({
     inviteeEmail: ['', [Validators.required, Validators.email]],
     canCreate: [false],
     canEdit: [false],
     canDelete: [false],
+    canInvite: [false],
+    canManage: [false],
   });
 
   editForm: FormGroup = this.fb.group({
@@ -46,6 +50,18 @@ export class GroupDetailModal implements OnChanges {
         description: this.group.description ?? '',
       });
     }
+  }
+
+  /** Current user can manage member permissions */
+  canManageMembers(): boolean {
+    if (!this.group) return false;
+    return this.group.isOwner || this.group.myPermissions.includes('CAN_MANAGE');
+  }
+
+  /** Current user can invite new members */
+  canInviteMembers(): boolean {
+    if (!this.group) return false;
+    return this.group.isOwner || this.group.myPermissions.includes('CAN_INVITE');
   }
 
   loadMembers(): void {
@@ -66,6 +82,8 @@ export class GroupDetailModal implements OnChanges {
     if (v.canCreate) permissions.push('CAN_CREATE');
     if (v.canEdit) permissions.push('CAN_EDIT');
     if (v.canDelete) permissions.push('CAN_DELETE');
+    if (v.canInvite) permissions.push('CAN_INVITE');
+    if (v.canManage) permissions.push('CAN_MANAGE');
 
     this.groupService
       .inviteMember(this.group.id, { inviteeEmail: v.inviteeEmail, permissions })
@@ -141,6 +159,13 @@ export class GroupDetailModal implements OnChanges {
   }
 
   permLabel(perm: GroupPermission): string {
-    return { CAN_CREATE: 'Create', CAN_EDIT: 'Edit', CAN_DELETE: 'Delete' }[perm];
+    const labels: Record<GroupPermission, string> = {
+      CAN_CREATE: 'Create',
+      CAN_EDIT: 'Edit',
+      CAN_DELETE: 'Delete',
+      CAN_INVITE: 'Invite',
+      CAN_MANAGE: 'Master',
+    };
+    return labels[perm];
   }
 }

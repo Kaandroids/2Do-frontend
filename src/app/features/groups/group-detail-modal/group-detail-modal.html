@@ -44,11 +44,13 @@
                   (click)="activeTab.set('members')">
             <i class="bi bi-people me-1"></i> Members
           </button>
-          @if (group.isOwner) {
+          @if (canInviteMembers()) {
             <button class="gd-tab" [class.gd-tab--active]="activeTab() === 'invite'"
                     (click)="activeTab.set('invite')">
               <i class="bi bi-person-plus me-1"></i> Invite
             </button>
+          }
+          @if (group.isOwner) {
             <button class="gd-tab" [class.gd-tab--active]="activeTab() === 'edit'"
                     (click)="activeTab.set('edit')">
               <i class="bi bi-pencil me-1"></i> Edit
@@ -81,18 +83,21 @@
                       <span class="gd-member__name">{{ member.firstName }} {{ member.lastName }}</span>
                       <span class="gd-member__email">{{ member.email }}</span>
                     </div>
-                    <div class="gd-member__perms">
-                      @for (perm of ['CAN_CREATE', 'CAN_EDIT', 'CAN_DELETE']; track perm) {
-                        <span class="perm-chip"
-                              [class.perm-chip--active]="hasPermission(member, $any(perm))"
-                              [class.perm-chip--clickable]="group.isOwner"
-                              (click)="group.isOwner && togglePermission(member, $any(perm))"
-                              [title]="group.isOwner ? 'Toggle ' + perm : perm">
-                          {{ permLabel($any(perm)) }}
-                        </span>
-                      }
-                    </div>
-                    @if (group.isOwner) {
+
+                    <!-- Permissions: only visible to owner or CAN_MANAGE members -->
+                    @if (canManageMembers()) {
+                      <div class="gd-member__perms">
+                        @for (perm of allPerms; track perm) {
+                          <span class="perm-chip"
+                                [class.perm-chip--active]="hasPermission(member, perm)"
+                                [class.perm-chip--clickable]="true"
+                                [class.perm-chip--master]="perm === 'CAN_MANAGE'"
+                                (click)="togglePermission(member, perm)"
+                                [title]="'Toggle ' + perm">
+                            {{ permLabel(perm) }}
+                          </span>
+                        }
+                      </div>
                       <button class="gd-remove-btn" (click)="onRemoveMember(member.userId)"
                               title="Remove member">
                         <i class="bi bi-person-dash"></i>
@@ -104,7 +109,7 @@
             }
           }
 
-          <!-- Edit tab -->
+          <!-- Edit tab (owner only) -->
           @if (activeTab() === 'edit') {
             <form [formGroup]="editForm" (ngSubmit)="onSaveEdit()" class="gd-invite-form">
 
@@ -172,6 +177,20 @@
                     <div class="gd-perm-check__box">
                       <i class="bi bi-trash"></i>
                       <span>Delete Tasks</span>
+                    </div>
+                  </label>
+                  <label class="gd-perm-check">
+                    <input type="checkbox" formControlName="canInvite">
+                    <div class="gd-perm-check__box">
+                      <i class="bi bi-person-plus"></i>
+                      <span>Invite Members</span>
+                    </div>
+                  </label>
+                  <label class="gd-perm-check">
+                    <input type="checkbox" formControlName="canManage">
+                    <div class="gd-perm-check__box gd-perm-check__box--master">
+                      <i class="bi bi-shield-check"></i>
+                      <span>Master</span>
                     </div>
                   </label>
                 </div>

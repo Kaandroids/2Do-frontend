@@ -223,6 +223,14 @@ $border:     rgba(15, 23, 42, 0.1);
     cursor: pointer;
     &:hover { opacity: 0.8; }
   }
+
+  &--master {
+    &.perm-chip--active {
+      background: rgba(245, 158, 11, 0.12);
+      color: #d97706;
+      border-color: rgba(245, 158, 11, 0.35);
+    }
+  }
 }
 
 .gd-remove-btn {
@@ -299,6 +307,18 @@ $border:     rgba(15, 23, 42, 0.1);
   }
 
   &:hover &__box { border-color: rgba(99, 102, 241, 0.3); }
+
+  // Master permission — amber accent
+  &__box--master {
+    border-color: rgba(245, 158, 11, 0.25);
+    color: #92400e;
+  }
+
+  input:checked + &__box--master {
+    border-color: rgba(245, 158, 11, 0.5);
+    background: rgba(245, 158, 11, 0.08);
+    color: #d97706;
+  }
 }
 
 .btn-invite {
