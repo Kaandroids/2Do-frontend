@@ -187,28 +187,19 @@
                 {{ task.description || 'No description provided.' }}
               </p>
 
-              <!-- Creator chip (only shown for group tasks) -->
+              <!-- Creator (only shown for group tasks) -->
               @if (task.groupId) {
-                <div class="creator-chip">
-                  <i class="bi bi-pencil-fill"></i>
-                  {{ task.creatorFirstName }} {{ task.creatorLastName }}
+                <div class="task-meta-row">
+                  <span class="task-meta-label">Created:</span>
+                  <span class="task-meta-value">{{ task.creatorFirstName }} {{ task.creatorLastName }}</span>
                 </div>
               }
 
-              <!-- Assignee chip -->
-              @if (task.assigneeId) {
-                <div class="assignee-chip">
-                  <i class="bi bi-person-fill"></i>
-                  {{ task.assigneeFirstName }} {{ task.assigneeLastName }}
-                </div>
-              }
-
-              <!-- Mentioned users -->
+              <!-- Assignees -->
               @if (task.assigneeNames?.length) {
-                <div class="assignee-row">
-                  @for (name of task.assigneeNames; track name) {
-                    <span class="mention-chip assignee-chip-small"><i class="bi bi-person-fill"></i>{{ name }}</span>
-                  }
+                <div class="task-meta-row">
+                  <span class="task-meta-label">Assignees:</span>
+                  <span class="task-meta-value">{{ task.assigneeNames!.join(', ') }}</span>
                 </div>
               }
 
