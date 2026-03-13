@@ -19,8 +19,8 @@ $surface:    #ffffff;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 1.75rem;
-  height: 56px;
+  padding: 0 2.5rem;
+  height: 68px;
   background: rgba(248, 250, 252, 0.95);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
@@ -38,21 +38,21 @@ $surface:    #ffffff;
 }
 
 .brand-icon {
-  width: 32px;
-  height: 32px;
+  width: 42px;
+  height: 42px;
   background: linear-gradient(135deg, $primary, $primary-end);
-  border-radius: 8px;
+  border-radius: 11px;
   display: flex;
   align-items: center;
   justify-content: center;
   color: #fff;
-  font-size: 0.95rem;
+  font-size: 1.2rem;
   box-shadow: 0 3px 10px rgba(99, 102, 241, 0.3);
   flex-shrink: 0;
 }
 
 .brand-name {
-  font-size: 1.05rem;
+  font-size: 1.15rem;
   font-weight: 700;
   color: $text;
   letter-spacing: -0.02em;
@@ -195,7 +195,7 @@ $surface:    #ffffff;
 .dash-main {
   flex: 1;
   min-width: 0;
-  padding: 2rem 2rem 3rem;
+  padding: 2.5rem 3rem 4rem;
   overflow-y: auto;
 }
 
