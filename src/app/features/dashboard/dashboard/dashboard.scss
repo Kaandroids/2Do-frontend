@@ -548,6 +548,68 @@ $surface:    #ffffff;
   50%       { opacity: 0.5; }
 }
 
+// ─── Dashboard Overview ───────────────────────────────────────────────────────
+.overview-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1.25rem;
+  margin-top: 0.5rem;
+}
+
+.overview-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: $surface;
+  border: 1px solid $border;
+  border-radius: 1.25rem;
+  padding: 1.4rem 1.5rem;
+  cursor: pointer;
+  transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+  box-shadow: 0 1px 6px rgba(15, 23, 42, 0.05);
+
+  &:hover {
+    border-color: rgba(99, 102, 241, 0.3);
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+    transform: translateY(-2px);
+  }
+
+  &__icon {
+    width: 48px; height: 48px;
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.25rem;
+    flex-shrink: 0;
+
+    &--tasks   { background: rgba(99, 102, 241, 0.1);  color: $primary; }
+    &--groups  { background: rgba(16, 185, 129, 0.1);  color: #059669; }
+    &--pending { background: rgba(245, 158, 11, 0.1);  color: #d97706; }
+    &--done    { background: rgba(34, 197, 94, 0.1);   color: #16a34a; }
+  }
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+
+  &__value {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: $text;
+    letter-spacing: -0.03em;
+    line-height: 1;
+  }
+
+  &__label {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: $muted;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+}
+
 // ─── Responsive ───────────────────────────────────────────────────────────────
 @media (max-width: 768px) {
   .dash-sidebar { display: none; }

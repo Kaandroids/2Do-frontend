@@ -39,7 +39,7 @@ export class Dashboard implements OnInit {
   isSubmitting = signal<boolean>(false);
 
   // View state
-  activeView = signal<'tasks' | 'groups'>('tasks');
+  activeView = signal<'dashboard' | 'tasks' | 'groups'>('dashboard');
 
   // Group state
   myGroups = signal<Group[]>([]);
