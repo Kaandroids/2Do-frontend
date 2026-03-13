@@ -93,7 +93,7 @@
                                 [class.perm-chip--clickable]="true"
                                 [class.perm-chip--master]="perm === 'CAN_MANAGE'"
                                 (click)="togglePermission(member, perm)"
-                                [title]="'Toggle ' + perm">
+                                [title]="'Toggle ' + permLabel(perm)">
                             {{ permLabel(perm) }}
                           </span>
                         }
