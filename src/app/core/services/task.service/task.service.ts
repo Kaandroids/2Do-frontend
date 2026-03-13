@@ -24,8 +24,9 @@ export class TaskService {
    * and returns only the tasks owned by that specific user.
    * @returns An Observable array of `TaskResponse` objects.
    */
-  getTasks(): Observable<Page<TaskResponse>> {
-    return this.http.get<Page<TaskResponse>>(this.API_URL)
+  getTasks(groupId?: number): Observable<Page<TaskResponse>> {
+    const url = groupId ? `${this.API_URL}?groupId=${groupId}` : this.API_URL;
+    return this.http.get<Page<TaskResponse>>(url);
   }
 
   /**

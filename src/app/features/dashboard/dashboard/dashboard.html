@@ -17,11 +17,62 @@
     <!-- Left Sidebar -->
     <aside class="dash-sidebar">
       <nav class="sidebar-nav">
-        <a class="sidebar-item sidebar-item--active">
+
+        <!-- My Tasks -->
+        <a class="sidebar-item" [class.sidebar-item--active]="activeGroupId() === null"
+           (click)="selectGroup(null)">
           <i class="bi bi-check2-square"></i>
           <span>My Tasks</span>
         </a>
+
+        <!-- Groups section -->
+        <div class="sidebar-section-label">GROUPS</div>
+
+        <!-- New Group button -->
+        <a class="sidebar-item sidebar-item--add"
+           data-bs-toggle="modal" data-bs-target="#createGroupModal">
+          <i class="bi bi-plus-circle"></i>
+          <span>New Group</span>
+        </a>
+
+        @for (group of myGroups(); track group.id) {
+          <a class="sidebar-item sidebar-item--group"
+             [class.sidebar-item--active]="activeGroupId() === group.id"
+             (click)="selectGroup(group.id)">
+            <i class="bi bi-people"></i>
+            <span class="sidebar-item__label">{{ group.name }}</span>
+            @if (group.isOwner) {
+              <span class="owner-dot" title="You own this group"></span>
+            }
+          </a>
+        }
+
+        <!-- Separator -->
+        <hr class="sidebar-divider">
+
+        <!-- Invitations badge -->
+        <app-invitations-badge></app-invitations-badge>
+
       </nav>
+
+      <!-- Group Settings Button (shown when group is selected and user is owner) -->
+      @if (selectedGroup()?.isOwner) {
+        <div class="sidebar-footer">
+          <button class="sidebar-item w-100 text-start"
+                  id="openGroupSettingsBtn"
+                  data-bs-toggle="modal" data-bs-target="#groupSettingsModal"
+                  style="display:none">hidden trigger</button>
+          <a class="sidebar-item sidebar-item--settings"
+             data-bs-toggle="modal" data-bs-target="#groupSettingsModal">
+            <i class="bi bi-gear"></i>
+            <span>Group Settings</span>
+          </a>
+          <a class="sidebar-item sidebar-item--danger" (click)="onGroupDeleted()">
+            <i class="bi bi-trash"></i>
+            <span>Delete Group</span>
+          </a>
+        </div>
+      }
     </aside>
 
     <!-- Main Content -->
@@ -30,7 +81,7 @@
       @if (isLoading()) {
         <div class="dash-loading">
           <div class="spinner-border text-primary" role="status"></div>
-          <p>Loading your tasks...</p>
+          <p>Loading tasks...</p>
         </div>
       }
 
@@ -38,14 +89,16 @@
         <!-- Page Header -->
         <div class="page-header">
           <h1 class="page-title">
-            My Tasks
+            {{ pageTitle }}
             <span class="task-pill">{{ taskList().length }}</span>
           </h1>
           <div class="page-actions">
-            <button class="btn-ai"
-                    data-bs-toggle="modal" data-bs-target="#addAiTaskModal">
-              <i class="bi bi-mic-fill"></i> AI Voice Task
-            </button>
+            @if (activeGroupId() === null) {
+              <button class="btn-ai"
+                      data-bs-toggle="modal" data-bs-target="#addAiTaskModal">
+                <i class="bi bi-mic-fill"></i> AI Voice Task
+              </button>
+            }
             <button class="btn-new"
                     data-bs-toggle="modal" data-bs-target="#addTaskModal">
               <i class="bi bi-plus-lg"></i> New Task
@@ -89,6 +142,14 @@
               <p class="task-card__desc">
                 {{ task.description || 'No description provided.' }}
               </p>
+
+              <!-- Assignee chip (visible only in group view when assigned) -->
+              @if (task.assigneeId) {
+                <div class="assignee-chip">
+                  <i class="bi bi-person-fill"></i>
+                  {{ task.assigneeFirstName }} {{ task.assigneeLastName }}
+                </div>
+              }
 
               <div class="task-card__footer">
                 <span class="status-badge" [class.status-badge--done]="task.completed">
@@ -169,6 +230,21 @@
             </div>
           </div>
 
+          <!-- Assignee dropdown — only shown in group context -->
+          @if (activeGroupId() !== null && groupMembers().length > 0) {
+            <div class="mb-3">
+              <label class="form-label">ASSIGN TO</label>
+              <select class="form-select" formControlName="assigneeId">
+                <option [value]="null">— Unassigned —</option>
+                @for (member of groupMembers(); track member.userId) {
+                  <option [value]="member.userId">
+                    {{ member.firstName }} {{ member.lastName }}
+                  </option>
+                }
+              </select>
+            </div>
+          }
+
           <div class="d-grid mt-3">
             <button type="submit" class="btn btn-primary py-2 fw-bold"
                     [disabled]="createTaskForm.invalid || isSubmitting()">
@@ -239,3 +315,7 @@
     </div>
   </div>
 </div>
+
+<!-- ─── Group Modals ───────────────────────────────────────────────────────── -->
+<app-create-group-modal (groupCreated)="onGroupCreated($event)"></app-create-group-modal>
+<app-group-settings-modal [group]="selectedGroup()" (membersChanged)="loadGroupMembers()"></app-group-settings-modal>

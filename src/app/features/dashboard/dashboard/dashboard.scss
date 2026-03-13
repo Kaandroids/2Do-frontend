@@ -87,11 +87,14 @@ $surface:    #ffffff;
 
 // ─── Sidebar ──────────────────────────────────────────────────────────────────
 .dash-sidebar {
-  width: 200px;
+  width: 220px;
   flex-shrink: 0;
   background: $surface;
   border-right: 1px solid $border;
   padding: 1.25rem 0.75rem;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
 }
 
 .sidebar-nav {
@@ -130,6 +133,62 @@ $surface:    #ffffff;
       color: $primary;
     }
   }
+}
+
+// ─── Sidebar Groups ───────────────────────────────────────────────────────────
+.sidebar-section-label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: $muted;
+  padding: 0.75rem 0.75rem 0.25rem;
+  text-transform: uppercase;
+}
+
+.sidebar-divider {
+  border: none;
+  border-top: 1px solid $border;
+  margin: 0.5rem 0.5rem;
+}
+
+.sidebar-item--add {
+  color: $primary;
+  font-style: normal;
+  &:hover { background: rgba(99, 102, 241, 0.06); }
+}
+
+.sidebar-item--group {
+  padding-left: 1.1rem;
+
+  .sidebar-item__label {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+.owner-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: $primary;
+  flex-shrink: 0;
+}
+
+.sidebar-footer {
+  margin-top: auto;
+  padding-top: 0.75rem;
+  border-top: 1px solid $border;
+}
+
+.sidebar-item--settings {
+  color: $muted;
+}
+
+.sidebar-item--danger {
+  color: #ef4444;
+  &:hover { background: rgba(239, 68, 68, 0.06); color: #dc2626; }
 }
 
 // ─── Main Content ─────────────────────────────────────────────────────────────
@@ -309,6 +368,22 @@ $surface:    #ffffff;
   line-height: 1.55;
   margin: 0;
   flex: 1;
+}
+
+// ─── Assignee Chip ────────────────────────────────────────────────────────────
+.assignee-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  background: rgba(99, 102, 241, 0.08);
+  color: $primary;
+  font-size: 0.72rem;
+  font-weight: 600;
+  width: fit-content;
+
+  i { font-size: 0.75rem; }
 }
 
 .task-card__footer {

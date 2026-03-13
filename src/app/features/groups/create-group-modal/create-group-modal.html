@@ -1,0 +1,46 @@
+<div class="modal fade" id="createGroupModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content border-0 shadow-lg">
+
+      <div class="modal-header modal-header-primary">
+        <h5 class="modal-title"><i class="bi bi-people-fill me-2"></i>Create New Group</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                id="closeCreateGroupModalBtn"></button>
+      </div>
+
+      <div class="modal-body p-4">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+          <div class="mb-3">
+            <label class="form-label">GROUP NAME <span class="text-danger">*</span></label>
+            <input type="text" class="form-control" formControlName="name"
+                   placeholder="e.g. Acme Corp Workspace"
+                   [class.is-invalid]="form.get('name')?.invalid && form.get('name')?.touched">
+            @if (form.get('name')?.invalid && form.get('name')?.touched) {
+              <div class="invalid-feedback">Group name is required (max 100 chars).</div>
+            }
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">DESCRIPTION</label>
+            <textarea class="form-control" formControlName="description" rows="3"
+                      placeholder="What is this group for?"></textarea>
+          </div>
+
+          <div class="d-grid mt-3">
+            <button type="submit" class="btn btn-primary py-2 fw-bold"
+                    [disabled]="form.invalid || isSubmitting()">
+              @if (isSubmitting()) {
+                <span class="spinner-border spinner-border-sm me-2"></span> Creating...
+              } @else {
+                <i class="bi bi-plus-circle me-2"></i> Create Group
+              }
+            </button>
+          </div>
+
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
