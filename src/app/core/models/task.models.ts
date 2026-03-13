@@ -31,8 +31,8 @@ export interface TaskResponse {
   assigneeId?: number;
   assigneeFirstName?: string;
   assigneeLastName?: string;
-  mentionedUserIds?: number[];
-  mentionedUserNames?: string[];
+  assigneeIds?: number[];
+  assigneeNames?: string[];
   isPrivate?: boolean;
 }
 
@@ -46,7 +46,7 @@ export interface CreateTaskRequest {
   dueDate?: string;
   groupId?: number;
   assigneeId?: number;
-  mentionedUserIds?: number[];
+  assigneeIds?: number[];
   isPrivate?: boolean;
 }
 

@@ -66,20 +66,20 @@ export class Dashboard implements OnInit {
       isForGroup: [false],
       groupId: [null],
       assigneeId: [null],
-      mentionedUserIds: [[] as number[]],
+      assigneeIds: [[] as number[]],
       isPrivate: [false],
     });
 
     this.createTaskForm.get('isForGroup')!.valueChanges.subscribe((checked) => {
       if (!checked) {
-        this.createTaskForm.patchValue({ groupId: null, mentionedUserIds: [], isPrivate: false });
+        this.createTaskForm.patchValue({ groupId: null, assigneeIds: [], isPrivate: false });
         this.formMembers.set([]);
       }
     });
 
     this.createTaskForm.get('groupId')!.valueChanges.subscribe((gid) => {
       this.formMembers.set([]);
-      this.createTaskForm.patchValue({ mentionedUserIds: [], isPrivate: false });
+      this.createTaskForm.patchValue({ assigneeIds: [], isPrivate: false });
       if (gid) {
         this.groupService.getGroupMembers(Number(gid)).subscribe({
           next: (members) => this.formMembers.set(members.filter(m => !m.isOwner)),
@@ -134,12 +134,12 @@ export class Dashboard implements OnInit {
     this.loadGroupMembers();
   }
 
-  isMentioned(userId: number): boolean {
-    return (this.createTaskForm.get('mentionedUserIds')!.value as number[]).includes(userId);
+  isAssigned(userId: number): boolean {
+    return (this.createTaskForm.get('assigneeIds')!.value as number[]).includes(userId);
   }
 
-  toggleMention(userId: number): void {
-    const ctrl = this.createTaskForm.get('mentionedUserIds')!;
+  toggleAssignee(userId: number): void {
+    const ctrl = this.createTaskForm.get('assigneeIds')!;
     const current: number[] = [...(ctrl.value as number[])];
     const idx = current.indexOf(userId);
     idx === -1 ? current.push(userId) : current.splice(idx, 1);
@@ -195,7 +195,7 @@ export class Dashboard implements OnInit {
       dueDate: formValue.dueDate || undefined,
       groupId: formValue.isForGroup ? (formValue.groupId ?? undefined) : (this.activeGroupId() ?? undefined),
       assigneeId: formValue.assigneeId || undefined,
-      mentionedUserIds: formValue.mentionedUserIds?.length ? formValue.mentionedUserIds : undefined,
+      assigneeIds: formValue.assigneeIds?.length ? formValue.assigneeIds : undefined,
       isPrivate: formValue.isPrivate ?? false,
     };
 
@@ -205,7 +205,7 @@ export class Dashboard implements OnInit {
       .subscribe({
         next: (data) => {
           this.taskList.update((prev) => [data, ...prev]);
-          this.createTaskForm.reset({ priority: 'MEDIUM', isForGroup: false, mentionedUserIds: [], isPrivate: false });
+          this.createTaskForm.reset({ priority: 'MEDIUM', isForGroup: false, assigneeIds: [], isPrivate: false });
           this.formMembers.set([]);
           const closeBtn = document.getElementById('closeModalBtn');
           if (closeBtn) closeBtn.click();

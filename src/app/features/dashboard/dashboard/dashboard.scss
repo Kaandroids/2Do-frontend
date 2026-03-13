@@ -429,7 +429,7 @@ $surface:    #ffffff;
   i { font-size: 0.65rem; }
 }
 
-.mention-row {
+.assignee-row {
   display: flex;
   flex-wrap: wrap;
   gap: 0.3rem;
@@ -723,7 +723,7 @@ $surface:    #ffffff;
 }
 
 // ─── Member Mention List ──────────────────────────────────────────────────────
-.task-mention-list {
+.task-assignee-list {
   display: flex;
   flex-direction: column;
   gap: 0.4rem;
@@ -732,7 +732,7 @@ $surface:    #ffffff;
   padding: 0.1rem 0;
 }
 
-.task-mention-item {
+.task-assignee-item {
   display: flex;
   align-items: center;
   gap: 0.65rem;
@@ -758,7 +758,7 @@ $surface:    #ffffff;
   i { margin-left: auto; color: $primary; font-size: 0.9rem; }
 }
 
-.task-mention-avatar {
+.task-assignee-avatar {
   width: 28px;
   height: 28px;
   border-radius: 50%;
