@@ -81,7 +81,7 @@
                 <i class="bi bi-hourglass-split"></i>
               </div>
               <div class="overview-card__body">
-                <span class="overview-card__value">{{ taskList().length - taskList().filter(t => t.completed).length }}</span>
+                <span class="overview-card__value">{{ pendingTaskCount() }}</span>
                 <span class="overview-card__label">Pending Tasks</span>
               </div>
             </div>
@@ -90,7 +90,7 @@
                 <i class="bi bi-check-circle"></i>
               </div>
               <div class="overview-card__body">
-                <span class="overview-card__value">{{ taskList().filter(t => t.completed).length }}</span>
+                <span class="overview-card__value">{{ completedTaskCount() }}</span>
                 <span class="overview-card__label">Completed</span>
               </div>
             </div>

@@ -41,6 +41,9 @@ export class Dashboard implements OnInit {
   // View state
   activeView = signal<'dashboard' | 'tasks' | 'groups'>('dashboard');
 
+  pendingTaskCount = computed(() => this.taskList().filter((t) => !t.completed).length);
+  completedTaskCount = computed(() => this.taskList().filter((t) => t.completed).length);
+
   // Group state
   myGroups = signal<Group[]>([]);
   activeGroupId = signal<number | null>(null);
