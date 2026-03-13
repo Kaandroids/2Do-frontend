@@ -55,19 +55,17 @@
   position: relative;
   display: flex;
   align-items: center;
-  background: rgba(15, 23, 42, 0.04);
-  border: 1.5px solid rgba(15, 23, 42, 0.12);
+  background: #ffffff;
+  border: 1.5px solid rgba(15, 23, 42, 0.15);
   border-radius: 0.75rem;
-  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+  transition: border-color 0.2s;
 
   &:focus-within {
-    border-color: rgba(99, 102, 241, 0.6);
-    background: rgba(99, 102, 241, 0.04);
+    border-color: rgba(99, 102, 241, 0.5);
   }
 
   &--error {
     border-color: rgba(239, 68, 68, 0.6) !important;
-    background: rgba(239, 68, 68, 0.04) !important;
   }
 }
 
