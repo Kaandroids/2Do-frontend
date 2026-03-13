@@ -75,17 +75,22 @@
             } @else {
               <div class="gd-members">
                 @for (member of members(); track member.userId) {
-                  <div class="gd-member">
-                    <div class="gd-member__avatar">
+                  <div class="gd-member" [class.gd-member--owner]="member.isOwner">
+                    <div class="gd-member__avatar" [class.gd-member__avatar--owner]="member.isOwner">
                       {{ member.firstName[0] }}{{ member.lastName[0] }}
                     </div>
                     <div class="gd-member__info">
-                      <span class="gd-member__name">{{ member.firstName }} {{ member.lastName }}</span>
+                      <span class="gd-member__name">
+                        {{ member.firstName }} {{ member.lastName }}
+                        @if (member.isOwner) {
+                          <span class="gd-owner-badge"><i class="bi bi-crown-fill me-1"></i>Owner</span>
+                        }
+                      </span>
                       <span class="gd-member__email">{{ member.email }}</span>
                     </div>
 
-                    <!-- Permissions: only visible to owner or CAN_MANAGE members -->
-                    @if (canManageMembers()) {
+                    <!-- Permissions: only for non-owner members, visible to manager -->
+                    @if (!member.isOwner && canManageMembers()) {
                       <div class="gd-member__perms">
                         @for (perm of allPerms; track perm) {
                           <span class="perm-chip"

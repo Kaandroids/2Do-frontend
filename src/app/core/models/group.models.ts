@@ -20,6 +20,7 @@ export interface GroupMember {
   lastName: string;
   email: string;
   permissions: GroupPermission[];
+  isOwner: boolean;
 }
 
 export interface GroupInvitationResponse {
