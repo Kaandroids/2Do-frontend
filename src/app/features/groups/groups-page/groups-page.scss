@@ -1,0 +1,230 @@
+$primary:    #6366f1;
+$primary-end:#8b5cf6;
+$text:       #0f172a;
+$muted:      #64748b;
+$border:     rgba(15, 23, 42, 0.1);
+$surface:    #ffffff;
+
+// ─── Page ─────────────────────────────────────────────────────────────────────
+.groups-page {
+  max-width: 1100px;
+}
+
+.groups-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.groups-title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: $text;
+  letter-spacing: -0.03em;
+  margin: 0 0 0.2rem;
+}
+
+.groups-subtitle {
+  font-size: 0.875rem;
+  color: $muted;
+  margin: 0;
+}
+
+.btn-new-group {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.55rem 1.25rem;
+  background: linear-gradient(135deg, $primary, $primary-end);
+  color: #fff;
+  border: none;
+  border-radius: 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 3px 12px rgba(99, 102, 241, 0.3);
+  transition: opacity 0.2s, transform 0.15s;
+  white-space: nowrap;
+
+  &:hover { opacity: 0.9; transform: translateY(-1px); }
+  &:active { transform: scale(0.97); }
+}
+
+// ─── Grid ─────────────────────────────────────────────────────────────────────
+.groups-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.25rem;
+}
+
+// ─── Card ─────────────────────────────────────────────────────────────────────
+.group-card {
+  background: $surface;
+  border: 1px solid $border;
+  border-radius: 1.25rem;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  cursor: pointer;
+  transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 1px 6px rgba(15, 23, 42, 0.05);
+
+  &:hover {
+    border-color: rgba(99, 102, 241, 0.35);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 28px rgba(15, 23, 42, 0.1);
+
+    .group-card__cta { opacity: 1; transform: translateX(0); }
+  }
+}
+
+.group-card__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.group-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, $primary, $primary-end);
+  color: #fff;
+  font-size: 1.35rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+  flex-shrink: 0;
+}
+
+.owner-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.2rem 0.65rem;
+  background: rgba(99, 102, 241, 0.1);
+  color: $primary;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+.member-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.2rem 0.65rem;
+  background: rgba(16, 185, 129, 0.1);
+  color: #059669;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+.group-card__name {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: $text;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.group-card__desc {
+  font-size: 0.83rem;
+  color: $muted;
+  margin: 0;
+  line-height: 1.5;
+  flex: 1;
+
+  &--empty { font-style: italic; opacity: 0.6; }
+}
+
+// ─── Stats ────────────────────────────────────────────────────────────────────
+.group-card__stats {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem 1rem;
+  background: rgba(15, 23, 42, 0.03);
+  border-radius: 0.75rem;
+}
+
+.stat-item {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.8rem;
+  color: $muted;
+
+  i { font-size: 0.85rem; }
+}
+
+.stat-value {
+  font-weight: 700;
+  color: $text;
+  font-size: 0.9rem;
+}
+
+.stat-label {
+  color: $muted;
+}
+
+.stat-divider {
+  width: 1px;
+  height: 18px;
+  background: $border;
+}
+
+// ─── Footer ───────────────────────────────────────────────────────────────────
+.group-card__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 0.6rem;
+  border-top: 1px solid $border;
+}
+
+.group-card__owner-name {
+  font-size: 0.78rem;
+  color: $muted;
+  font-weight: 500;
+}
+
+.group-card__cta {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: $primary;
+  opacity: 0;
+  transform: translateX(-4px);
+  transition: opacity 0.2s, transform 0.2s;
+}
+
+// ─── Empty State ──────────────────────────────────────────────────────────────
+.groups-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 5rem 2rem;
+  background: $surface;
+  border: 1px dashed rgba(15, 23, 42, 0.14);
+  border-radius: 1.25rem;
+  text-align: center;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+
+  h5 { font-weight: 700; color: $text; margin: 0.5rem 0 0.25rem; }
+  p  { font-size: 0.875rem; color: $muted; margin: 0 0 1.25rem; }
+}
+
+.groups-empty__icon {
+  width: 64px; height: 64px;
+  background: rgba(99, 102, 241, 0.08);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  i { font-size: 1.75rem; color: rgba(99, 102, 241, 0.4); }
+}

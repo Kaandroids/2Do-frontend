@@ -19,33 +19,23 @@
       <nav class="sidebar-nav">
 
         <!-- My Tasks -->
-        <a class="sidebar-item" [class.sidebar-item--active]="activeGroupId() === null"
-           (click)="selectGroup(null)">
+        <a class="sidebar-item"
+           [class.sidebar-item--active]="activeView() === 'tasks'"
+           (click)="activeView.set('tasks')">
           <i class="bi bi-check2-square"></i>
           <span>My Tasks</span>
         </a>
 
-        <!-- Groups section -->
-        <div class="sidebar-section-label">GROUPS</div>
-
-        <!-- New Group button -->
-        <a class="sidebar-item sidebar-item--add"
-           data-bs-toggle="modal" data-bs-target="#createGroupModal">
-          <i class="bi bi-plus-circle"></i>
-          <span>New Group</span>
+        <!-- Groups -->
+        <a class="sidebar-item"
+           [class.sidebar-item--active]="activeView() === 'groups'"
+           (click)="activeView.set('groups')">
+          <i class="bi bi-people"></i>
+          <span>Groups</span>
+          @if (myGroups().length > 0) {
+            <span class="sidebar-count">{{ myGroups().length }}</span>
+          }
         </a>
-
-        @for (group of myGroups(); track group.id) {
-          <a class="sidebar-item sidebar-item--group"
-             [class.sidebar-item--active]="activeGroupId() === group.id"
-             (click)="selectGroup(group.id)">
-            <i class="bi bi-people"></i>
-            <span class="sidebar-item__label">{{ group.name }}</span>
-            @if (group.isOwner) {
-              <span class="owner-dot" title="You own this group"></span>
-            }
-          </a>
-        }
 
         <!-- Separator -->
         <hr class="sidebar-divider">
@@ -54,29 +44,21 @@
         <app-invitations-badge></app-invitations-badge>
 
       </nav>
-
-      <!-- Group Settings Button (shown when group is selected and user is owner) -->
-      @if (selectedGroup()?.isOwner) {
-        <div class="sidebar-footer">
-          <button class="sidebar-item w-100 text-start"
-                  id="openGroupSettingsBtn"
-                  data-bs-toggle="modal" data-bs-target="#groupSettingsModal"
-                  style="display:none">hidden trigger</button>
-          <a class="sidebar-item sidebar-item--settings"
-             data-bs-toggle="modal" data-bs-target="#groupSettingsModal">
-            <i class="bi bi-gear"></i>
-            <span>Group Settings</span>
-          </a>
-          <a class="sidebar-item sidebar-item--danger" (click)="onGroupDeleted()">
-            <i class="bi bi-trash"></i>
-            <span>Delete Group</span>
-          </a>
-        </div>
-      }
     </aside>
 
     <!-- Main Content -->
     <main class="dash-main">
+
+      <!-- ─── Groups View ──────────────────────────────────────────────────── -->
+      @if (activeView() === 'groups') {
+        <app-groups-page
+          [groups]="myGroups()"
+          (groupsChanged)="onGroupsChanged()">
+        </app-groups-page>
+      }
+
+      <!-- ─── Tasks View ───────────────────────────────────────────────────── -->
+      @if (activeView() === 'tasks') {
 
       @if (isLoading()) {
         <div class="dash-loading">
@@ -182,6 +164,8 @@
           }
         </div>
       }
+
+      } <!-- end tasks view -->
 
     </main>
   </div>
@@ -316,6 +300,3 @@
   </div>
 </div>
 
-<!-- ─── Group Modals ───────────────────────────────────────────────────────── -->
-<app-create-group-modal (groupCreated)="onGroupCreated($event)"></app-create-group-modal>
-<app-group-settings-modal [group]="selectedGroup()" (membersChanged)="loadGroupMembers()"></app-group-settings-modal>

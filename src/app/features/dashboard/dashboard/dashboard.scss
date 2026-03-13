@@ -136,6 +136,21 @@ $surface:    #ffffff;
 }
 
 // ─── Sidebar Groups ───────────────────────────────────────────────────────────
+.sidebar-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+  background: rgba(99, 102, 241, 0.12);
+  color: $primary;
+  border-radius: 999px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  margin-left: auto;
+}
+
 .sidebar-section-label {
   font-size: 0.65rem;
   font-weight: 700;

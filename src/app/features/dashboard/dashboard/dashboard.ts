@@ -12,18 +12,16 @@ import { finalize } from 'rxjs';
 import { VoiceRecordingService } from '../../../core/services/task.service/voice-recording.service';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
-import { CreateGroupModal } from '../../groups/create-group-modal/create-group-modal';
-import { GroupSettingsModal } from '../../groups/group-settings-modal/group-settings-modal';
 import { InvitationsBadge } from '../../groups/invitations-badge/invitations-badge';
+import { GroupsPage } from '../../groups/groups-page/groups-page';
 
 @Component({
   selector: 'app-dashboard',
   imports: [
     DatePipe,
     ReactiveFormsModule,
-    CreateGroupModal,
-    GroupSettingsModal,
     InvitationsBadge,
+    GroupsPage,
   ],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.scss',
@@ -43,6 +41,9 @@ export class Dashboard implements OnInit {
   isRecording = computed(() => this.voiceService.isRecording());
   isProcessing = signal<boolean>(false);
   isSubmitting = signal<boolean>(false);
+
+  // View state
+  activeView = signal<'tasks' | 'groups'>('tasks');
 
   // Group state
   myGroups = signal<Group[]>([]);
@@ -124,6 +125,10 @@ export class Dashboard implements OnInit {
   onGroupCreated(group: Group): void {
     this.myGroups.update((list) => [...list, group]);
     this.selectGroup(group.id);
+  }
+
+  onGroupsChanged(): void {
+    this.loadGroups();
   }
 
   onGroupDeleted(): void {

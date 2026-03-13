@@ -1,0 +1,94 @@
+<div class="groups-page">
+
+  <!-- Header -->
+  <div class="groups-header">
+    <div>
+      <h1 class="groups-title">Groups</h1>
+      <p class="groups-subtitle">Collaborate with your team on shared tasks.</p>
+    </div>
+    <button class="btn-new-group"
+            data-bs-toggle="modal" data-bs-target="#createGroupModal">
+      <i class="bi bi-plus-lg"></i> New Group
+    </button>
+  </div>
+
+  <!-- Empty state -->
+  @if (groups.length === 0) {
+    <div class="groups-empty">
+      <div class="groups-empty__icon"><i class="bi bi-people"></i></div>
+      <h5>No groups yet</h5>
+      <p>Create a group to start collaborating with your team.</p>
+      <button class="btn-new-group"
+              data-bs-toggle="modal" data-bs-target="#createGroupModal">
+        <i class="bi bi-plus-lg"></i> Create your first group
+      </button>
+    </div>
+  }
+
+  <!-- Group cards grid -->
+  <div class="groups-grid">
+    @for (group of groups; track group.id) {
+      <div class="group-card" (click)="openDetail(group)">
+
+        <!-- Card top: avatar + owner badge -->
+        <div class="group-card__top">
+          <div class="group-avatar">
+            {{ group.name.charAt(0).toUpperCase() }}
+          </div>
+          @if (group.isOwner) {
+            <span class="owner-badge"><i class="bi bi-star-fill me-1"></i>Owner</span>
+          } @else {
+            <span class="member-badge"><i class="bi bi-person-check me-1"></i>Member</span>
+          }
+        </div>
+
+        <!-- Name & description -->
+        <h3 class="group-card__name">{{ group.name }}</h3>
+        @if (group.description) {
+          <p class="group-card__desc">{{ group.description }}</p>
+        } @else {
+          <p class="group-card__desc group-card__desc--empty">No description</p>
+        }
+
+        <!-- Stats -->
+        <div class="group-card__stats">
+          <div class="stat-item">
+            <i class="bi bi-hourglass-split"></i>
+            <span class="stat-value">{{ group.pendingTaskCount }}</span>
+            <span class="stat-label">pending</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat-item">
+            <i class="bi bi-people-fill"></i>
+            <span class="stat-value">{{ group.memberCount }}</span>
+            <span class="stat-label">members</span>
+          </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="group-card__footer">
+          <span class="group-card__owner-name">
+            <i class="bi bi-person-circle me-1"></i>{{ group.ownerName }}
+          </span>
+          <span class="group-card__cta">
+            Open <i class="bi bi-arrow-right ms-1"></i>
+          </span>
+        </div>
+
+      </div>
+    }
+  </div>
+
+</div>
+
+<!-- Hidden trigger for group detail modal -->
+<button id="openGroupDetailBtn" data-bs-toggle="modal" data-bs-target="#groupDetailModal"
+        style="display:none"></button>
+
+<!-- Modals -->
+<app-create-group-modal (groupCreated)="onGroupCreated($event)"></app-create-group-modal>
+<app-group-detail-modal
+  [group]="selectedGroup()"
+  (groupDeleted)="onGroupDeleted($event)"
+  (groupChanged)="onGroupUpdated()">
+</app-group-detail-modal>

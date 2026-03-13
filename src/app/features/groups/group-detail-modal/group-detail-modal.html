@@ -1,0 +1,175 @@
+<div class="modal fade" id="groupDetailModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content gd-modal">
+
+      @if (group) {
+
+        <!-- Header -->
+        <div class="gd-header">
+          <div class="gd-header__left">
+            <div class="gd-avatar">{{ group.name.charAt(0).toUpperCase() }}</div>
+            <div>
+              <h4 class="gd-title">{{ group.name }}</h4>
+              <p class="gd-subtitle">{{ group.description || 'No description' }}</p>
+            </div>
+          </div>
+          <div class="gd-header__right">
+            <button type="button" class="btn-close btn-close-white"
+                    data-bs-dismiss="modal" aria-label="Close"
+                    id="closeGroupDetailModalBtn"></button>
+          </div>
+        </div>
+
+        <!-- Stats bar -->
+        <div class="gd-stats">
+          <div class="gd-stat">
+            <span class="gd-stat__value">{{ group.pendingTaskCount }}</span>
+            <span class="gd-stat__label">Pending Tasks</span>
+          </div>
+          <div class="gd-stat-divider"></div>
+          <div class="gd-stat">
+            <span class="gd-stat__value">{{ group.memberCount }}</span>
+            <span class="gd-stat__label">Members</span>
+          </div>
+          <div class="gd-stat-divider"></div>
+          <div class="gd-stat">
+            <span class="gd-stat__value">{{ group.ownerName }}</span>
+            <span class="gd-stat__label">Owner</span>
+          </div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="gd-tabs">
+          <button class="gd-tab" [class.gd-tab--active]="activeTab() === 'members'"
+                  (click)="activeTab.set('members')">
+            <i class="bi bi-people me-1"></i> Members
+          </button>
+          @if (group.isOwner) {
+            <button class="gd-tab" [class.gd-tab--active]="activeTab() === 'invite'"
+                    (click)="activeTab.set('invite')">
+              <i class="bi bi-person-plus me-1"></i> Invite
+            </button>
+          }
+        </div>
+
+        <!-- Tab content -->
+        <div class="gd-body">
+
+          <!-- Members tab -->
+          @if (activeTab() === 'members') {
+            @if (isLoadingMembers()) {
+              <div class="gd-loading">
+                <div class="spinner-border text-primary" role="status"></div>
+              </div>
+            } @else if (members().length === 0) {
+              <div class="gd-empty">
+                <i class="bi bi-person-x"></i>
+                <p>No members yet. Invite someone to collaborate!</p>
+              </div>
+            } @else {
+              <div class="gd-members">
+                @for (member of members(); track member.userId) {
+                  <div class="gd-member">
+                    <div class="gd-member__avatar">
+                      {{ member.firstName[0] }}{{ member.lastName[0] }}
+                    </div>
+                    <div class="gd-member__info">
+                      <span class="gd-member__name">{{ member.firstName }} {{ member.lastName }}</span>
+                      <span class="gd-member__email">{{ member.email }}</span>
+                    </div>
+                    <div class="gd-member__perms">
+                      @for (perm of ['CAN_CREATE', 'CAN_EDIT', 'CAN_DELETE']; track perm) {
+                        <span class="perm-chip"
+                              [class.perm-chip--active]="hasPermission(member, $any(perm))"
+                              [class.perm-chip--clickable]="group.isOwner"
+                              (click)="group.isOwner && togglePermission(member, $any(perm))"
+                              [title]="group.isOwner ? 'Toggle ' + perm : perm">
+                          {{ permLabel($any(perm)) }}
+                        </span>
+                      }
+                    </div>
+                    @if (group.isOwner) {
+                      <button class="gd-remove-btn" (click)="onRemoveMember(member.userId)"
+                              title="Remove member">
+                        <i class="bi bi-person-dash"></i>
+                      </button>
+                    }
+                  </div>
+                }
+              </div>
+            }
+          }
+
+          <!-- Invite tab -->
+          @if (activeTab() === 'invite') {
+            <form [formGroup]="inviteForm" (ngSubmit)="onInvite()" class="gd-invite-form">
+
+              <div class="mb-4">
+                <label class="gd-label">EMAIL ADDRESS</label>
+                <input type="email" class="form-control gd-input" formControlName="inviteeEmail"
+                       placeholder="colleague@example.com"
+                       [class.is-invalid]="inviteForm.get('inviteeEmail')?.invalid && inviteForm.get('inviteeEmail')?.touched">
+                @if (inviteForm.get('inviteeEmail')?.invalid && inviteForm.get('inviteeEmail')?.touched) {
+                  <div class="invalid-feedback">Please enter a valid email address.</div>
+                }
+              </div>
+
+              <div class="mb-4">
+                <label class="gd-label">PERMISSIONS</label>
+                <div class="gd-perm-checks">
+                  <label class="gd-perm-check">
+                    <input type="checkbox" formControlName="canCreate">
+                    <div class="gd-perm-check__box">
+                      <i class="bi bi-plus-circle"></i>
+                      <span>Create Tasks</span>
+                    </div>
+                  </label>
+                  <label class="gd-perm-check">
+                    <input type="checkbox" formControlName="canEdit">
+                    <div class="gd-perm-check__box">
+                      <i class="bi bi-pencil"></i>
+                      <span>Edit Tasks</span>
+                    </div>
+                  </label>
+                  <label class="gd-perm-check">
+                    <input type="checkbox" formControlName="canDelete">
+                    <div class="gd-perm-check__box">
+                      <i class="bi bi-trash"></i>
+                      <span>Delete Tasks</span>
+                    </div>
+                  </label>
+                </div>
+              </div>
+
+              <button type="submit" class="btn-invite w-100"
+                      [disabled]="inviteForm.invalid || isInviting()">
+                @if (isInviting()) {
+                  <span class="spinner-border spinner-border-sm me-2"></span> Sending...
+                } @else {
+                  <i class="bi bi-send me-2"></i> Send Invitation
+                }
+              </button>
+
+            </form>
+          }
+
+        </div>
+
+        <!-- Footer: delete group (owner only) -->
+        @if (group.isOwner) {
+          <div class="gd-footer">
+            <button class="btn-delete-group" (click)="onDeleteGroup()" [disabled]="isDeleting()">
+              @if (isDeleting()) {
+                <span class="spinner-border spinner-border-sm me-1"></span> Deleting...
+              } @else {
+                <i class="bi bi-trash3 me-1"></i> Delete Group
+              }
+            </button>
+          </div>
+        }
+
+      }
+
+    </div>
+  </div>
+</div>

@@ -8,6 +8,7 @@ export interface Group {
   description?: string;
   ownerName: string;
   memberCount: number;
+  pendingTaskCount: number;
   myPermissions: GroupPermission[];
   createdAt: string;
   isOwner: boolean;
