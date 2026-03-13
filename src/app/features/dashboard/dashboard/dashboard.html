@@ -61,46 +61,6 @@
             </div>
           </div>
 
-          <!-- Stats row -->
-          <div class="overview-cards">
-            <div class="overview-card" (click)="activeView.set('tasks')">
-              <div class="overview-card__icon overview-card__icon--tasks">
-                <i class="bi bi-check2-square"></i>
-              </div>
-              <div class="overview-card__body">
-                <span class="overview-card__value">{{ taskList().length }}</span>
-                <span class="overview-card__label">My Tasks</span>
-              </div>
-            </div>
-            <div class="overview-card" (click)="activeView.set('groups')">
-              <div class="overview-card__icon overview-card__icon--groups">
-                <i class="bi bi-people"></i>
-              </div>
-              <div class="overview-card__body">
-                <span class="overview-card__value">{{ myGroups().length }}</span>
-                <span class="overview-card__label">Groups</span>
-              </div>
-            </div>
-            <div class="overview-card">
-              <div class="overview-card__icon overview-card__icon--pending">
-                <i class="bi bi-hourglass-split"></i>
-              </div>
-              <div class="overview-card__body">
-                <span class="overview-card__value">{{ pendingTaskCount() }}</span>
-                <span class="overview-card__label">Pending</span>
-              </div>
-            </div>
-            <div class="overview-card">
-              <div class="overview-card__icon overview-card__icon--done">
-                <i class="bi bi-check-circle"></i>
-              </div>
-              <div class="overview-card__body">
-                <span class="overview-card__value">{{ completedTaskCount() }}</span>
-                <span class="overview-card__label">Completed</span>
-              </div>
-            </div>
-          </div>
-
           <!-- Pending tasks -->
           @if (pendingTaskList().length === 0) {
             <div class="empty-state" style="margin-top:2rem">
