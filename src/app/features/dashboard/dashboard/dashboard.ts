@@ -1,7 +1,6 @@
 import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { TaskService } from '../../../core/services/task.service/task.service';
 import { GroupService } from '../../../core/services/group.service';
-import { InvitationService } from '../../../core/services/invitation.service';
 import { AuthService } from '../../../core/services/auth/auth.service';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -12,7 +11,6 @@ import { finalize } from 'rxjs';
 import { VoiceRecordingService } from '../../../core/services/task.service/voice-recording.service';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
-import { InvitationsBadge } from '../../groups/invitations-badge/invitations-badge';
 import { GroupsPage } from '../../groups/groups-page/groups-page';
 
 @Component({
@@ -20,7 +18,6 @@ import { GroupsPage } from '../../groups/groups-page/groups-page';
   imports: [
     DatePipe,
     ReactiveFormsModule,
-    InvitationsBadge,
     GroupsPage,
   ],
   templateUrl: './dashboard.html',
@@ -29,7 +26,6 @@ import { GroupsPage } from '../../groups/groups-page/groups-page';
 export class Dashboard implements OnInit {
   private readonly taskService = inject(TaskService);
   private readonly groupService = inject(GroupService);
-  private readonly invitationService = inject(InvitationService);
   private readonly authService = inject(AuthService);
   private readonly router = inject(Router);
   private readonly fb = inject(FormBuilder);
@@ -51,7 +47,6 @@ export class Dashboard implements OnInit {
   selectedGroup = computed(() =>
     this.myGroups().find((g) => g.id === this.activeGroupId()) ?? null
   );
-  pendingInvitationCount = signal<number>(0);
   groupMembers = signal<GroupMember[]>([]);
 
   createTaskForm: FormGroup;
@@ -69,7 +64,6 @@ export class Dashboard implements OnInit {
   ngOnInit(): void {
     this.loadTasks();
     this.loadGroups();
-    this.loadInvitationCount();
   }
 
   loadTasks(): void {
@@ -92,12 +86,6 @@ export class Dashboard implements OnInit {
   loadGroups(): void {
     this.groupService.getMyGroups().subscribe({
       next: (groups) => this.myGroups.set(groups),
-    });
-  }
-
-  loadInvitationCount(): void {
-    this.invitationService.getMyPendingInvitations().subscribe({
-      next: (list) => this.pendingInvitationCount.set(list.length),
     });
   }
 

@@ -203,6 +203,139 @@ $surface:    #ffffff;
   transition: opacity 0.2s, transform 0.2s;
 }
 
+// ─── Invitations Section ──────────────────────────────────────────────────────
+.inv-section {
+  margin-top: 3rem;
+}
+
+.inv-section__header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid $border;
+}
+
+.inv-section__title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: $text;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+.inv-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 22px;
+  height: 22px;
+  padding: 0 6px;
+  background: linear-gradient(135deg, $primary, $primary-end);
+  color: #fff;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.inv-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.inv-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: $surface;
+  border: 1px solid $border;
+  border-radius: 1rem;
+  padding: 1rem 1.25rem;
+  box-shadow: 0 1px 4px rgba(15, 23, 42, 0.04);
+  transition: border-color 0.2s, box-shadow 0.2s;
+
+  &:hover {
+    border-color: rgba(99, 102, 241, 0.25);
+    box-shadow: 0 4px 16px rgba(15, 23, 42, 0.07);
+  }
+}
+
+.inv-card__avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, $primary, $primary-end);
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 3px 10px rgba(99, 102, 241, 0.25);
+}
+
+.inv-card__info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  flex: 1;
+  min-width: 0;
+}
+
+.inv-card__group-name {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: $text;
+}
+
+.inv-card__meta {
+  font-size: 0.8rem;
+  color: $muted;
+}
+
+.inv-card__date {
+  font-size: 0.75rem;
+  color: rgba(100, 116, 139, 0.7);
+}
+
+.inv-card__actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+.inv-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.4rem 0.9rem;
+  border-radius: 0.6rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.2s, transform 0.15s;
+
+  &:hover { opacity: 0.85; transform: translateY(-1px); }
+  &:active { transform: scale(0.96); }
+
+  &--accept {
+    background: rgba(16, 185, 129, 0.1);
+    color: #059669;
+
+    &:hover { background: rgba(16, 185, 129, 0.18); }
+  }
+
+  &--decline {
+    background: rgba(239, 68, 68, 0.08);
+    color: #dc2626;
+
+    &:hover { background: rgba(239, 68, 68, 0.15); }
+  }
+}
+
 // ─── Empty State ──────────────────────────────────────────────────────────────
 .groups-empty {
   display: flex;

@@ -79,6 +79,40 @@
     }
   </div>
 
+  <!-- ─── Group Invitations ──────────────────────────────────────────────────── -->
+  @if (invitations().length > 0) {
+    <div class="inv-section">
+      <div class="inv-section__header">
+        <h2 class="inv-section__title">Group Invitations</h2>
+        <span class="inv-count">{{ invitations().length }}</span>
+      </div>
+      <div class="inv-grid">
+        @for (inv of invitations(); track inv.id) {
+          <div class="inv-card">
+            <div class="inv-card__avatar">{{ inv.groupName.charAt(0).toUpperCase() }}</div>
+            <div class="inv-card__info">
+              <span class="inv-card__group-name">{{ inv.groupName }}</span>
+              <span class="inv-card__meta">
+                <i class="bi bi-person me-1"></i>Invited by {{ inv.inviterName }}
+              </span>
+              <span class="inv-card__date">
+                <i class="bi bi-clock me-1"></i>{{ inv.createdAt | date:'mediumDate' }}
+              </span>
+            </div>
+            <div class="inv-card__actions">
+              <button class="inv-btn inv-btn--accept" (click)="onAccept(inv.id)">
+                <i class="bi bi-check-lg me-1"></i>Accept
+              </button>
+              <button class="inv-btn inv-btn--decline" (click)="onDecline(inv.id)">
+                <i class="bi bi-x-lg me-1"></i>Decline
+              </button>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  }
+
 </div>
 
 <!-- Hidden trigger for group detail modal -->
