@@ -344,6 +344,28 @@ $surface:    #ffffff;
   gap: 0.5rem;
 }
 
+
+.task-group-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.18rem 0.55rem;
+  border-radius: 999px;
+  font-size: 0.68rem;
+  font-weight: 600;
+  background: rgba(99, 102, 241, 0.1);
+  color: $primary;
+  border: 1px solid rgba(99, 102, 241, 0.2);
+
+  &--personal {
+    background: rgba(15, 23, 42, 0.05);
+    color: $muted;
+    border-color: rgba(15, 23, 42, 0.1);
+  }
+
+  i { font-size: 0.65rem; }
+}
+
 .priority-badge {
   display: inline-block;
   padding: 0.2rem 0.65rem;
@@ -399,6 +421,13 @@ $surface:    #ffffff;
   width: fit-content;
 
   i { font-size: 0.75rem; }
+}
+
+.task-card__footer-left {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-wrap: wrap;
 }
 
 .task-card__footer {

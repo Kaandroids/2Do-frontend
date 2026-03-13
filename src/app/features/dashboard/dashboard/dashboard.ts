@@ -109,6 +109,11 @@ export class Dashboard implements OnInit {
     this.loadGroupMembers();
   }
 
+  taskGroupName(groupId: number | undefined): string {
+    if (!groupId) return 'Me';
+    return this.myGroups().find((g) => g.id === groupId)?.name ?? 'Me';
+  }
+
   get pageTitle(): string {
     return this.selectedGroup()?.name ?? 'My Tasks';
   }

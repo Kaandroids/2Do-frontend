@@ -152,11 +152,13 @@
             <div class="task-card" [class.task-card--done]="task.completed">
 
               <div class="task-card__header">
-                <span class="priority-badge"
-                      [class.priority-badge--high]="task.priority === 'HIGH'"
-                      [class.priority-badge--medium]="task.priority === 'MEDIUM'"
-                      [class.priority-badge--low]="task.priority === 'LOW'">
-                  {{ task.priority }}
+                <span class="task-group-chip" [class.task-group-chip--personal]="!task.groupId">
+                  @if (task.groupId) {
+                    <i class="bi bi-people-fill"></i>
+                  } @else {
+                    <i class="bi bi-person-fill"></i>
+                  }
+                  {{ taskGroupName(task.groupId) }}
                 </span>
                 @if (task.dueDate) {
                   <span class="due-date">
@@ -183,13 +185,21 @@
               }
 
               <div class="task-card__footer">
-                <span class="status-badge" [class.status-badge--done]="task.completed">
-                  @if (task.completed) {
-                    <i class="bi bi-check-circle-fill me-1"></i> Completed
-                  } @else {
-                    <i class="bi bi-hourglass-split me-1"></i> Pending
-                  }
-                </span>
+                <div class="task-card__footer-left">
+                  <span class="priority-badge"
+                        [class.priority-badge--high]="task.priority === 'HIGH'"
+                        [class.priority-badge--medium]="task.priority === 'MEDIUM'"
+                        [class.priority-badge--low]="task.priority === 'LOW'">
+                    {{ task.priority }}
+                  </span>
+                  <span class="status-badge" [class.status-badge--done]="task.completed">
+                    @if (task.completed) {
+                      <i class="bi bi-check-circle-fill me-1"></i> Completed
+                    } @else {
+                      <i class="bi bi-hourglass-split me-1"></i> Pending
+                    }
+                  </span>
+                </div>
 
                 <div class="task-card__actions">
                   <button class="btn-action btn-action--complete"
