@@ -24,6 +24,7 @@ export class Login {
   errorMessage = signal<string | null>(null);
   isLoading = signal<boolean>(false);
   isSubmitted = signal<boolean>(false);
+  showPassword = signal<boolean>(false);
 
   constructor(){
     this.loginForm = this.fb.group({

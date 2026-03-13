@@ -5,13 +5,12 @@
     radial-gradient(ellipse 50% 40% at 80% 70%, rgba(139, 92, 246, 0.06) 0%, transparent 65%);
 }
 
-.card {
+.auth-card {
   background: #ffffff;
-  border: 1px solid rgba(15, 23, 42, 0.1) !important;
-  box-shadow: 0 4px 24px rgba(15, 23, 42, 0.08), 0 1px 4px rgba(15, 23, 42, 0.05) !important;
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border-radius: 1.5rem !important;
+  border: 1px solid rgba(15, 23, 42, 0.1);
+  border-radius: 1.5rem;
+  padding: 2.5rem;
+  box-shadow: 0 4px 24px rgba(15, 23, 42, 0.08), 0 1px 4px rgba(15, 23, 42, 0.05);
 }
 
 .app-logo {
@@ -26,4 +25,93 @@
   font-size: 1.3rem;
   color: #fff;
   margin-bottom: 0.5rem;
+}
+
+.auth-alert {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  background: rgba(239, 68, 68, 0.07);
+  border: 1px solid rgba(239, 68, 68, 0.25);
+  border-radius: 0.75rem;
+  color: #b91c1c;
+  font-size: 0.875rem;
+  margin-bottom: 1.25rem;
+}
+
+// ─── Field ────────────────────────────────────────────────────────────────────
+.field-group { display: flex; flex-direction: column; }
+
+.field-label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #64748b;
+  margin-bottom: 0.4rem;
+  letter-spacing: 0.01em;
+}
+
+.input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: rgba(15, 23, 42, 0.04);
+  border: 1.5px solid rgba(15, 23, 42, 0.12);
+  border-radius: 0.75rem;
+  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+
+  &:focus-within {
+    border-color: rgba(99, 102, 241, 0.6);
+    background: rgba(99, 102, 241, 0.04);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.12);
+  }
+
+  &--error {
+    border-color: rgba(239, 68, 68, 0.6) !important;
+    background: rgba(239, 68, 68, 0.04) !important;
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1) !important;
+  }
+}
+
+.input-icon {
+  padding: 0 0.75rem 0 1rem;
+  color: #94a3b8;
+  font-size: 0.95rem;
+  flex-shrink: 0;
+  pointer-events: none;
+}
+
+.field-input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  padding: 0.7rem 0.75rem 0.7rem 0;
+  font-size: 0.9rem;
+  color: #0f172a;
+  outline: none;
+  min-width: 0;
+
+  &::placeholder { color: #b0bec5; }
+}
+
+.input-toggle {
+  padding: 0 1rem 0 0.5rem;
+  background: none;
+  border: none;
+  color: #94a3b8;
+  cursor: pointer;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  transition: color 0.2s;
+
+  &:hover { color: #6366f1; }
+}
+
+.field-error {
+  font-size: 0.8rem;
+  color: #ef4444;
+  margin-top: 0.35rem;
+  font-weight: 500;
 }
