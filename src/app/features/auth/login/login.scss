@@ -63,13 +63,11 @@
   &:focus-within {
     border-color: rgba(99, 102, 241, 0.6);
     background: rgba(99, 102, 241, 0.04);
-    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.12);
   }
 
   &--error {
     border-color: rgba(239, 68, 68, 0.6) !important;
     background: rgba(239, 68, 68, 0.04) !important;
-    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1) !important;
   }
 }
 
