@@ -251,63 +251,85 @@
 
 <!-- ─── Create Task Modal ──────────────────────────────────────────────────── -->
 <div class="modal fade" id="addTaskModal" tabindex="-1" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content border-0 shadow-lg">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable tm-dialog">
+    <div class="tm-modal">
 
-      <div class="modal-header modal-header-primary">
-        <h5 class="modal-title"><i class="bi bi-plus-circle me-2"></i>Create New Task</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="closeModalBtn"></button>
+      <!-- Header -->
+      <div class="tm-header">
+        <div class="tm-header__icon"><i class="bi bi-plus-lg"></i></div>
+        <div class="tm-header__text">
+          <h5 class="tm-header__title">New Task</h5>
+          <p class="tm-header__sub">Fill in the details below</p>
+        </div>
+        <button type="button" class="tm-close" data-bs-dismiss="modal" id="closeModalBtn">
+          <i class="bi bi-x-lg"></i>
+        </button>
       </div>
 
-      <div class="modal-body p-4">
+      <!-- Body -->
+      <div class="tm-body">
         <form [formGroup]="createTaskForm" (ngSubmit)="onCreateTask()">
 
-          <div class="mb-3">
-            <label class="form-label">TASK TITLE <span class="text-danger">*</span></label>
-            <input type="text" class="form-control" formControlName="title"
-                   placeholder="What needs to be done?"
-                   [class.is-invalid]="createTaskForm.get('title')?.invalid && createTaskForm.get('title')?.touched">
+          <!-- Title -->
+          <div class="tm-field">
+            <label class="tm-label">Title <span class="tm-required">*</span></label>
+            <input type="text" class="tm-input"
+                   [class.tm-input--error]="createTaskForm.get('title')?.invalid && createTaskForm.get('title')?.touched"
+                   formControlName="title" placeholder="What needs to be done?">
             @if (createTaskForm.get('title')?.invalid && createTaskForm.get('title')?.touched) {
-              <div class="invalid-feedback">Title is required (min 3 chars).</div>
+              <span class="tm-error">Title is required (min 3 chars).</span>
             }
           </div>
 
-          <div class="mb-3">
-            <label class="form-label">DESCRIPTION</label>
-            <textarea class="form-control" formControlName="description" rows="3" placeholder="Add more details..."></textarea>
+          <!-- Description -->
+          <div class="tm-field">
+            <label class="tm-label">Description</label>
+            <textarea class="tm-input tm-input--area" formControlName="description"
+                      rows="3" placeholder="Add more details..."></textarea>
           </div>
 
-          <div class="row">
-            <div class="col-md-6 mb-3">
-              <label class="form-label">PRIORITY <span class="text-danger">*</span></label>
-              <select class="form-select" formControlName="priority">
-                <option value="HIGH">🔴 High</option>
-                <option value="MEDIUM">🟡 Medium</option>
-                <option value="LOW">🔵 Low</option>
-              </select>
+          <!-- Priority -->
+          <div class="tm-field">
+            <label class="tm-label">Priority</label>
+            <div class="tm-priority">
+              <button type="button" class="tm-priority__btn tm-priority__btn--high"
+                      [class.tm-priority__btn--active]="createTaskForm.get('priority')?.value === 'HIGH'"
+                      (click)="createTaskForm.patchValue({priority: 'HIGH'})">
+                <span class="tm-priority__dot"></span> High
+              </button>
+              <button type="button" class="tm-priority__btn tm-priority__btn--medium"
+                      [class.tm-priority__btn--active]="createTaskForm.get('priority')?.value === 'MEDIUM'"
+                      (click)="createTaskForm.patchValue({priority: 'MEDIUM'})">
+                <span class="tm-priority__dot"></span> Medium
+              </button>
+              <button type="button" class="tm-priority__btn tm-priority__btn--low"
+                      [class.tm-priority__btn--active]="createTaskForm.get('priority')?.value === 'LOW'"
+                      (click)="createTaskForm.patchValue({priority: 'LOW'})">
+                <span class="tm-priority__dot"></span> Low
+              </button>
             </div>
-            <div class="col-md-6 mb-3">
-              <label class="form-label">DUE DATE</label>
-              <input type="datetime-local" class="form-control" formControlName="dueDate">
-            </div>
+          </div>
+
+          <!-- Due Date -->
+          <div class="tm-field">
+            <label class="tm-label">Due Date</label>
+            <input type="datetime-local" class="tm-input" formControlName="dueDate">
           </div>
 
           <!-- Group toggle -->
-          <div class="mb-3">
-            <div class="task-form-toggle">
-              <input type="checkbox" class="task-form-toggle__check" id="isForGroupCheck"
-                     formControlName="isForGroup">
-              <label class="task-form-toggle__label" for="isForGroupCheck">
-                <i class="bi bi-people me-1"></i> This is a group task
-              </label>
-            </div>
+          <div class="tm-field">
+            <label class="tm-toggle" for="isForGroupCheck">
+              <input type="checkbox" id="isForGroupCheck" class="tm-toggle__check" formControlName="isForGroup">
+              <span class="tm-toggle__track"><span class="tm-toggle__thumb"></span></span>
+              <span class="tm-toggle__text"><i class="bi bi-people me-1"></i>Group task</span>
+            </label>
           </div>
 
           @if (createTaskForm.get('isForGroup')?.value) {
             <!-- Group selector -->
-            <div class="mb-3">
-              <label class="form-label">GROUP</label>
-              <select class="form-select" formControlName="groupId">
+            <div class="tm-field">
+              <label class="tm-label">Group</label>
+              <select class="tm-input tm-input--select" formControlName="groupId">
                 <option [ngValue]="null">— Select a group —</option>
                 @for (g of myGroups(); track g.id) {
                   <option [ngValue]="g.id">{{ g.name }}</option>
@@ -316,20 +338,16 @@
             </div>
 
             @if (formMembers().length > 0) {
-              <!-- Mention members -->
-              <div class="mb-3">
-                <label class="form-label">ASSIGN MEMBERS</label>
-                <div class="task-assignee-list">
+              <div class="tm-field">
+                <label class="tm-label">Assign Members</label>
+                <div class="tm-members">
                   @for (member of formMembers(); track member.userId) {
-                    <div class="task-assignee-item"
-                         [class.task-assignee-item--selected]="isAssigned(member.userId)"
+                    <div class="tm-member" [class.tm-member--selected]="isAssigned(member.userId)"
                          (click)="toggleAssignee(member.userId)">
-                      <div class="task-assignee-avatar">
-                        {{ member.firstName[0] }}{{ member.lastName[0] }}
-                      </div>
-                      <span>{{ member.firstName }} {{ member.lastName }}</span>
+                      <div class="tm-member__avatar">{{ member.firstName[0] }}{{ member.lastName[0] }}</div>
+                      <span class="tm-member__name">{{ member.firstName }} {{ member.lastName }}</span>
                       @if (isAssigned(member.userId)) {
-                        <i class="bi bi-check-circle-fill ms-auto"></i>
+                        <i class="bi bi-check-circle-fill tm-member__check"></i>
                       }
                     </div>
                   }
@@ -337,30 +355,25 @@
               </div>
 
               @if ((createTaskForm.get('assigneeIds')?.value)?.length > 0) {
-                <!-- Visibility toggle -->
-                <div class="mb-3">
-                  <div class="task-form-toggle task-form-toggle--privacy">
-                    <input type="checkbox" class="task-form-toggle__check" id="isPrivateCheck"
-                           formControlName="isPrivate">
-                    <label class="task-form-toggle__label" for="isPrivateCheck">
-                      <i class="bi bi-eye-slash me-1"></i> Only visible to assigned members
-                    </label>
-                  </div>
+                <div class="tm-field">
+                  <label class="tm-toggle tm-toggle--privacy" for="isPrivateCheck">
+                    <input type="checkbox" id="isPrivateCheck" class="tm-toggle__check" formControlName="isPrivate">
+                    <span class="tm-toggle__track"><span class="tm-toggle__thumb"></span></span>
+                    <span class="tm-toggle__text"><i class="bi bi-eye-slash me-1"></i>Only visible to assigned members</span>
+                  </label>
                 </div>
               }
             }
           }
 
-          <div class="d-grid mt-3">
-            <button type="submit" class="btn btn-primary py-2 fw-bold"
-                    [disabled]="createTaskForm.invalid || isSubmitting()">
-              @if (isSubmitting()) {
-                <span class="spinner-border spinner-border-sm me-2"></span> Saving...
-              } @else {
-                <i class="bi bi-save me-2"></i> Save Task
-              }
-            </button>
-          </div>
+          <!-- Submit -->
+          <button type="submit" class="tm-submit" [disabled]="createTaskForm.invalid || isSubmitting()">
+            @if (isSubmitting()) {
+              <span class="spinner-border spinner-border-sm me-2"></span>Saving...
+            } @else {
+              Save Task
+            }
+          </button>
 
         </form>
       </div>

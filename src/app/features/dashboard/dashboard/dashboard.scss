@@ -542,19 +542,12 @@ $surface:    #ffffff;
   p    { font-size: 0.875rem; color: $muted; margin: 0; }
 }
 
-// ─── Modals ───────────────────────────────────────────────────────────────────
+// ─── AI Modal (keep original style) ───────────────────────────────────────────
 .modal-content {
   border: 1px solid $border !important;
   border-radius: 1.25rem !important;
   overflow: hidden;
   box-shadow: 0 24px 56px rgba(0, 0, 0, 0.18) !important;
-}
-
-.modal-header-primary {
-  background: linear-gradient(135deg, $primary, $primary-end);
-  color: #fff; border-bottom: none; padding: 1.25rem 1.5rem;
-  .modal-title { font-weight: 700; font-size: 1rem; }
-  .btn-close { filter: invert(1) brightness(2); }
 }
 
 .modal-header-ai {
@@ -564,8 +557,227 @@ $surface:    #ffffff;
   .btn-close { filter: invert(1) brightness(2); }
 }
 
-.form-label {
-  font-size: 0.72rem; font-weight: 700; color: $muted; letter-spacing: 0.06em;
+// ─── Task Modal (tm-) ─────────────────────────────────────────────────────────
+.tm-dialog { --bs-modal-width: 460px; }
+
+.tm-modal {
+  background: $surface;
+  border-radius: 1.5rem;
+  overflow: hidden;
+  box-shadow: 0 32px 64px rgba(15, 23, 42, 0.18);
+  border: 1px solid $border;
+}
+
+.tm-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.5rem 1.5rem 1.25rem;
+  border-bottom: 1px solid rgba(15, 23, 42, 0.07);
+
+  &__icon {
+    width: 42px; height: 42px; flex-shrink: 0;
+    background: linear-gradient(135deg, $primary, $primary-end);
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; font-size: 1.1rem;
+    box-shadow: 0 4px 14px rgba(99, 102, 241, 0.35);
+  }
+
+  &__text { flex: 1; }
+
+  &__title {
+    margin: 0;
+    font-size: 1rem; font-weight: 700; color: $text; letter-spacing: -0.02em;
+  }
+
+  &__sub {
+    margin: 0;
+    font-size: 0.78rem; color: $muted;
+  }
+}
+
+.tm-close {
+  width: 34px; height: 34px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(15, 23, 42, 0.05);
+  border: none; border-radius: 9px;
+  color: $muted; font-size: 0.85rem; cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+
+  &:hover { background: rgba(15, 23, 42, 0.1); color: $text; }
+}
+
+.tm-body {
+  padding: 1.5rem;
+  max-height: 72vh;
+  overflow-y: auto;
+
+  &::-webkit-scrollbar { width: 4px; }
+  &::-webkit-scrollbar-track { background: transparent; }
+  &::-webkit-scrollbar-thumb { background: rgba(15, 23, 42, 0.12); border-radius: 4px; }
+}
+
+.tm-field { margin-bottom: 1.1rem; }
+
+.tm-label {
+  display: block;
+  font-size: 0.75rem; font-weight: 700;
+  color: $muted; letter-spacing: 0.05em;
+  text-transform: uppercase; margin-bottom: 0.4rem;
+}
+
+.tm-required { color: #ef4444; }
+
+.tm-input {
+  width: 100%;
+  padding: 0.65rem 0.9rem;
+  background: rgba(15, 23, 42, 0.03);
+  border: 1.5px solid rgba(15, 23, 42, 0.12);
+  border-radius: 0.75rem;
+  font-size: 0.875rem; color: $text;
+  outline: none;
+  transition: border-color 0.2s, background 0.2s;
+
+  &::placeholder { color: #b0bec5; }
+  &:focus { border-color: rgba(99, 102, 241, 0.5); background: rgba(99, 102, 241, 0.03); }
+  &--error { border-color: rgba(239, 68, 68, 0.5) !important; }
+
+  &--area {
+    resize: none;
+    font-family: inherit;
+    min-height: 80px;
+  }
+
+  &--select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2394a3b8' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.9rem center;
+    padding-right: 2.2rem;
+    cursor: pointer;
+  }
+}
+
+.tm-error {
+  display: block; margin-top: 0.3rem;
+  font-size: 0.78rem; color: #ef4444; font-weight: 500;
+}
+
+// Priority segmented control
+.tm-priority {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 0.5rem;
+
+  &__btn {
+    display: flex; align-items: center; justify-content: center; gap: 0.4rem;
+    padding: 0.55rem 0.5rem;
+    background: rgba(15, 23, 42, 0.03);
+    border: 1.5px solid rgba(15, 23, 42, 0.1);
+    border-radius: 0.75rem;
+    font-size: 0.8rem; font-weight: 600; color: $muted;
+    cursor: pointer; transition: all 0.15s;
+
+    &:hover { border-color: rgba(15, 23, 42, 0.2); color: $text; }
+
+    &--high   .tm-priority__dot { background: #ef4444; }
+    &--medium .tm-priority__dot { background: #f59e0b; }
+    &--low    .tm-priority__dot { background: #3b82f6; }
+
+    &--high.tm-priority__btn--active   { background: #fee2e2; border-color: #ef4444; color: #dc2626; }
+    &--medium.tm-priority__btn--active { background: #fef3c7; border-color: #f59e0b; color: #b45309; }
+    &--low.tm-priority__btn--active    { background: #dbeafe; border-color: #3b82f6; color: #1d4ed8; }
+  }
+
+  &__dot {
+    width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0;
+  }
+}
+
+// Toggle switch
+.tm-toggle {
+  display: flex; align-items: center; gap: 0.75rem;
+  cursor: pointer; user-select: none;
+
+  &__check { display: none; }
+
+  &__track {
+    width: 36px; height: 20px; flex-shrink: 0;
+    background: rgba(15, 23, 42, 0.15);
+    border-radius: 999px;
+    position: relative; transition: background 0.2s;
+  }
+
+  &__thumb {
+    position: absolute; top: 3px; left: 3px;
+    width: 14px; height: 14px;
+    background: #fff; border-radius: 50%;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+    transition: transform 0.2s;
+  }
+
+  &__check:checked ~ &__track { background: $primary; }
+  &__check:checked ~ &__track &__thumb { transform: translateX(16px); }
+
+  &__text {
+    font-size: 0.85rem; font-weight: 500; color: $text;
+  }
+
+  &--privacy &__check:checked ~ &__track { background: #f59e0b; }
+}
+
+// Member picker
+.tm-members {
+  display: flex; flex-direction: column; gap: 0.35rem;
+  max-height: 160px; overflow-y: auto;
+}
+
+.tm-member {
+  display: flex; align-items: center; gap: 0.7rem;
+  padding: 0.55rem 0.75rem;
+  border-radius: 0.75rem;
+  border: 1.5px solid rgba(15, 23, 42, 0.1);
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+
+  &:hover { border-color: rgba(99, 102, 241, 0.3); background: rgba(99, 102, 241, 0.03); }
+
+  &--selected {
+    border-color: $primary;
+    background: rgba(99, 102, 241, 0.07);
+  }
+
+  &__avatar {
+    width: 30px; height: 30px; border-radius: 50%; flex-shrink: 0;
+    background: linear-gradient(135deg, $primary, $primary-end);
+    color: #fff; font-size: 0.65rem; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  &__name { flex: 1; font-size: 0.83rem; font-weight: 500; color: $text; }
+
+  &__check { color: $primary; font-size: 0.95rem; }
+}
+
+// Submit button
+.tm-submit {
+  width: 100%; margin-top: 0.5rem;
+  padding: 0.75rem;
+  background: linear-gradient(135deg, $primary, $primary-end);
+  color: #fff; border: none; border-radius: 0.875rem;
+  font-size: 0.95rem; font-weight: 700;
+  cursor: pointer; letter-spacing: 0.01em;
+  box-shadow: 0 4px 16px rgba(99, 102, 241, 0.35);
+  transition: opacity 0.2s, transform 0.15s, box-shadow 0.2s;
+  display: flex; align-items: center; justify-content: center; gap: 0.4rem;
+
+  &:hover:not(:disabled) {
+    opacity: 0.92; transform: translateY(-1px);
+    box-shadow: 0 8px 24px rgba(99, 102, 241, 0.45);
+  }
+  &:active:not(:disabled) { transform: scale(0.98); }
+  &:disabled { opacity: 0.55; cursor: not-allowed; }
 }
 
 // ─── AI Mic ───────────────────────────────────────────────────────────────────
@@ -668,45 +880,6 @@ $surface:    #ffffff;
   }
 }
 
-// ─── Task Form Toggles ────────────────────────────────────────────────────────
-.task-form-toggle {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  padding: 0.6rem 0.9rem;
-  border: 1px solid $border;
-  border-radius: 0.75rem;
-  cursor: pointer;
-  background: rgba(15, 23, 42, 0.02);
-  transition: border-color 0.15s, background 0.15s;
-
-  &:hover { border-color: rgba(99, 102, 241, 0.3); background: rgba(99, 102, 241, 0.03); }
-
-  &--privacy {
-    border-color: rgba(245, 158, 11, 0.3);
-    background: rgba(245, 158, 11, 0.04);
-    &:hover { border-color: rgba(245, 158, 11, 0.5); }
-  }
-
-  &__check {
-    width: 16px;
-    height: 16px;
-    accent-color: $primary;
-    cursor: pointer;
-    flex-shrink: 0;
-  }
-
-  &__label {
-    font-size: 0.82rem;
-    font-weight: 600;
-    color: $text;
-    cursor: pointer;
-    margin: 0;
-    display: flex;
-    align-items: center;
-    gap: 0.25rem;
-  }
-}
 
 // ─── Member Mention List ──────────────────────────────────────────────────────
 .task-assignee-list {
