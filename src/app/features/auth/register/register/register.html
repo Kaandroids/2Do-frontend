@@ -16,31 +16,30 @@
 
     <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
 
-      <!-- First + Last Name -->
-      <div class="field-row mb-3">
-        <div class="field-group">
-          <label class="field-label" for="firstNameInput">First Name</label>
-          <div class="input-wrap" [class.input-wrap--error]="registerForm.get('firstName')?.invalid && registerForm.get('firstName')?.touched">
-            <i class="bi bi-person input-icon"></i>
-            <input type="text" id="firstNameInput" class="field-input"
-                   placeholder="John" formControlName="firstName">
-          </div>
-          @if (registerForm.get('firstName')?.invalid && registerForm.get('firstName')?.touched) {
-            <span class="field-error">Required (min 2 chars)</span>
-          }
+      <!-- First Name -->
+      <div class="field-group mb-3">
+        <label class="field-label" for="firstNameInput">First Name</label>
+        <div class="input-wrap" [class.input-wrap--error]="registerForm.get('firstName')?.invalid && registerForm.get('firstName')?.touched">
+          <i class="bi bi-person input-icon"></i>
+          <input type="text" id="firstNameInput" class="field-input"
+                 placeholder="John" formControlName="firstName">
         </div>
+        @if (registerForm.get('firstName')?.invalid && registerForm.get('firstName')?.touched) {
+          <span class="field-error">Required (min 2 chars)</span>
+        }
+      </div>
 
-        <div class="field-group">
-          <label class="field-label" for="lastNameInput">Last Name</label>
-          <div class="input-wrap" [class.input-wrap--error]="registerForm.get('lastName')?.invalid && registerForm.get('lastName')?.touched">
-            <i class="bi bi-person input-icon"></i>
-            <input type="text" id="lastNameInput" class="field-input"
-                   placeholder="Doe" formControlName="lastName">
-          </div>
-          @if (registerForm.get('lastName')?.invalid && registerForm.get('lastName')?.touched) {
-            <span class="field-error">Required (min 2 chars)</span>
-          }
+      <!-- Last Name -->
+      <div class="field-group mb-3">
+        <label class="field-label" for="lastNameInput">Last Name</label>
+        <div class="input-wrap" [class.input-wrap--error]="registerForm.get('lastName')?.invalid && registerForm.get('lastName')?.touched">
+          <i class="bi bi-person input-icon"></i>
+          <input type="text" id="lastNameInput" class="field-input"
+                 placeholder="Doe" formControlName="lastName">
         </div>
+        @if (registerForm.get('lastName')?.invalid && registerForm.get('lastName')?.touched) {
+          <span class="field-error">Required (min 2 chars)</span>
+        }
       </div>
 
       <!-- Email -->
