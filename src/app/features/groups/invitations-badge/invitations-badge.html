@@ -1,0 +1,84 @@
+<div class="invitations-wrapper" style="position:relative">
+  <button class="sidebar-item w-100 text-start" (click)="toggleList()"
+          [class.sidebar-item--active]="showList()">
+    <i class="bi bi-envelope-fill"></i>
+    <span>Invitations</span>
+    @if (invitations().length > 0) {
+      <span class="inv-badge ms-auto">{{ invitations().length }}</span>
+    }
+  </button>
+
+  @if (showList() && invitations().length > 0) {
+    <div class="inv-dropdown">
+      @for (inv of invitations(); track inv.id) {
+        <div class="inv-item">
+          <div class="inv-group-name">{{ inv.groupName }}</div>
+          <div class="inv-from">from {{ inv.inviterName }}</div>
+          <div class="inv-actions">
+            <button class="btn btn-sm btn-success" (click)="onAccept(inv.id)">Accept</button>
+            <button class="btn btn-sm btn-outline-secondary" (click)="onDecline(inv.id)">Decline</button>
+          </div>
+        </div>
+      }
+    </div>
+  }
+
+  @if (showList() && invitations().length === 0) {
+    <div class="inv-dropdown">
+      <p class="text-muted small px-3 py-2 mb-0">No pending invitations.</p>
+    </div>
+  }
+</div>
+
+<style>
+  .inv-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 5px;
+    background: #ef4444;
+    color: #fff;
+    border-radius: 999px;
+    font-size: 0.65rem;
+    font-weight: 700;
+  }
+
+  .inv-dropdown {
+    position: absolute;
+    left: 100%;
+    top: 0;
+    width: 260px;
+    background: #fff;
+    border: 1px solid rgba(15, 23, 42, 0.1);
+    border-radius: 0.75rem;
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.12);
+    z-index: 200;
+    overflow: hidden;
+  }
+
+  .inv-item {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid rgba(15, 23, 42, 0.06);
+
+    &:last-child { border-bottom: none; }
+  }
+
+  .inv-group-name {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #0f172a;
+  }
+
+  .inv-from {
+    font-size: 0.75rem;
+    color: #64748b;
+    margin-bottom: 0.5rem;
+  }
+
+  .inv-actions {
+    display: flex;
+    gap: 0.4rem;
+  }
+</style>

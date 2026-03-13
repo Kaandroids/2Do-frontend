@@ -1,0 +1,168 @@
+<div class="modal fade" id="groupSettingsModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content border-0 shadow-lg">
+
+      <div class="modal-header modal-header-primary">
+        <h5 class="modal-title">
+          <i class="bi bi-gear-fill me-2"></i>
+          {{ group?.name }} — Settings
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                id="closeGroupSettingsModalBtn"></button>
+      </div>
+
+      <!-- Tabs -->
+      <div class="modal-body p-0">
+        <ul class="nav nav-tabs px-4 pt-3">
+          <li class="nav-item">
+            <button class="nav-link" [class.active]="activeTab() === 'members'"
+                    (click)="activeTab.set('members')">
+              <i class="bi bi-people me-1"></i> Members
+            </button>
+          </li>
+          @if (group?.isOwner) {
+            <li class="nav-item">
+              <button class="nav-link" [class.active]="activeTab() === 'invite'"
+                      (click)="activeTab.set('invite')">
+                <i class="bi bi-person-plus me-1"></i> Invite
+              </button>
+            </li>
+          }
+        </ul>
+
+        <div class="p-4">
+
+          <!-- Members Tab -->
+          @if (activeTab() === 'members') {
+            @if (isLoadingMembers()) {
+              <div class="text-center py-4">
+                <div class="spinner-border text-primary" role="status"></div>
+              </div>
+            } @else if (members().length === 0) {
+              <p class="text-muted text-center py-4">No members yet. Invite someone!</p>
+            } @else {
+              <div class="list-group list-group-flush">
+                @for (member of members(); track member.userId) {
+                  <div class="list-group-item d-flex align-items-center gap-3 px-0 py-3">
+                    <div class="avatar-circle">
+                      {{ member.firstName[0] }}{{ member.lastName[0] }}
+                    </div>
+                    <div class="flex-grow-1">
+                      <div class="fw-semibold">{{ member.firstName }} {{ member.lastName }}</div>
+                      <div class="text-muted small">{{ member.email }}</div>
+                      @if (group?.isOwner) {
+                        <div class="d-flex gap-2 mt-1">
+                          @for (perm of ['CAN_CREATE', 'CAN_EDIT', 'CAN_DELETE']; track perm) {
+                            <span class="perm-chip"
+                                  [class.perm-chip--active]="hasPermission(member, $any(perm))"
+                                  (click)="togglePermission(member, $any(perm))"
+                                  [title]="'Toggle ' + perm">
+                              {{ perm.replace('CAN_', '') }}
+                            </span>
+                          }
+                        </div>
+                      } @else {
+                        <div class="d-flex gap-2 mt-1">
+                          @for (perm of member.permissions; track perm) {
+                            <span class="perm-chip perm-chip--active">{{ perm.replace('CAN_', '') }}</span>
+                          }
+                        </div>
+                      }
+                    </div>
+                    @if (group?.isOwner) {
+                      <button class="btn btn-sm btn-outline-danger"
+                              (click)="onRemoveMember(member.userId)">
+                        <i class="bi bi-person-dash"></i>
+                      </button>
+                    }
+                  </div>
+                }
+              </div>
+            }
+          }
+
+          <!-- Invite Tab -->
+          @if (activeTab() === 'invite') {
+            <form [formGroup]="inviteForm" (ngSubmit)="onInvite()">
+
+              <div class="mb-3">
+                <label class="form-label">EMAIL ADDRESS <span class="text-danger">*</span></label>
+                <input type="email" class="form-control" formControlName="inviteeEmail"
+                       placeholder="colleague@example.com"
+                       [class.is-invalid]="inviteForm.get('inviteeEmail')?.invalid && inviteForm.get('inviteeEmail')?.touched">
+                @if (inviteForm.get('inviteeEmail')?.invalid && inviteForm.get('inviteeEmail')?.touched) {
+                  <div class="invalid-feedback">Please enter a valid email address.</div>
+                }
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label">PERMISSIONS</label>
+                <div class="d-flex gap-3 mt-1">
+                  <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="permCreate" formControlName="canCreate">
+                    <label class="form-check-label" for="permCreate">Create Tasks</label>
+                  </div>
+                  <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="permEdit" formControlName="canEdit">
+                    <label class="form-check-label" for="permEdit">Edit Tasks</label>
+                  </div>
+                  <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="permDelete" formControlName="canDelete">
+                    <label class="form-check-label" for="permDelete">Delete Tasks</label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="d-grid mt-4">
+                <button type="submit" class="btn btn-primary py-2 fw-bold"
+                        [disabled]="inviteForm.invalid || isInviting()">
+                  @if (isInviting()) {
+                    <span class="spinner-border spinner-border-sm me-2"></span> Sending...
+                  } @else {
+                    <i class="bi bi-send me-2"></i> Send Invitation
+                  }
+                </button>
+              </div>
+
+            </form>
+          }
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<style>
+  .avatar-circle {
+    width: 38px; height: 38px;
+    border-radius: 50%;
+    background: rgba(99, 102, 241, 0.12);
+    color: #6366f1;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.8rem; font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .perm-chip {
+    display: inline-block;
+    padding: 0.1rem 0.5rem;
+    border-radius: 999px;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    background: rgba(15, 23, 42, 0.06);
+    color: #64748b;
+    border: 1px solid rgba(15, 23, 42, 0.1);
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.15s, color 0.15s;
+
+    &--active {
+      background: rgba(99, 102, 241, 0.12);
+      color: #6366f1;
+      border-color: rgba(99, 102, 241, 0.3);
+    }
+  }
+</style>

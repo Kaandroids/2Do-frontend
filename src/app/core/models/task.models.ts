@@ -25,6 +25,10 @@ export interface TaskResponse {
   dueDate?: string;
   priority?: Priority;
   completed: boolean;
+  groupId?: number;
+  assigneeId?: number;
+  assigneeFirstName?: string;
+  assigneeLastName?: string;
 }
 
 /**
@@ -35,6 +39,8 @@ export interface CreateTaskRequest {
   description?: string;
   priority: Priority;
   dueDate?: string;
+  groupId?: number;
+  assigneeId?: number;
 }
 
 /**
