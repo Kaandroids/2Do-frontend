@@ -1,5 +1,5 @@
 <div class="login-container d-flex align-items-center justify-content-center min-vh-100">
-  <div class="auth-card" style="width: 100%; max-width: 400px;">
+  <div class="auth-card" style="max-width: 400px;">
 
     <div class="text-center mb-4">
       <div class="app-logo mx-auto"><i class="bi bi-check2-square"></i></div>
@@ -63,8 +63,7 @@
 
       <button
         type="submit"
-        class="btn btn-primary w-100 py-2 fw-semibold d-flex align-items-center justify-content-center"
-        style="border-radius: 0.75rem; font-size: 0.95rem;"
+        class="btn btn-primary w-100 fw-semibold d-flex align-items-center justify-content-center auth-submit"
         [disabled]="isLoading()"
       >
         @if (isLoading()) {

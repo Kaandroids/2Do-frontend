@@ -31,6 +31,7 @@ export class Register {
   // signals
   isLoading = signal<boolean>(false);
   errorMessage = signal<string | null>(null);
+  showPassword = signal<boolean>(false);
 
   registerForm: FormGroup;
 

@@ -1,29 +1,9 @@
+$auth-bg: rgba(99, 102, 241, 0.07);
+$auth-bg2: rgba(139, 92, 246, 0.06);
+
 .register-container {
   background-color: #f8fafc;
   background-image:
-    radial-gradient(ellipse 60% 50% at 20% 30%, rgba(99, 102, 241, 0.07) 0%, transparent 70%),
-    radial-gradient(ellipse 50% 40% at 80% 70%, rgba(139, 92, 246, 0.06) 0%, transparent 65%);
-}
-
-.card {
-  background: #ffffff;
-  border: 1px solid rgba(15, 23, 42, 0.1) !important;
-  box-shadow: 0 4px 24px rgba(15, 23, 42, 0.08), 0 1px 4px rgba(15, 23, 42, 0.05) !important;
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border-radius: 1.5rem !important;
-}
-
-.app-logo {
-  width: 44px;
-  height: 44px;
-  background: linear-gradient(135deg, #6366f1, #8b5cf6);
-  border-radius: 12px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
-  font-size: 1.3rem;
-  color: #fff;
-  margin-bottom: 0.5rem;
+    radial-gradient(ellipse 60% 50% at 20% 30%, $auth-bg 0%, transparent 70%),
+    radial-gradient(ellipse 50% 40% at 80% 70%, $auth-bg2 0%, transparent 65%);
 }
