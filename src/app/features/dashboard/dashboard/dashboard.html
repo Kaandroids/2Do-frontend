@@ -55,8 +55,13 @@
       @if (activeView() === 'dashboard') {
         <div class="dash-overview">
           <div class="page-header">
-            <h1 class="page-title">Dashboard</h1>
+            <div>
+              <h1 class="page-title">Welcome, {{ currentUserName }}</h1>
+              <p class="page-subtitle">Here's what's pending for you.</p>
+            </div>
           </div>
+
+          <!-- Stats row -->
           <div class="overview-cards">
             <div class="overview-card" (click)="activeView.set('tasks')">
               <div class="overview-card__icon overview-card__icon--tasks">
@@ -82,7 +87,7 @@
               </div>
               <div class="overview-card__body">
                 <span class="overview-card__value">{{ pendingTaskCount() }}</span>
-                <span class="overview-card__label">Pending Tasks</span>
+                <span class="overview-card__label">Pending</span>
               </div>
             </div>
             <div class="overview-card">
@@ -95,6 +100,52 @@
               </div>
             </div>
           </div>
+
+          <!-- Pending tasks -->
+          @if (pendingTaskList().length === 0) {
+            <div class="empty-state" style="margin-top:2rem">
+              <i class="bi bi-check2-all"></i>
+              <h5>All caught up!</h5>
+              <p>You have no pending tasks.</p>
+            </div>
+          } @else {
+            <div class="task-grid" style="margin-top:2rem">
+              @for (task of pendingTaskList(); track task.id) {
+                <div class="task-card">
+                  <div class="task-card__header">
+                    <span class="task-group-chip" [class.task-group-chip--personal]="!task.groupId">
+                      @if (task.groupId) { <i class="bi bi-people-fill"></i> } @else { <i class="bi bi-person-fill"></i> }
+                      {{ taskGroupName(task.groupId) }}
+                    </span>
+                    @if (task.dueDate) {
+                      <span class="due-date">
+                        <i class="bi bi-calendar3"></i>{{ task.dueDate | date:'mediumDate' }}
+                      </span>
+                    }
+                  </div>
+                  <h3 class="task-card__title">{{ task.title }}</h3>
+                  <p class="task-card__desc">{{ task.description || 'No description provided.' }}</p>
+                  <div class="task-card__footer">
+                    <div class="task-card__footer-left">
+                      <span class="priority-badge"
+                            [class.priority-badge--high]="task.priority === 'HIGH'"
+                            [class.priority-badge--medium]="task.priority === 'MEDIUM'"
+                            [class.priority-badge--low]="task.priority === 'LOW'">
+                        {{ task.priority }}
+                      </span>
+                      <span class="status-badge">
+                        <i class="bi bi-hourglass-split me-1"></i> Pending
+                      </span>
+                    </div>
+                    <button class="btn-action btn-action--complete"
+                            (click)="onToggleTask(task)" title="Mark as Completed">
+                      <i class="bi bi-check-lg me-1"></i> Complete
+                    </button>
+                  </div>
+                </div>
+              }
+            </div>
+          }
         </div>
       }
 

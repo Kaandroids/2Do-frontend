@@ -41,7 +41,9 @@ export class Dashboard implements OnInit {
   // View state
   activeView = signal<'dashboard' | 'tasks' | 'groups'>('dashboard');
 
-  pendingTaskCount = computed(() => this.taskList().filter((t) => !t.completed).length);
+  currentUserName = this.authService.getCurrentUserFullName();
+  pendingTaskList = computed(() => this.taskList().filter((t) => !t.completed));
+  pendingTaskCount = computed(() => this.pendingTaskList().length);
   completedTaskCount = computed(() => this.taskList().filter((t) => t.completed).length);
 
   // Group state

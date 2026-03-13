@@ -97,4 +97,15 @@ export class AuthService {
   getToken(): string | null {
     return localStorage.getItem(this.TOKEN_KEY);
   }
+
+  getCurrentUserFullName(): string {
+    const token = this.getToken();
+    if (!token) return '';
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      return `${payload.firstName ?? ''} ${payload.lastName ?? ''}`.trim();
+    } catch {
+      return '';
+    }
+  }
 }
