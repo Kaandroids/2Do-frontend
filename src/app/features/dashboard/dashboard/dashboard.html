@@ -250,6 +250,19 @@
 </div>
 
 <!-- ─── Create Task Modal ──────────────────────────────────────────────────── -->
+<!-- ─── Toast ─────────────────────────────────────────────────────────────── -->
+@if (toast()) {
+  <div class="dash-toast" [class.dash-toast--error]="toast()!.type === 'error'"
+       [class.dash-toast--success]="toast()!.type === 'success'">
+    <i class="bi" [class.bi-exclamation-circle-fill]="toast()!.type === 'error'"
+                  [class.bi-check-circle-fill]="toast()!.type === 'success'"></i>
+    <span>{{ toast()!.message }}</span>
+    <button class="dash-toast__close" (click)="toast.set(null)">
+      <i class="bi bi-x-lg"></i>
+    </button>
+  </div>
+}
+
 <div class="modal fade" id="addTaskModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable tm-dialog">
     <div class="modal-content tm-modal">

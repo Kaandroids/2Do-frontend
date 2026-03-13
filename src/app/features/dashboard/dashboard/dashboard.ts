@@ -38,6 +38,10 @@ export class Dashboard implements OnInit {
   isProcessing = signal<boolean>(false);
   isSubmitting = signal<boolean>(false);
 
+  // Toast
+  toast = signal<{ message: string; type: 'error' | 'success' } | null>(null);
+  private toastTimer: ReturnType<typeof setTimeout> | null = null;
+
   // View state
   activeView = signal<'dashboard' | 'tasks' | 'groups'>('dashboard');
 
@@ -210,17 +214,21 @@ export class Dashboard implements OnInit {
           const closeBtn = document.getElementById('closeModalBtn');
           if (closeBtn) closeBtn.click();
         },
-        error: (err) => {
-          const msg = err?.error?.message || 'Failed to create task. Please try again later.';
-          alert(msg);
-        },
+        error: (err) => this.showToast(err?.error?.message || 'Failed to create task.'),
       });
+  }
+
+  showToast(message: string, type: 'error' | 'success' = 'error'): void {
+    if (this.toastTimer) clearTimeout(this.toastTimer);
+    this.toast.set({ message, type });
+    this.toastTimer = setTimeout(() => this.toast.set(null), 4000);
   }
 
   onDelete(id: number): void {
     if (confirm('Are you sure you want to delete this task?')) {
-      this.taskService.deleteTask(id).subscribe(() => {
-        this.taskList.update((prev) => prev.filter((item) => item.id !== id));
+      this.taskService.deleteTask(id).subscribe({
+        next: () => this.taskList.update((prev) => prev.filter((item) => item.id !== id)),
+        error: (err) => this.showToast(err?.error?.message || 'Failed to delete task.'),
       });
     }
   }
@@ -239,7 +247,15 @@ export class Dashboard implements OnInit {
     this.taskList.update((tasks) =>
       tasks.map((t) => (t.id === task.id ? { ...t, completed: !t.completed } : t))
     );
-    this.taskService.toggleTaskStatus(task).subscribe();
+    this.taskService.toggleTaskStatus(task).subscribe({
+      error: (err) => {
+        // Revert optimistic update
+        this.taskList.update((tasks) =>
+          tasks.map((t) => (t.id === task.id ? { ...t, completed: task.completed } : t))
+        );
+        this.showToast(err?.error?.message || 'Failed to update task.');
+      },
+    });
   }
 
   async onAiTaskClick(): Promise<void> {
