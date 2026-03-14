@@ -993,6 +993,8 @@
   position: fixed; inset: 0;
   background: rgba(0, 0, 0, 0.38);
   z-index: 300;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
   animation: mob-fade-in 0.2s ease;
 }
 

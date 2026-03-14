@@ -9,7 +9,7 @@
 }
 
 .lnav-inner {
-  width: 100%; max-width: $bp-2xl; margin: 0 auto; padding: $space-4 $space-10;
+  width: 100%; max-width: $bp-2xl; margin: 0 auto; padding: $space-5 $space-10;
   display: flex; align-items: center; gap: $space-6;
 }
 
@@ -76,6 +76,8 @@
 .lnav-overlay {
   position: fixed; inset: 0;
   background: rgba(0, 0, 0, 0.35); z-index: $z-overlay;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
   animation: lnav-fade 0.2s ease;
 }
 
