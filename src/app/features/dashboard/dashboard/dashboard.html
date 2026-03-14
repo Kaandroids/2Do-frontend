@@ -168,10 +168,16 @@
       @if (!isLoading()) {
         <!-- Page Header -->
         <div class="page-header">
-          <h1 class="page-title">
-            {{ pageTitle }}
-            <span class="task-pill">{{ taskList().length }}</span>
-          </h1>
+          <div>
+            <h1 class="page-title">
+              {{ pageTitle }}
+              <span class="task-pill">{{ taskList().length }}</span>
+            </h1>
+            <p class="page-subtitle">
+              @if (activeGroupId() === null) { Manage and track your personal tasks. }
+              @else { View and manage tasks shared with your group. }
+            </p>
+          </div>
           <div class="page-actions">
             @if (activeGroupId() === null) {
               <button class="btn-ai"

@@ -228,7 +228,7 @@ $surface:    #ffffff;
 // ─── Page Header ──────────────────────────────────────────────────────────────
 .page-header {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   margin-bottom: 1.75rem;
   flex-wrap: wrap;
