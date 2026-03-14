@@ -1,5 +1,18 @@
 <svg width="200" height="200" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
     <rect x="0" y="0" width="1024" height="1024" rx="280" ry="280" fill="#7b61ff" />
 
-    <text x="50%" y="50%" dominant-baseline="central" text-anchor="middle" font-family="Arial, sans-serif" font-weight="normal" font-size="520" fill="#ffffff">2</text>
+    <g transform="translate(256, 256) scale(2)">
+        <rect x="50" y="50" width="156" height="186" rx="20" ry="20" fill="white" />
+
+        <path d="M100,20 h56 c11,0 20,9 20,20 v20 h-96 v-20 c0,-11 9,-20 20,-20 z" fill="white"/>
+
+        <rect x="70" y="100" width="116" height="16" rx="8" ry="8" fill="#7b61ff" />
+        <rect x="70" y="140" width="116" height="16" rx="8" ry="8" fill="#7b61ff" />
+        <rect x="70" y="180" width="80" height="16" rx="8" ry="8" fill="#7b61ff" />
+
+        <rect x="70" y="100" width="16" height="16" rx="3" ry="3" fill="white" stroke="#7b61ff" stroke-width="3" />
+        <rect x="70" y="140" width="16" height="16" rx="3" ry="3" fill="white" stroke="#7b61ff" stroke-width="3" />
+
+        <polyline points="72,108 76,112 84,104" fill="none" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
 </svg>
