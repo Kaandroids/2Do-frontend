@@ -1,83 +1,122 @@
-$primary:    #6366f1;
-$primary-end:#8b5cf6;
-$text:       #0f172a;
-$muted:      #64748b;
-$border:     rgba(15, 23, 42, 0.1);
+$primary:     #6366f1;
+$primary-end: #8b5cf6;
+$bg:          #f8fafc;
+$border:      rgba(15, 23, 42, 0.1);
+$text:        #0f172a;
+$text-muted:  #64748b;
 
 .about-page {
-  min-height: calc(100vh - 128px);
-  background: #f8fafc;
-  padding: 5rem 2.5rem 4rem;
+  min-height: 100vh;
+  background:
+    radial-gradient(ellipse at 20% 50%, rgba(99, 102, 241, 0.06) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 20%, rgba(139, 92, 246, 0.05) 0%, transparent 50%),
+    $bg;
+  color: $text;
+  position: relative;
+  overflow-x: hidden;
 }
 
-.about-inner {
-  max-width: 760px;
+// ─── Background Orbs ──────────────────────────────────────────────────────────
+.bg-orbs { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
+
+.orb {
+  position: absolute; border-radius: 50%; filter: blur(100px); opacity: 0.07;
+  &--1 { width: 600px; height: 600px; background: $primary; top: -15%; left: -15%; animation: float 10s ease-in-out infinite; }
+  &--2 { width: 400px; height: 400px; background: $primary-end; bottom: 10%; right: -10%; animation: float 13s ease-in-out infinite reverse; }
+  &--3 { width: 300px; height: 300px; background: #06b6d4; top: 40%; right: 25%; animation: float 8s ease-in-out infinite 2s; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50%       { transform: translateY(-24px) scale(1.04); }
+}
+
+// ─── Hero ─────────────────────────────────────────────────────────────────────
+.about-hero {
+  position: relative; z-index: 1;
+  max-width: 1320px; margin: 0 auto; padding: 8rem 2.5rem 5rem;
 }
 
 .about-badge {
-  display: inline-block; padding: 0.3rem 1rem;
-  background: rgba(99, 102, 241, 0.1); border: 1px solid rgba(99, 102, 241, 0.25);
-  border-radius: 2rem; color: $primary; font-size: 0.78rem; font-weight: 700;
-  letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 1.5rem;
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  padding: 0.35rem 1rem;
+  background: rgba(99, 102, 241, 0.15); border: 1px solid rgba(99, 102, 241, 0.3);
+  border-radius: 2rem; color: $primary; font-size: 0.8rem; font-weight: 500;
+  letter-spacing: 0.02em; margin-bottom: 2rem;
+  svg { width: 13px; height: 13px; flex-shrink: 0; }
 }
 
 .about-title {
-  font-size: clamp(2.2rem, 5vw, 3.2rem); font-weight: 800;
-  letter-spacing: -0.04em; color: $text; margin-bottom: 1.25rem; line-height: 1.1;
+  font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 800;
+  line-height: 1.1; letter-spacing: -0.04em; color: $text; margin-bottom: 1.5rem;
 }
 
-.about-gradient {
-  background: linear-gradient(135deg, $primary, $primary-end);
+.gradient-text {
+  background: linear-gradient(135deg, $primary, $primary-end, #06b6d4);
   -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
 }
 
 .about-sub {
-  font-size: 1.05rem; color: $muted; line-height: 1.75;
-  max-width: 580px; margin-bottom: 3rem;
+  font-size: 1.15rem; line-height: 1.7; color: $text-muted;
+  max-width: 580px; margin: 0 0 2.5rem;
 }
 
-.about-cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-  gap: 1.1rem;
-  margin-bottom: 3rem;
+.btn-ghost {
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: 0.85rem 2rem; background: transparent;
+  border: 1px solid $border; border-radius: 0.875rem; color: $text-muted;
+  font-size: 1rem; font-weight: 500; text-decoration: none;
+  transition: border-color 0.2s, color 0.2s, background 0.2s;
+  &:hover { border-color: rgba(15, 23, 42, 0.2); color: $text; background: rgba(15, 23, 42, 0.04); }
+}
+
+// ─── Cards Section ────────────────────────────────────────────────────────────
+.about-cards-section {
+  position: relative; z-index: 1;
+  max-width: 1320px; margin: 0 auto; padding: 1rem 2.5rem 6rem;
+}
+
+.section-label {
+  font-size: 0.78rem; font-weight: 600; letter-spacing: 0.1em;
+  text-transform: uppercase; color: $primary; margin-bottom: 0.75rem;
+}
+
+.section-title {
+  font-size: clamp(1.6rem, 3.5vw, 2.25rem); font-weight: 700;
+  letter-spacing: -0.03em; color: $text; margin-bottom: 3rem;
+}
+
+.about-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.25rem;
 }
 
 .about-card {
-  background: #fff; border: 1px solid $border; border-radius: 1.25rem;
-  padding: 1.75rem 1.5rem;
-  transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+  background: #fff; border: 1px solid $border; border-radius: 1.25rem; padding: 2rem;
+  transition: border-color 0.25s, background 0.25s, transform 0.25s;
+  &:hover { border-color: rgba(99, 102, 241, 0.3); background: rgba(99, 102, 241, 0.03); transform: translateY(-3px); }
+  h3 { font-size: 1rem; font-weight: 650; color: $text; margin: 1rem 0 0.5rem; }
+  p  { font-size: 0.9rem; line-height: 1.65; color: $text-muted; margin: 0; }
 
-  &:hover {
-    border-color: rgba(99, 102, 241, 0.3);
-    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.07);
-    transform: translateY(-2px);
+  &--highlight {
+    border-color: rgba(99, 102, 241, 0.28); background: rgba(99, 102, 241, 0.05);
+    &:hover { border-color: rgba(99, 102, 241, 0.5); background: rgba(99, 102, 241, 0.09); }
   }
-
-  h3 { font-size: 0.95rem; font-weight: 700; color: $text; margin: 0.75rem 0 0.4rem; }
-  p  { font-size: 0.875rem; color: $muted; line-height: 1.65; margin: 0; }
 }
 
 .about-card-icon {
-  width: 44px; height: 44px; border-radius: 12px;
+  width: 44px; height: 44px; border-radius: 0.75rem;
   display: flex; align-items: center; justify-content: center;
-  font-size: 1.1rem;
-  background: rgba(99, 102, 241, 0.1); color: $primary;
+  svg { width: 20px; height: 20px; }
 
-  &--ai    { background: rgba(239, 68, 68, 0.1);  color: #ef4444; }
-  &--green { background: rgba(16, 185, 129, 0.1); color: #059669; }
-}
-
-.about-back {
-  display: inline-flex; align-items: center; gap: 0.5rem;
-  padding: 0.6rem 1.25rem; border-radius: 0.75rem;
-  border: 1px solid $border; color: $muted;
-  font-size: 0.875rem; font-weight: 500; text-decoration: none;
-  transition: border-color 0.2s, color 0.2s;
-  &:hover { border-color: rgba(15, 23, 42, 0.22); color: $text; }
+  &--primary { background: rgba(99, 102, 241, 0.12); border: 1px solid rgba(99, 102, 241, 0.22); color: $primary; }
+  &--ai      { background: rgba(99, 102, 241, 0.18); border: 1px solid rgba(99, 102, 241, 0.35); color: $primary; }
+  &--green   { background: rgba(16, 185, 129, 0.1);  border: 1px solid rgba(16, 185, 129, 0.22); color: #059669; }
+  &--cyan    { background: rgba(6, 182, 212, 0.1);   border: 1px solid rgba(6, 182, 212, 0.22);  color: #0891b2; }
+  &--orange  { background: rgba(249, 115, 22, 0.1);  border: 1px solid rgba(249, 115, 22, 0.22); color: #ea580c; }
 }
 
 @media (max-width: 600px) {
-  .about-page  { padding: 3rem 1.25rem 2.5rem; }
-  .about-cards { grid-template-columns: 1fr; }
+  .about-hero         { padding: 5rem 1.25rem 3.5rem; }
+  .about-cards-section { padding: 1rem 1.25rem 4rem; }
+  .about-grid         { grid-template-columns: 1fr; }
 }

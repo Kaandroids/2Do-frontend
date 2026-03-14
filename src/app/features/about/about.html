@@ -1,41 +1,117 @@
-<app-navbar></app-navbar>
-
 <div class="about-page">
-  <div class="about-inner">
 
-    <div class="about-badge">About Us</div>
+  <!-- Background Orbs -->
+  <div class="bg-orbs" aria-hidden="true">
+    <div class="orb orb--1"></div>
+    <div class="orb orb--2"></div>
+    <div class="orb orb--3"></div>
+  </div>
+
+  <app-navbar></app-navbar>
+
+  <!-- ─── Hero ──────────────────────────────────────────────────────────── -->
+  <section class="about-hero">
+    <div class="about-badge">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M13 10V3L4 14h7v7l9-11h-7z"/>
+      </svg>
+      About Us
+    </div>
+
     <h1 class="about-title">
       Built to keep you<br>
-      <span class="about-gradient">on track.</span>
+      <span class="gradient-text">on track.</span>
     </h1>
+
     <p class="about-sub">
       2Do is a modern task management app designed for individuals and teams.
       We combine clean design with AI-powered features to help you get things done — faster and smarter.
     </p>
 
-    <div class="about-cards">
-      <div class="about-card">
-        <div class="about-card-icon"><i class="bi bi-lightning-charge-fill"></i></div>
+    <a routerLink="/" class="btn-ghost btn-lg">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:15px;height:15px;margin-right:0.4rem">
+        <path d="M19 12H5M12 5l-7 7 7 7"/>
+      </svg>
+      Back to Home
+    </a>
+  </section>
+
+  <!-- ─── Cards ─────────────────────────────────────────────────────────── -->
+  <section class="about-cards-section">
+    <div class="section-label">What drives us</div>
+    <h2 class="section-title">Our principles.</h2>
+
+    <div class="about-grid">
+
+      <div class="about-card about-card--highlight">
+        <div class="about-card-icon about-card-icon--primary">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+          </svg>
+        </div>
         <h3>Fast by design</h3>
         <p>Every interaction is optimised for speed. No friction, no clutter — just your tasks.</p>
       </div>
+
       <div class="about-card">
-        <div class="about-card-icon about-card-icon--ai"><i class="bi bi-mic-fill"></i></div>
+        <div class="about-card-icon about-card-icon--ai">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/>
+            <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+            <line x1="12" y1="19" x2="12" y2="23"/>
+            <line x1="8" y1="23" x2="16" y2="23"/>
+          </svg>
+        </div>
         <h3>AI-powered</h3>
         <p>Speak your task aloud. Gemini AI extracts title, description, priority and due date automatically.</p>
       </div>
+
       <div class="about-card">
-        <div class="about-card-icon about-card-icon--green"><i class="bi bi-people-fill"></i></div>
+        <div class="about-card-icon about-card-icon--green">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+            <circle cx="12" cy="7" r="4"/>
+          </svg>
+        </div>
         <h3>Built for teams</h3>
         <p>Create groups, invite colleagues, assign tasks and manage permissions — all in one place.</p>
       </div>
+
+      <div class="about-card">
+        <div class="about-card-icon about-card-icon--cyan">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          </svg>
+        </div>
+        <h3>Secure by default</h3>
+        <p>JWT authentication, Redis-backed token blacklist and distributed rate limiting keep your data safe.</p>
+      </div>
+
+      <div class="about-card">
+        <div class="about-card-icon about-card-icon--orange">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+          </svg>
+        </div>
+        <h3>Always improving</h3>
+        <p>Continuous deployments via GitHub Actions mean new features and fixes ship to production daily.</p>
+      </div>
+
+      <div class="about-card">
+        <div class="about-card-icon about-card-icon--primary">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="2" y1="12" x2="22" y2="12"/>
+            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+          </svg>
+        </div>
+        <h3>Cloud-native</h3>
+        <p>Deployed on Azure Container Apps and Azure Static Web Apps for global availability and reliability.</p>
+      </div>
+
     </div>
+  </section>
 
-    <a routerLink="/" class="about-back">
-      <i class="bi bi-arrow-left"></i> Back to Home
-    </a>
+  <app-footer></app-footer>
 
-  </div>
 </div>
-
-<app-footer></app-footer>
