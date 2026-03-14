@@ -1075,8 +1075,11 @@
   to   { opacity: 1; }
 }
 
+.desktop-only { display: inline-flex; }
+
 // ─── Responsive ───────────────────────────────────────────────────────────────
 @media (max-width: $bp-md) {
+  .desktop-only  { display: none; }
   .dash-sidebar  { display: none; }
   .mob-hamburger { display: flex; }
   .dash-topbar   { padding: 0 $space-5; }
