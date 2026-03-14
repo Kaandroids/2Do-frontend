@@ -88,6 +88,11 @@ export class GroupSettingsModal implements OnChanges {
       perms.delete(perm);
     } else {
       perms.add(perm);
+      if (perm === 'CAN_MANAGE') {
+        (['CAN_CREATE', 'CAN_EDIT', 'CAN_DELETE', 'CAN_INVITE'] as GroupPermission[]).forEach((p) =>
+          perms.add(p)
+        );
+      }
     }
     const updated = Array.from(perms);
     this.groupService
