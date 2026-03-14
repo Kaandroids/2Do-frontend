@@ -218,27 +218,15 @@ $text-muted:  #64748b;
   svg { width: 13px; height: 13px; }
 }
 
-.footer { position: relative; z-index: 1; border-top: 1px solid $border; padding: 1.75rem 2.5rem; }
-
-.footer-inner {
-  max-width: 1320px; margin: 0 auto;
-  display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap;
-}
-
-.footer-copy { font-size: 0.85rem; color: $text-muted; margin: 0; }
-
 @media (max-width: 600px) {
-  .nav-inner          { padding: 0.75rem 1.25rem; }
   .hero               { padding: 5rem 1.25rem 3.5rem; }
   .features           { padding: 3rem 1.25rem 4rem; }
   .ai-spotlight       { padding: 0 1.25rem 3rem; }
   .ai-spotlight-inner { padding: 2rem 1.25rem; }
   .cta-banner         { padding: 2rem 1.25rem; }
   .cta-banner-inner   { padding: 2rem 1.5rem; }
-  .footer             { padding: 1.5rem 1.25rem; }
   .features-grid      { grid-template-columns: 1fr; }
   .spotlight-steps    { flex-direction: column; align-items: center; }
   .spotlight-arrow    { padding-top: 0; transform: rotate(90deg); }
   .spotlight-step     { max-width: 100%; }
-  .footer-inner       { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
 }

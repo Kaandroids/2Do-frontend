@@ -2,14 +2,40 @@
 
 <div class="about-page">
   <div class="about-inner">
+
     <div class="about-badge">About Us</div>
-    <h1 class="about-title">Built to keep you <span class="about-gradient">on track.</span></h1>
+    <h1 class="about-title">
+      Built to keep you<br>
+      <span class="about-gradient">on track.</span>
+    </h1>
     <p class="about-sub">
       2Do is a modern task management app designed for individuals and teams.
-      We combine clean design with AI-powered features to help you get things done — faster.
+      We combine clean design with AI-powered features to help you get things done — faster and smarter.
     </p>
-    <a routerLink="/" class="about-cta">
+
+    <div class="about-cards">
+      <div class="about-card">
+        <div class="about-card-icon"><i class="bi bi-lightning-charge-fill"></i></div>
+        <h3>Fast by design</h3>
+        <p>Every interaction is optimised for speed. No friction, no clutter — just your tasks.</p>
+      </div>
+      <div class="about-card">
+        <div class="about-card-icon about-card-icon--ai"><i class="bi bi-mic-fill"></i></div>
+        <h3>AI-powered</h3>
+        <p>Speak your task aloud. Gemini AI extracts title, description, priority and due date automatically.</p>
+      </div>
+      <div class="about-card">
+        <div class="about-card-icon about-card-icon--green"><i class="bi bi-people-fill"></i></div>
+        <h3>Built for teams</h3>
+        <p>Create groups, invite colleagues, assign tasks and manage permissions — all in one place.</p>
+      </div>
+    </div>
+
+    <a routerLink="/" class="about-back">
       <i class="bi bi-arrow-left"></i> Back to Home
     </a>
+
   </div>
 </div>
+
+<app-footer></app-footer>
