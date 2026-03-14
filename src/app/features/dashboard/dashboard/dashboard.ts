@@ -44,6 +44,7 @@ export class Dashboard implements OnInit {
 
   // View state
   activeView = signal<'dashboard' | 'tasks' | 'groups'>('dashboard');
+  menuOpen = signal<boolean>(false);
 
   currentUserName = this.authService.getCurrentUserFullName();
   pendingTaskList = computed(() => this.taskList().filter((t) => !t.completed));

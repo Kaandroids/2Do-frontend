@@ -3,6 +3,9 @@
   <!-- ─── Top Bar ─────────────────────────────────────────────────────────── -->
   <header class="dash-topbar">
     <div class="dash-topbar-left">
+      <button class="mob-hamburger" (click)="menuOpen.set(true)" aria-label="Open menu">
+        <i class="bi bi-list"></i>
+      </button>
       <span class="brand-icon"><i class="bi bi-check2-square"></i></span>
       <span class="brand-name">2Do</span>
     </div>
@@ -10,6 +13,44 @@
       <i class="bi bi-box-arrow-right me-2"></i>Logout
     </button>
   </header>
+
+  <!-- ─── Mobile Drawer ─────────────────────────────────────────────────────── -->
+  @if (menuOpen()) {
+    <div class="mob-overlay" (click)="menuOpen.set(false)"></div>
+    <div class="mob-drawer">
+      <div class="mob-drawer-header">
+        <div class="mob-drawer-brand">
+          <span class="brand-icon"><i class="bi bi-check2-square"></i></span>
+          <span class="brand-name">2Do</span>
+        </div>
+        <button class="mob-close" (click)="menuOpen.set(false)" aria-label="Close menu">
+          <i class="bi bi-x-lg"></i>
+        </button>
+      </div>
+      <nav class="mob-nav">
+        <a class="mob-nav-item" [class.mob-nav-item--active]="activeView() === 'dashboard'"
+           (click)="activeView.set('dashboard'); menuOpen.set(false)">
+          <i class="bi bi-grid"></i><span>Dashboard</span>
+        </a>
+        <a class="mob-nav-item" [class.mob-nav-item--active]="activeView() === 'tasks'"
+           (click)="selectGroup(null); menuOpen.set(false)">
+          <i class="bi bi-check2-square"></i><span>Tasks</span>
+        </a>
+        <a class="mob-nav-item" [class.mob-nav-item--active]="activeView() === 'groups'"
+           (click)="activeView.set('groups'); menuOpen.set(false)">
+          <i class="bi bi-people"></i><span>Groups</span>
+          @if (myGroups().length > 0) {
+            <span class="mob-badge">{{ myGroups().length }}</span>
+          }
+        </a>
+      </nav>
+      <div class="mob-drawer-footer">
+        <button class="mob-logout-btn" (click)="onLogout()">
+          <i class="bi bi-box-arrow-right"></i>Logout
+        </button>
+      </div>
+    </div>
+  }
 
   <!-- ─── Body ──────────────────────────────────────────────────────────────── -->
   <div class="dash-body">

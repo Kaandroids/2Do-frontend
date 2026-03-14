@@ -30,17 +30,30 @@
       </button>
     </div>
 
-    @if (mobileMenuOpen()) {
-      <div class="mobile-menu">
-        <a routerLink="/login" class="mobile-link" (click)="toggleMenu()">Sign in</a>
-        <div class="mobile-cta">
-          <a routerLink="/register" class="btn-primary w-100 d-block text-center" (click)="toggleMenu()">
-            Get started free
-          </a>
-        </div>
-      </div>
-    }
   </nav>
+
+  @if (mobileMenuOpen()) {
+    <div class="mob-overlay" (click)="toggleMenu()"></div>
+    <div class="mob-drawer">
+      <div class="mob-drawer-head">
+        <a routerLink="/" class="logo" (click)="toggleMenu()">
+          <span class="logo-icon"><i class="bi bi-check2-square"></i></span>
+          <span class="logo-text">2Do</span>
+        </a>
+        <button class="mob-close" (click)="toggleMenu()" aria-label="Close menu">
+          <i class="bi bi-x-lg"></i>
+        </button>
+      </div>
+      <nav class="mob-nav">
+        <a routerLink="/login" class="mob-link" (click)="toggleMenu()">
+          <i class="bi bi-box-arrow-in-right"></i>Sign in
+        </a>
+        <a routerLink="/register" class="mob-link mob-link--primary" (click)="toggleMenu()">
+          <i class="bi bi-person-plus"></i>Get started free
+        </a>
+      </nav>
+    </div>
+  }
 
   <!-- ─── Hero ──────────────────────────────────────────────────────────── -->
   <section class="hero">

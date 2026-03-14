@@ -57,20 +57,72 @@ $text-muted:  #64748b;
   span { display: block; height: 2px; background: $text; border-radius: 2px; transition: 0.2s; }
 }
 
-.mobile-menu {
-  border-top: 1px solid $border; padding: 1rem 1.25rem 1.25rem;
-  display: flex; flex-direction: column; gap: 0.25rem;
+// ─── Mobile Slide-in Drawer ───────────────────────────────────────────────────
+.mob-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0, 0, 0, 0.38);
+  z-index: 200;
+  animation: mob-fade 0.2s ease;
+}
+
+.mob-drawer {
+  position: fixed; top: 0; left: 0;
+  width: 280px; height: 100vh;
   background: rgba(248, 250, 252, 0.98);
+  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+  z-index: 201;
+  display: flex; flex-direction: column;
+  box-shadow: 4px 0 32px rgba(15, 23, 42, 0.14);
+  animation: mob-slide 0.25s ease;
 }
 
-.mobile-link {
-  padding: 0.65rem 0.75rem; border-radius: 0.65rem;
-  font-size: 0.95rem; font-weight: 500; color: $text-muted; text-decoration: none;
+.mob-drawer-head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1.25rem 1.25rem 1rem;
+  border-bottom: 1px solid $border;
+}
+
+.mob-close {
+  width: 34px; height: 34px;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(15, 23, 42, 0.05); border: none;
+  border-radius: 0.5rem; color: $text-muted;
+  font-size: 0.9rem; cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  &:hover { background: rgba(15, 23, 42, 0.1); color: $text; }
+}
+
+.mob-nav {
+  flex: 1; padding: 1rem 0.75rem;
+  display: flex; flex-direction: column; gap: 0.2rem;
+}
+
+.mob-link {
+  display: flex; align-items: center; gap: 0.65rem;
+  padding: 0.65rem 0.85rem; border-radius: 0.65rem;
+  font-size: 0.9rem; font-weight: 500;
+  color: $text-muted; text-decoration: none;
   transition: color 0.2s, background 0.2s;
+  i { font-size: 1rem; flex-shrink: 0; }
   &:hover { color: $text; background: rgba(15, 23, 42, 0.05); }
+
+  &--primary {
+    margin-top: 0.5rem;
+    color: $primary;
+    background: rgba(99, 102, 241, 0.08);
+    &:hover { background: rgba(99, 102, 241, 0.14); color: darken(#6366f1, 8%); }
+  }
 }
 
-.mobile-cta { margin-top: 0.5rem; }
+@keyframes mob-slide {
+  from { transform: translateX(-100%); }
+  to   { transform: translateX(0); }
+}
+
+@keyframes mob-fade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
 
 .logo { display: inline-flex; align-items: center; gap: 0.5rem; text-decoration: none; }
 
