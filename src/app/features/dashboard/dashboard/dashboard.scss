@@ -231,8 +231,9 @@ $surface:    #ffffff;
   align-items: flex-start;
   justify-content: space-between;
   margin-bottom: 1.75rem;
-  flex-wrap: wrap;
   gap: 1rem;
+
+  > div:first-child { flex: 1; min-width: 0; }
 }
 
 .page-title {
@@ -269,6 +270,7 @@ $surface:    #ffffff;
 .page-actions {
   display: flex;
   gap: 0.6rem;
+  flex-shrink: 0;
 }
 
 .btn-ai {
