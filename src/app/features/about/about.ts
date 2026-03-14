@@ -3,10 +3,10 @@ import { RouterLink } from '@angular/router';
 import { Navbar } from '../../shared/components/navbar/navbar';
 
 @Component({
-  selector: 'app-landing',
+  selector: 'app-about',
   standalone: true,
   imports: [RouterLink, Navbar],
-  templateUrl: './landing.html',
-  styleUrl: './landing.scss',
+  templateUrl: './about.html',
+  styleUrl: './about.scss',
 })
-export class Landing {}
+export class About {}

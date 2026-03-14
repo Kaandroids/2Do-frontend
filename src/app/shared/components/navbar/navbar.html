@@ -1,0 +1,59 @@
+<!-- ─── Desktop Navbar ────────────────────────────────────────────────────── -->
+<nav class="lnav">
+  <div class="lnav-inner">
+    <a routerLink="/" class="lnav-logo">
+      <span class="lnav-logo-icon"><i class="bi bi-check2-square"></i></span>
+      <span class="lnav-logo-text">2Do</span>
+    </a>
+
+    <div class="lnav-links">
+      <a routerLink="/" routerLinkActive="lnav-link--active"
+         [routerLinkActiveOptions]="{exact: true}" class="lnav-link">Home</a>
+      <a routerLink="/about" routerLinkActive="lnav-link--active" class="lnav-link">About Us</a>
+    </div>
+
+    <div class="lnav-actions">
+      <a routerLink="/login" class="lnav-btn-ghost">Sign in</a>
+      <a routerLink="/register" class="lnav-btn-primary">Get started free</a>
+    </div>
+
+    <button class="lnav-burger" (click)="menuOpen.set(true)" aria-label="Open menu">
+      <i class="bi bi-list"></i>
+    </button>
+  </div>
+</nav>
+
+<!-- ─── Mobile Drawer ─────────────────────────────────────────────────────── -->
+@if (menuOpen()) {
+  <div class="lnav-overlay" (click)="menuOpen.set(false)"></div>
+  <div class="lnav-drawer">
+
+    <div class="lnav-drawer-head">
+      <div class="lnav-logo">
+        <span class="lnav-logo-icon"><i class="bi bi-check2-square"></i></span>
+        <span class="lnav-logo-text">2Do</span>
+      </div>
+      <button class="lnav-drawer-close" (click)="menuOpen.set(false)" aria-label="Close">
+        <i class="bi bi-x-lg"></i>
+      </button>
+    </div>
+
+    <nav class="lnav-drawer-nav">
+      <a routerLink="/" routerLinkActive="lnav-drawer-item--active"
+         [routerLinkActiveOptions]="{exact: true}"
+         class="lnav-drawer-item" (click)="menuOpen.set(false)">
+        <i class="bi bi-house"></i><span>Home</span>
+      </a>
+      <a routerLink="/about" routerLinkActive="lnav-drawer-item--active"
+         class="lnav-drawer-item" (click)="menuOpen.set(false)">
+        <i class="bi bi-info-circle"></i><span>About Us</span>
+      </a>
+    </nav>
+
+    <div class="lnav-drawer-footer">
+      <a routerLink="/login" class="lnav-drawer-signin" (click)="menuOpen.set(false)">Sign in</a>
+      <a routerLink="/register" class="lnav-drawer-start" (click)="menuOpen.set(false)">Get started free</a>
+    </div>
+
+  </div>
+}

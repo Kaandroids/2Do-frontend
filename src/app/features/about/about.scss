@@ -1,0 +1,39 @@
+.about-page {
+  min-height: calc(100vh - 69px);
+  display: flex; align-items: center; justify-content: center;
+  background: #f8fafc; padding: 4rem 2rem;
+}
+
+.about-inner {
+  max-width: 600px; text-align: center;
+}
+
+.about-badge {
+  display: inline-block; padding: 0.3rem 1rem;
+  background: rgba(99, 102, 241, 0.1); border: 1px solid rgba(99, 102, 241, 0.25);
+  border-radius: 2rem; color: #6366f1; font-size: 0.8rem; font-weight: 600;
+  letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 1.5rem;
+}
+
+.about-title {
+  font-size: clamp(2rem, 5vw, 3rem); font-weight: 800;
+  letter-spacing: -0.04em; color: #0f172a; margin-bottom: 1.25rem; line-height: 1.15;
+}
+
+.about-gradient {
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+
+.about-sub {
+  font-size: 1.05rem; color: #64748b; line-height: 1.7; margin-bottom: 2.5rem;
+}
+
+.about-cta {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  padding: 0.65rem 1.5rem; border-radius: 0.75rem;
+  border: 1px solid rgba(15, 23, 42, 0.15); color: #64748b;
+  font-size: 0.9rem; font-weight: 500; text-decoration: none;
+  transition: border-color 0.2s, color 0.2s;
+  &:hover { border-color: rgba(15, 23, 42, 0.25); color: #0f172a; }
+}
