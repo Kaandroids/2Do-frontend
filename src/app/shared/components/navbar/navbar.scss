@@ -82,10 +82,13 @@
 .lnav-drawer {
   position: fixed; top: 0; right: 0;
   width: 285px; height: 100vh;
+  height: 100dvh;
   background: $bg; z-index: $z-drawer;
   display: flex; flex-direction: column;
   box-shadow: -4px 0 32px rgba(15, 23, 42, 0.13);
   animation: lnav-slide 0.25s ease;
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
 }
 
 .lnav-drawer-head {
