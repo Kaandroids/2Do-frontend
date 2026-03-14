@@ -13,15 +13,15 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 2.5rem;
+  padding: 0 $space-10;
   height: 68px;
-  background: rgba(248, 250, 252, 0.95);
+  background: rgba($bg, 0.95);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid $border;
   position: sticky;
   top: 0;
-  z-index: 100;
+  z-index: $z-nav;
   flex-shrink: 0;
 }
 
@@ -56,7 +56,7 @@
   transition: border-color 0.2s, color 0.2s, background 0.2s;
 
   &:hover {
-    border-color: rgba(15, 23, 42, 0.22);
+    border-color: $border-strong;
     background: rgba(15, 23, 42, 0.04);
     color: $text;
   }
@@ -75,7 +75,7 @@
   flex-shrink: 0;
   background: $surface;
   border-right: 1px solid $border;
-  padding: 1.25rem 0.75rem;
+  padding: $space-5 $space-3;
   display: flex;
   flex-direction: column;
   overflow-y: auto;
@@ -91,7 +91,7 @@
   display: flex;
   align-items: center;
   gap: 0.65rem;
-  padding: 0.55rem 0.75rem;
+  padding: 0.55rem $space-3;
   border-radius: 0.625rem;
   font-size: 0.875rem;
   font-weight: 500;
@@ -129,7 +129,7 @@
   padding: 0 6px;
   background: rgba(99, 102, 241, 0.12);
   color: $primary;
-  border-radius: 999px;
+  border-radius: $radius-full;
   font-size: 0.68rem;
   font-weight: 700;
   margin-left: auto;
@@ -140,14 +140,14 @@
   font-weight: 700;
   letter-spacing: 0.08em;
   color: $muted;
-  padding: 0.75rem 0.75rem 0.25rem;
+  padding: $space-3 $space-3 $space-1;
   text-transform: uppercase;
 }
 
 .sidebar-divider {
   border: none;
   border-top: 1px solid $border;
-  margin: 0.5rem 0.5rem;
+  margin: $space-2 $space-2;
 }
 
 .sidebar-item--add {
@@ -177,7 +177,7 @@
 
 .sidebar-footer {
   margin-top: auto;
-  padding-top: 0.75rem;
+  padding-top: $space-3;
   border-top: 1px solid $border;
 }
 
@@ -186,15 +186,15 @@
 }
 
 .sidebar-item--danger {
-  color: #ef4444;
-  &:hover { background: rgba(239, 68, 68, 0.06); color: #dc2626; }
+  color: $danger;
+  &:hover { background: rgba(239, 68, 68, 0.06); color: $danger-end; }
 }
 
 // ─── Main Content ─────────────────────────────────────────────────────────────
 .dash-main {
   flex: 1;
   min-width: 0;
-  padding: 2.5rem 3rem 4rem;
+  padding: $space-10 $space-12 $space-16;
   overflow-y: auto;
 }
 
@@ -203,8 +203,8 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 5rem 0;
-  gap: 0.75rem;
+  padding: $space-20 0;
+  gap: $space-3;
   color: $muted;
   font-size: 0.9rem;
 }
@@ -215,7 +215,7 @@
   align-items: flex-start;
   justify-content: space-between;
   margin-bottom: 1.75rem;
-  gap: 1rem;
+  gap: $space-4;
 
   > div:first-child { flex: 1; min-width: 0; }
 }
@@ -228,7 +228,7 @@
   margin: 0;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: $space-2;
 }
 
 .page-subtitle {
@@ -246,7 +246,7 @@
   padding: 0 7px;
   background: rgba(99, 102, 241, 0.12);
   color: $primary;
-  border-radius: 999px;
+  border-radius: $radius-full;
   font-size: 0.75rem;
   font-weight: 700;
 }
@@ -262,10 +262,10 @@
   align-items: center;
   gap: 0.4rem;
   padding: 0.5rem 1.1rem;
-  background: linear-gradient(135deg, #f97316, #ef4444);
+  background: linear-gradient(135deg, #f97316, $danger);
   color: #fff;
   border: none;
-  border-radius: 0.75rem;
+  border-radius: $radius-md;
   font-size: 0.875rem;
   font-weight: 600;
   cursor: pointer;
@@ -284,7 +284,7 @@
   background: linear-gradient(135deg, $primary, $primary-end);
   color: #fff;
   border: none;
-  border-radius: 0.75rem;
+  border-radius: $radius-md;
   font-size: 0.875rem;
   font-weight: 600;
   cursor: pointer;
@@ -299,20 +299,20 @@
 .task-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 1.25rem;
+  gap: $space-5;
 }
 
 // ─── Task Card ────────────────────────────────────────────────────────────────
 .task-card {
   background: $surface;
   border: 1px solid $border;
-  border-radius: 1.25rem;
-  padding: 1.25rem 1.25rem 1rem;
+  border-radius: $radius-xl;
+  padding: $space-5 $space-5 $space-4;
   display: flex;
   flex-direction: column;
   gap: 0.6rem;
   transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
-  box-shadow: 0 1px 6px rgba(15, 23, 42, 0.05);
+  box-shadow: $shadow-sm;
 
   &:hover {
     border-color: rgba(99, 102, 241, 0.25);
@@ -324,7 +324,7 @@
     border-left: 4px solid $primary;
     opacity: 0.78;
 
-    .task-card__title { color: #94a3b8; text-decoration: line-through; }
+    .task-card__title { color: $text-subtle; text-decoration: line-through; }
     .task-card__desc  { color: #b0bec5; }
   }
 }
@@ -333,16 +333,15 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 0.5rem;
+  gap: $space-2;
 }
-
 
 .task-group-chip {
   display: inline-flex;
   align-items: center;
   gap: 0.25rem;
   padding: 0.18rem 0.55rem;
-  border-radius: 999px;
+  border-radius: $radius-full;
   font-size: 0.68rem;
   font-weight: 600;
   background: rgba(99, 102, 241, 0.1);
@@ -361,13 +360,13 @@
 .priority-badge {
   display: inline-block;
   padding: 0.2rem 0.65rem;
-  border-radius: 999px;
+  border-radius: $radius-full;
   font-size: 0.7rem;
   font-weight: 700;
   letter-spacing: 0.04em;
   text-transform: uppercase;
 
-  &--high   { background: #fee2e2; color: #dc2626; }
+  &--high   { background: #fee2e2; color: $danger-end; }
   &--medium { background: #fef9c3; color: #b45309; }
   &--low    { background: #cffafe; color: #0e7490; }
 }
@@ -428,7 +427,7 @@
   align-items: center;
   gap: 0.3rem;
   padding: 0.2rem 0.6rem;
-  border-radius: 999px;
+  border-radius: $radius-full;
   background: rgba(99, 102, 241, 0.08);
   color: $primary;
   font-size: 0.72rem;
@@ -449,10 +448,10 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-top: 0.75rem;
+  padding-top: $space-3;
   border-top: 1px solid rgba(15, 23, 42, 0.07);
   margin-top: auto;
-  gap: 0.5rem;
+  gap: $space-2;
 }
 
 .status-badge {
@@ -460,7 +459,7 @@
   align-items: center;
   gap: 0.25rem;
   padding: 0.25rem 0.65rem;
-  border-radius: 999px;
+  border-radius: $radius-full;
   font-size: 0.72rem;
   font-weight: 600;
   background: rgba(15, 23, 42, 0.06);
@@ -469,7 +468,7 @@
 
   &--done {
     background: rgba(16, 185, 129, 0.1);
-    color: #059669;
+    color: $success-end;
     border-color: rgba(16, 185, 129, 0.25);
   }
 }
@@ -480,8 +479,8 @@
   display: inline-flex;
   align-items: center;
   gap: 0.25rem;
-  padding: 0.3rem 0.75rem;
-  border-radius: 0.5rem;
+  padding: 0.3rem $space-3;
+  border-radius: $radius-sm;
   font-size: 0.78rem;
   font-weight: 600;
   cursor: pointer;
@@ -506,8 +505,8 @@
     background: transparent;
     border-color: transparent;
     color: #cbd5e1;
-    padding: 0.3rem 0.5rem;
-    &:hover { background: rgba(239, 68, 68, 0.08); border-color: rgba(239, 68, 68, 0.25); color: #ef4444; }
+    padding: 0.3rem $space-2;
+    &:hover { background: rgba(239, 68, 68, 0.08); border-color: rgba(239, 68, 68, 0.25); color: $danger; }
   }
 }
 
@@ -517,13 +516,13 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 5rem 2rem;
+  padding: $space-20 $space-8;
   background: $surface;
   border: 1px dashed rgba(15, 23, 42, 0.14);
-  border-radius: 1.25rem;
+  border-radius: $radius-xl;
   text-align: center;
 
-  i    { font-size: 3rem; color: rgba(99, 102, 241, 0.25); margin-bottom: 1rem; }
+  i    { font-size: 3rem; color: rgba(99, 102, 241, 0.25); margin-bottom: $space-4; }
   h5   { font-weight: 700; color: $text; margin-bottom: 0.35rem; }
   p    { font-size: 0.875rem; color: $muted; margin: 0; }
 }
@@ -531,14 +530,14 @@
 // ─── AI Modal (keep original style) ───────────────────────────────────────────
 .modal-content {
   border: 1px solid $border !important;
-  border-radius: 1.25rem !important;
+  border-radius: $radius-xl !important;
   overflow: hidden;
   box-shadow: 0 24px 56px rgba(0, 0, 0, 0.18) !important;
 }
 
 .modal-header-ai {
-  background: linear-gradient(135deg, #f97316, #ef4444);
-  color: #fff; border-bottom: none; padding: 1.25rem 1.5rem;
+  background: linear-gradient(135deg, #f97316, $danger);
+  color: #fff; border-bottom: none; padding: $space-5 $space-6;
   .modal-title { font-weight: 700; font-size: 1rem; }
   .btn-close { filter: invert(1) brightness(2); }
 }
@@ -548,7 +547,7 @@
 
 .tm-modal {
   background: $surface;
-  border-radius: 1.5rem !important;
+  border-radius: $radius-2xl !important;
   overflow: hidden;
   box-shadow: 0 32px 64px rgba(15, 23, 42, 0.18) !important;
   border: 1px solid $border !important;
@@ -557,8 +556,8 @@
 .tm-header {
   display: flex;
   align-items: center;
-  gap: 1rem;
-  padding: 1.5rem 1.5rem 1.25rem;
+  gap: $space-4;
+  padding: $space-6 $space-6 $space-5;
   border-bottom: 1px solid rgba(15, 23, 42, 0.07);
 
   &__icon {
@@ -595,7 +594,7 @@
 }
 
 .tm-body {
-  padding: 1.5rem;
+  padding: $space-6;
   max-height: 72vh;
   overflow-y: auto;
 
@@ -613,14 +612,14 @@
   text-transform: uppercase; margin-bottom: 0.4rem;
 }
 
-.tm-required { color: #ef4444; }
+.tm-required { color: $danger; }
 
 .tm-input {
   width: 100%;
   padding: 0.65rem 0.9rem;
   background: rgba(15, 23, 42, 0.03);
   border: 1.5px solid rgba(15, 23, 42, 0.12);
-  border-radius: 0.75rem;
+  border-radius: $radius-md;
   font-size: 0.875rem; color: $text;
   outline: none;
   transition: border-color 0.2s, background 0.2s;
@@ -647,33 +646,33 @@
 
 .tm-error {
   display: block; margin-top: 0.3rem;
-  font-size: 0.78rem; color: #ef4444; font-weight: 500;
+  font-size: 0.78rem; color: $danger; font-weight: 500;
 }
 
 // Priority segmented control
 .tm-priority {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  gap: 0.5rem;
+  gap: $space-2;
 
   &__btn {
     display: flex; align-items: center; justify-content: center; gap: 0.4rem;
-    padding: 0.55rem 0.5rem;
+    padding: 0.55rem $space-2;
     background: rgba(15, 23, 42, 0.03);
     border: 1.5px solid rgba(15, 23, 42, 0.1);
-    border-radius: 0.75rem;
+    border-radius: $radius-md;
     font-size: 0.8rem; font-weight: 600; color: $muted;
     cursor: pointer; transition: all 0.15s;
 
     &:hover { border-color: rgba(15, 23, 42, 0.2); color: $text; }
 
-    &--high   .tm-priority__dot { background: #ef4444; }
-    &--medium .tm-priority__dot { background: #f59e0b; }
+    &--high   .tm-priority__dot { background: $danger; }
+    &--medium .tm-priority__dot { background: $warning; }
     &--low    .tm-priority__dot { background: #3b82f6; }
 
-    &--high.tm-priority__btn--active   { background: #fee2e2; border-color: #ef4444; color: #dc2626; }
-    &--medium.tm-priority__btn--active { background: #fef3c7; border-color: #f59e0b; color: #b45309; }
-    &--low.tm-priority__btn--active    { background: #dbeafe; border-color: #3b82f6; color: #1d4ed8; }
+    &--high.tm-priority__btn--active   { background: #fee2e2; border-color: $danger;   color: $danger-end; }
+    &--medium.tm-priority__btn--active { background: #fef3c7; border-color: $warning;  color: #b45309; }
+    &--low.tm-priority__btn--active    { background: #dbeafe; border-color: #3b82f6;   color: #1d4ed8; }
   }
 
   &__dot {
@@ -683,7 +682,7 @@
 
 // Toggle switch
 .tm-toggle {
-  display: flex; align-items: center; gap: 0.75rem;
+  display: flex; align-items: center; gap: $space-3;
   cursor: pointer; user-select: none;
 
   &__check { display: none; }
@@ -691,7 +690,7 @@
   &__track {
     width: 36px; height: 20px; flex-shrink: 0;
     background: rgba(15, 23, 42, 0.15);
-    border-radius: 999px;
+    border-radius: $radius-full;
     position: relative; transition: background 0.2s;
   }
 
@@ -710,7 +709,7 @@
     font-size: 0.85rem; font-weight: 500; color: $text;
   }
 
-  &--privacy &__check:checked ~ &__track { background: #f59e0b; }
+  &--privacy &__check:checked ~ &__track { background: $warning; }
 }
 
 // Member picker
@@ -721,8 +720,8 @@
 
 .tm-member {
   display: flex; align-items: center; gap: 0.7rem;
-  padding: 0.55rem 0.75rem;
-  border-radius: 0.75rem;
+  padding: 0.55rem $space-3;
+  border-radius: $radius-md;
   border: 1.5px solid rgba(15, 23, 42, 0.1);
   cursor: pointer;
   transition: border-color 0.15s, background 0.15s;
@@ -748,8 +747,8 @@
 
 // Submit button
 .tm-submit {
-  width: 100%; margin-top: 0.5rem;
-  padding: 0.75rem;
+  width: 100%; margin-top: $space-2;
+  padding: $space-3;
   background: linear-gradient(135deg, $primary, $primary-end);
   color: #fff; border: none; border-radius: 0.875rem;
   font-size: 0.95rem; font-weight: 700;
@@ -783,7 +782,7 @@
 }
 
 .recording-active {
-  background: #ef4444 !important; border-color: #ef4444 !important;
+  background: $danger !important; border-color: $danger !important;
   color: #fff !important; animation: pulse-mic 1.4s infinite;
 }
 
@@ -808,21 +807,21 @@
 .overview-cards {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 1.25rem;
-  margin-top: 0.5rem;
+  gap: $space-5;
+  margin-top: $space-2;
 }
 
 .overview-card {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: $space-4;
   background: $surface;
   border: 1px solid $border;
-  border-radius: 1.25rem;
-  padding: 1.4rem 1.5rem;
+  border-radius: $radius-xl;
+  padding: 1.4rem $space-6;
   cursor: pointer;
   transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
-  box-shadow: 0 1px 6px rgba(15, 23, 42, 0.05);
+  box-shadow: $shadow-sm;
 
   &:hover {
     border-color: rgba(99, 102, 241, 0.3);
@@ -838,8 +837,8 @@
     flex-shrink: 0;
 
     &--tasks   { background: rgba(99, 102, 241, 0.1);  color: $primary; }
-    &--groups  { background: rgba(16, 185, 129, 0.1);  color: #059669; }
-    &--pending { background: rgba(245, 158, 11, 0.1);  color: #d97706; }
+    &--groups  { background: rgba(16, 185, 129, 0.1);  color: $success-end; }
+    &--pending { background: rgba(245, 158, 11, 0.1);  color: $warning-end; }
     &--done    { background: rgba(34, 197, 94, 0.1);   color: #16a34a; }
   }
 
@@ -866,7 +865,6 @@
   }
 }
 
-
 // ─── Member Mention List ──────────────────────────────────────────────────────
 .task-assignee-list {
   display: flex;
@@ -881,7 +879,7 @@
   display: flex;
   align-items: center;
   gap: 0.65rem;
-  padding: 0.55rem 0.75rem;
+  padding: 0.55rem $space-3;
   border-radius: 0.625rem;
   border: 1px solid $border;
   cursor: pointer;
@@ -920,10 +918,10 @@
 // ─── Toast ────────────────────────────────────────────────────────────────────
 .dash-toast {
   position: fixed;
-  bottom: 2rem;
+  bottom: $space-8;
   left: 50%;
   transform: translateX(-50%);
-  z-index: 9999;
+  z-index: $z-toast;
   display: flex;
   align-items: center;
   gap: 0.65rem;
@@ -931,7 +929,7 @@
   border-radius: 0.875rem;
   font-size: 0.875rem;
   font-weight: 500;
-  box-shadow: 0 8px 32px rgba(15, 23, 42, 0.18);
+  box-shadow: $shadow-lg;
   min-width: 280px;
   max-width: 480px;
   animation: toast-in 0.25s ease;
@@ -941,25 +939,25 @@
   span { flex: 1; }
 
   &--error {
-    background: #fff;
+    background: $surface;
     border: 1px solid rgba(239, 68, 68, 0.3);
-    color: #dc2626;
-    i:first-child { color: #ef4444; }
+    color: $danger-end;
+    i:first-child { color: $danger; }
   }
 
   &--success {
-    background: #fff;
+    background: $surface;
     border: 1px solid rgba(16, 185, 129, 0.3);
-    color: #059669;
-    i:first-child { color: #10b981; }
+    color: $success-end;
+    i:first-child { color: $success; }
   }
 
   &__close {
     background: none; border: none; cursor: pointer;
-    color: #94a3b8; font-size: 0.75rem; padding: 0 0.1rem;
+    color: $text-subtle; font-size: 0.75rem; padding: 0 0.1rem;
     display: flex; align-items: center;
     transition: color 0.15s;
-    &:hover { color: #64748b; }
+    &:hover { color: $muted; }
   }
 }
 
@@ -976,7 +974,7 @@
   width: 38px; height: 38px;
   background: none; border: none;
   color: $text; font-size: 1.5rem;
-  cursor: pointer; border-radius: 0.5rem;
+  cursor: pointer; border-radius: $radius-sm;
   transition: background 0.15s;
   flex-shrink: 0;
   margin-right: 0.25rem;
@@ -1004,7 +1002,7 @@
 .mob-drawer-header {
   display: flex; align-items: center;
   justify-content: space-between;
-  padding: 1.25rem 1.25rem 1rem;
+  padding: $space-5 $space-5 $space-4;
   border-bottom: 1px solid $border;
 }
 
@@ -1016,14 +1014,14 @@
   width: 34px; height: 34px;
   display: flex; align-items: center; justify-content: center;
   background: rgba(15, 23, 42, 0.05); border: none;
-  border-radius: 0.5rem; color: $muted;
+  border-radius: $radius-sm; color: $muted;
   font-size: 0.9rem; cursor: pointer;
   transition: background 0.15s, color 0.15s;
   &:hover { background: rgba(15, 23, 42, 0.1); color: $text; }
 }
 
 .mob-nav {
-  flex: 1; padding: 1rem 0.75rem;
+  flex: 1; padding: $space-4 $space-3;
   display: flex; flex-direction: column; gap: 0.2rem;
   overflow-y: auto;
 }
@@ -1047,12 +1045,12 @@
   margin-left: auto;
   background: rgba(99, 102, 241, 0.1);
   color: $primary; font-size: 0.72rem;
-  font-weight: 700; padding: 0.1rem 0.5rem;
-  border-radius: 999px;
+  font-weight: 700; padding: 0.1rem $space-2;
+  border-radius: $radius-full;
 }
 
 .mob-drawer-footer {
-  padding: 1rem 0.75rem 1.5rem;
+  padding: $space-4 $space-3 $space-6;
   border-top: 1px solid $border;
 }
 
@@ -1060,10 +1058,10 @@
   display: flex; align-items: center; gap: 0.6rem;
   width: 100%; padding: 0.65rem 0.85rem;
   background: rgba(15, 23, 42, 0.04); border: none;
-  border-radius: 0.75rem; color: $muted;
+  border-radius: $radius-md; color: $muted;
   font-size: 0.875rem; font-weight: 500; cursor: pointer;
   transition: background 0.15s, color 0.15s;
-  &:hover { background: rgba(239, 68, 68, 0.08); color: #dc2626; }
+  &:hover { background: rgba(239, 68, 68, 0.08); color: $danger-end; }
   i { font-size: 1rem; }
 }
 
@@ -1078,11 +1076,11 @@
 }
 
 // ─── Responsive ───────────────────────────────────────────────────────────────
-@media (max-width: 768px) {
+@media (max-width: $bp-md) {
   .dash-sidebar  { display: none; }
   .mob-hamburger { display: flex; }
-  .dash-topbar   { padding: 0 1.25rem; }
-  .dash-main     { padding: 1.25rem 1rem 2rem; }
+  .dash-topbar   { padding: 0 $space-5; }
+  .dash-main     { padding: $space-5 $space-4 $space-8; }
   .task-grid     { grid-template-columns: 1fr; }
   .page-header   { flex-direction: column; align-items: flex-start; }
 }

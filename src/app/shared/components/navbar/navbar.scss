@@ -2,19 +2,19 @@
 
 // ─── Desktop Nav ──────────────────────────────────────────────────────────────
 .lnav {
-  position: sticky; top: 0; z-index: 100; width: 100%;
+  position: sticky; top: 0; z-index: $z-nav; width: 100%;
   backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
   border-bottom: 1px solid $border;
-  background: rgba(248, 250, 252, 0.92);
+  background: rgba($bg, 0.92);
 }
 
 .lnav-inner {
-  width: 100%; max-width: 1320px; margin: 0 auto; padding: 1rem 2.5rem;
-  display: flex; align-items: center; gap: 1.5rem;
+  width: 100%; max-width: $bp-2xl; margin: 0 auto; padding: $space-4 $space-10;
+  display: flex; align-items: center; gap: $space-6;
 }
 
 .lnav-logo {
-  display: inline-flex; align-items: center; gap: 0.5rem;
+  display: inline-flex; align-items: center; gap: $space-2;
   text-decoration: none; flex-shrink: 0;
 }
 
@@ -40,13 +40,13 @@
 }
 
 .lnav-actions {
-  display: flex; align-items: center; gap: 0.75rem; flex-shrink: 0;
+  display: flex; align-items: center; gap: $space-3; flex-shrink: 0;
 }
 
 .lnav-btn-ghost {
   display: inline-flex; align-items: center; justify-content: center;
-  padding: 0.5rem 1.1rem; background: transparent;
-  border: 1px solid $border; border-radius: 0.75rem; color: $muted;
+  padding: $space-2 1.1rem; background: transparent;
+  border: 1px solid $border; border-radius: $radius-md; color: $muted;
   font-size: 0.9rem; font-weight: 500; text-decoration: none;
   transition: border-color 0.2s, color 0.2s, background 0.2s;
   &:hover { border-color: rgba(15, 23, 42, 0.2); color: $text; background: rgba(15, 23, 42, 0.04); }
@@ -54,9 +54,9 @@
 
 .lnav-btn-primary {
   display: inline-flex; align-items: center; justify-content: center;
-  padding: 0.5rem 1.1rem;
+  padding: $space-2 1.1rem;
   background: linear-gradient(135deg, $primary, $primary-end);
-  border: none; border-radius: 0.75rem; color: #fff;
+  border: none; border-radius: $radius-md; color: #fff;
   font-size: 0.9rem; font-weight: 600; text-decoration: none;
   box-shadow: 0 4px 16px rgba(99, 102, 241, 0.35);
   transition: opacity 0.2s, transform 0.15s;
@@ -67,7 +67,7 @@
   display: none; align-items: center; justify-content: center;
   width: 38px; height: 38px; margin-left: auto;
   background: none; border: none; color: $text; font-size: 1.5rem;
-  cursor: pointer; border-radius: 0.5rem; flex-shrink: 0;
+  cursor: pointer; border-radius: $radius-sm; flex-shrink: 0;
   transition: background 0.15s;
   &:hover { background: rgba(15, 23, 42, 0.06); }
 }
@@ -75,14 +75,14 @@
 // ─── Mobile Drawer ────────────────────────────────────────────────────────────
 .lnav-overlay {
   position: fixed; inset: 0;
-  background: rgba(0, 0, 0, 0.35); z-index: 200;
+  background: rgba(0, 0, 0, 0.35); z-index: $z-overlay;
   animation: lnav-fade 0.2s ease;
 }
 
 .lnav-drawer {
   position: fixed; top: 0; right: 0;
   width: 285px; height: 100vh;
-  background: $bg; z-index: 201;
+  background: $bg; z-index: $z-drawer;
   display: flex; flex-direction: column;
   box-shadow: -4px 0 32px rgba(15, 23, 42, 0.13);
   animation: lnav-slide 0.25s ease;
@@ -90,7 +90,7 @@
 
 .lnav-drawer-head {
   display: flex; align-items: center; justify-content: space-between;
-  padding: 1.25rem 1.25rem 1rem;
+  padding: $space-5 $space-5 $space-4;
   border-bottom: 1px solid $border;
 }
 
@@ -98,19 +98,19 @@
   width: 34px; height: 34px;
   display: flex; align-items: center; justify-content: center;
   background: rgba(15, 23, 42, 0.06); border: none;
-  border-radius: 0.5rem; color: $muted; font-size: 0.9rem; cursor: pointer;
+  border-radius: $radius-sm; color: $muted; font-size: 0.9rem; cursor: pointer;
   transition: background 0.15s, color 0.15s;
   &:hover { background: rgba(15, 23, 42, 0.12); color: $text; }
 }
 
 .lnav-drawer-nav {
-  flex: 1; padding: 1.25rem 1rem;
+  flex: 1; padding: $space-5 $space-4;
   display: flex; flex-direction: column; gap: 0.2rem;
 }
 
 .lnav-drawer-item {
-  display: flex; align-items: center; gap: 0.75rem;
-  padding: 0.75rem 1rem; border-radius: 0.75rem;
+  display: flex; align-items: center; gap: $space-3;
+  padding: $space-3 $space-4; border-radius: $radius-md;
   font-size: 0.93rem; font-weight: 500; color: $muted;
   text-decoration: none; cursor: pointer;
   transition: background 0.15s, color 0.15s;
@@ -124,23 +124,23 @@
 }
 
 .lnav-drawer-footer {
-  padding: 1rem 1rem 1.75rem;
+  padding: $space-4 $space-4 1.75rem;
   border-top: 1px solid $border;
   display: flex; flex-direction: column; gap: 0.6rem;
 }
 
 .lnav-drawer-signin {
   display: flex; align-items: center; justify-content: center;
-  padding: 0.7rem; border-radius: 0.75rem;
+  padding: 0.7rem; border-radius: $radius-md;
   border: 1.5px solid $border; background: transparent;
   font-size: 0.9rem; font-weight: 600; color: $muted; text-decoration: none;
   transition: border-color 0.2s, color 0.2s;
-  &:hover { border-color: rgba(15, 23, 42, 0.22); color: $text; }
+  &:hover { border-color: $border-strong; color: $text; }
 }
 
 .lnav-drawer-start {
   display: flex; align-items: center; justify-content: center;
-  padding: 0.7rem; border-radius: 0.75rem;
+  padding: 0.7rem; border-radius: $radius-md;
   background: linear-gradient(135deg, $primary, $primary-end);
   border: none; color: #fff;
   font-size: 0.9rem; font-weight: 700; text-decoration: none;
@@ -160,9 +160,9 @@
 }
 
 // ─── Responsive ───────────────────────────────────────────────────────────────
-@media (max-width: 768px) {
+@media (max-width: $bp-md) {
   .lnav-links  { display: none; }
   .lnav-actions { display: none; }
   .lnav-burger  { display: flex; }
-  .lnav-inner   { padding: 0.75rem 1.25rem; }
+  .lnav-inner   { padding: $space-3 $space-5; }
 }

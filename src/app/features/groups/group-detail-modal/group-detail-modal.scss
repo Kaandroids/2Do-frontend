@@ -3,25 +3,25 @@
 // ─── Modal shell ──────────────────────────────────────────────────────────────
 .gd-modal {
   border: none !important;
-  border-radius: 1.25rem !important;
+  border-radius: $radius-xl !important;
   overflow: hidden;
-  box-shadow: 0 24px 56px rgba(0, 0, 0, 0.18) !important;
+  box-shadow: $shadow-xl !important;
 }
 
 // ─── Header ───────────────────────────────────────────────────────────────────
 .gd-header {
   background: linear-gradient(135deg, $primary, $primary-end);
-  padding: 1.5rem 1.75rem;
+  padding: $space-6 1.75rem;
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 1rem;
+  gap: $space-4;
 }
 
 .gd-header__left {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: $space-4;
 }
 
 .gd-avatar {
@@ -56,10 +56,10 @@
 .gd-stats {
   display: flex;
   align-items: center;
-  padding: 1rem 1.75rem;
+  padding: $space-4 1.75rem;
   background: rgba(99, 102, 241, 0.04);
   border-bottom: 1px solid $border;
-  gap: 1.5rem;
+  gap: $space-6;
 }
 
 .gd-stat {
@@ -117,7 +117,7 @@
 
 // ─── Body ─────────────────────────────────────────────────────────────────────
 .gd-body {
-  padding: 1.5rem 1.75rem;
+  padding: $space-6 1.75rem;
   min-height: 200px;
   max-height: 380px;
   overflow-y: auto;
@@ -128,8 +128,8 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 3rem 0;
-  gap: 0.75rem;
+  padding: $space-12 0;
+  gap: $space-3;
   color: $muted;
 
   i { font-size: 2rem; opacity: 0.4; }
@@ -140,14 +140,14 @@
 .gd-members {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: $space-2;
 }
 
 .gd-member {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  padding: 0.75rem 1rem;
+  gap: $space-3;
+  padding: $space-3 $space-4;
   border-radius: 0.875rem;
   background: rgba(15, 23, 42, 0.02);
   border: 1px solid $border;
@@ -172,7 +172,7 @@
   flex-shrink: 0;
 
   &--owner {
-    background: linear-gradient(135deg, #f59e0b, #d97706);
+    background: linear-gradient(135deg, $warning, $warning-end);
     box-shadow: 0 3px 10px rgba(245, 158, 11, 0.35);
   }
 }
@@ -181,10 +181,10 @@
   display: inline-flex;
   align-items: center;
   margin-left: 0.4rem;
-  padding: 0.1rem 0.5rem;
+  padding: 0.1rem $space-2;
   background: rgba(245, 158, 11, 0.12);
-  color: #d97706;
-  border-radius: 999px;
+  color: $warning-end;
+  border-radius: $radius-full;
   font-size: 0.65rem;
   font-weight: 700;
   vertical-align: middle;
@@ -223,7 +223,7 @@
 .perm-chip {
   display: inline-block;
   padding: 0.2rem 0.6rem;
-  border-radius: 999px;
+  border-radius: $radius-full;
   font-size: 0.65rem;
   font-weight: 700;
   background: rgba(15, 23, 42, 0.04);
@@ -246,7 +246,7 @@
   &--master {
     &.perm-chip--active {
       background: rgba(245, 158, 11, 0.12);
-      color: #d97706;
+      color: $warning-end;
       border-color: rgba(245, 158, 11, 0.35);
     }
   }
@@ -259,12 +259,12 @@
   font-size: 1rem;
   cursor: pointer;
   padding: 0.25rem 0.4rem;
-  border-radius: 0.5rem;
+  border-radius: $radius-sm;
   transition: color 0.15s, background 0.15s;
   flex-shrink: 0;
 
   &:hover {
-    color: #ef4444;
+    color: $danger;
     background: rgba(239, 68, 68, 0.08);
   }
 }
@@ -278,11 +278,11 @@
   color: $muted;
   letter-spacing: 0.06em;
   display: block;
-  margin-bottom: 0.5rem;
+  margin-bottom: $space-2;
 }
 
 .gd-input {
-  border-radius: 0.75rem !important;
+  border-radius: $radius-md !important;
   border-color: rgba(15, 23, 42, 0.15) !important;
   font-size: 0.9rem;
 
@@ -294,7 +294,7 @@
 
 .gd-perm-checks {
   display: flex;
-  gap: 0.75rem;
+  gap: $space-3;
   flex-wrap: wrap;
 }
 
@@ -311,9 +311,9 @@
     gap: 0.3rem;
     width: 90px;
     min-height: 72px;
-    padding: 0.65rem 0.5rem;
+    padding: 0.65rem $space-2;
     border: 1.5px solid $border;
-    border-radius: 0.75rem;
+    border-radius: $radius-md;
     font-size: 0.8rem;
     font-weight: 600;
     color: $muted;
@@ -340,7 +340,7 @@
   input:checked + &__box--master {
     border-color: rgba(245, 158, 11, 0.5);
     background: rgba(245, 158, 11, 0.08);
-    color: #d97706;
+    color: $warning-end;
   }
 }
 
@@ -349,11 +349,11 @@
   align-items: center;
   justify-content: center;
   gap: 0.4rem;
-  padding: 0.65rem 1.5rem;
+  padding: 0.65rem $space-6;
   background: linear-gradient(135deg, $primary, $primary-end);
   color: #fff;
   border: none;
-  border-radius: 0.75rem;
+  border-radius: $radius-md;
   font-size: 0.875rem;
   font-weight: 600;
   cursor: pointer;
@@ -365,7 +365,7 @@
 
 // ─── Footer ───────────────────────────────────────────────────────────────────
 .gd-footer {
-  padding: 1rem 1.75rem;
+  padding: $space-4 1.75rem;
   border-top: 1px solid $border;
   background: rgba(239, 68, 68, 0.02);
 }
@@ -374,11 +374,11 @@
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
-  padding: 0.45rem 1rem;
+  padding: 0.45rem $space-4;
   background: none;
   border: 1px solid rgba(239, 68, 68, 0.3);
   border-radius: 0.625rem;
-  color: #ef4444;
+  color: $danger;
   font-size: 0.82rem;
   font-weight: 600;
   cursor: pointer;

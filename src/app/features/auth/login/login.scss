@@ -1,7 +1,7 @@
 @use 'tokens' as *;
 
 .login-container {
-  background-color: #f8fafc;
+  background-color: $bg;
   background-image:
     radial-gradient(ellipse 60% 50% at 20% 30%, $auth-bg 0%, transparent 70%),
     radial-gradient(ellipse 50% 40% at 80% 70%, $auth-bg2 0%, transparent 65%);
