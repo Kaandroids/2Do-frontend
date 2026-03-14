@@ -21,11 +21,8 @@ $muted:      #64748b;
   display: inline-flex; align-items: center; gap: 0.5rem;
 }
 
-.site-footer-icon {
-  width: 28px; height: 28px;
-  background: linear-gradient(135deg, $primary, $primary-end);
-  border-radius: 8px; display: flex; align-items: center; justify-content: center;
-  font-size: 0.85rem; color: #fff;
+.site-footer-img {
+  width: 28px; height: 28px; border-radius: 8px; flex-shrink: 0;
 }
 
 .site-footer-brand {
