@@ -1,0 +1,105 @@
+// =============================================================================
+// 2Do Design Tokens
+// =============================================================================
+// Single source of truth for all design values.
+// Import this file in every component SCSS: @use 'tokens' as *;
+// =============================================================================
+
+// ─── Colors ───────────────────────────────────────────────────────────────────
+$primary:       #6366f1;
+$primary-end:   #8b5cf6;
+$primary-glow:  rgba(99, 102, 241, 0.35);
+
+$success:       #10b981;
+$success-end:   #059669;
+
+$warning:       #f59e0b;
+$warning-end:   #d97706;
+
+$danger:        #ef4444;
+$danger-end:    #dc2626;
+
+$cyan:          #06b6d4;
+
+// ─── Neutrals ─────────────────────────────────────────────────────────────────
+$text:          #0f172a;
+$text-muted:    #64748b;
+$text-subtle:   #94a3b8;
+$muted:         $text-muted;  // alias used in dashboard/navbar/groups
+
+$bg:            #f8fafc;
+$surface:       #ffffff;
+$border:        rgba(15, 23, 42, 0.1);
+$border-strong: rgba(15, 23, 42, 0.22);
+
+// ─── Auth backgrounds ─────────────────────────────────────────────────────────
+$auth-bg:       rgba(99, 102, 241, 0.07);
+$auth-bg2:      rgba(139, 92, 246, 0.06);
+
+// ─── Typography ───────────────────────────────────────────────────────────────
+$font-family:   -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+$text-xs:       0.72rem;
+$text-sm:       0.875rem;
+$text-base:     1rem;
+$text-lg:       1.15rem;
+$text-xl:       1.35rem;
+$text-2xl:      1.6rem;
+
+$font-normal:   400;
+$font-medium:   500;
+$font-semibold: 600;
+$font-bold:     700;
+$font-extrabold:800;
+
+$leading-tight:  1.1;
+$leading-snug:   1.35;
+$leading-normal: 1.55;
+$leading-relaxed:1.7;
+
+$tracking-tight: -0.04em;
+$tracking-normal:-0.02em;
+$tracking-wide:   0.05em;
+$tracking-wider:  0.08em;
+
+// ─── Spacing ──────────────────────────────────────────────────────────────────
+$space-1:  0.25rem;   //  4px
+$space-2:  0.5rem;    //  8px
+$space-3:  0.75rem;   // 12px
+$space-4:  1rem;      // 16px
+$space-5:  1.25rem;   // 20px
+$space-6:  1.5rem;    // 24px
+$space-8:  2rem;      // 32px
+$space-10: 2.5rem;    // 40px
+$space-12: 3rem;      // 48px
+$space-16: 4rem;      // 64px
+$space-20: 5rem;      // 80px
+$space-24: 6rem;      // 96px
+
+// ─── Border Radius ────────────────────────────────────────────────────────────
+$radius-sm:   0.5rem;
+$radius-md:   0.75rem;
+$radius-lg:   1rem;
+$radius-xl:   1.25rem;
+$radius-2xl:  1.5rem;
+$radius-full: 999px;
+
+// ─── Shadows ──────────────────────────────────────────────────────────────────
+$shadow-sm:  0 1px 6px rgba(15, 23, 42, 0.05);
+$shadow-md:  0 4px 16px rgba(15, 23, 42, 0.08);
+$shadow-lg:  0 8px 32px rgba(15, 23, 42, 0.13);
+$shadow-xl:  0 24px 56px rgba(15, 23, 42, 0.18);
+
+// ─── Breakpoints ──────────────────────────────────────────────────────────────
+$bp-sm:  480px;
+$bp-md:  768px;
+$bp-lg:  1024px;
+$bp-xl:  1280px;
+$bp-2xl: 1320px;
+
+// ─── Z-index ──────────────────────────────────────────────────────────────────
+$z-nav:     100;
+$z-overlay: 200;
+$z-drawer:  201;
+$z-modal:   300;
+$z-toast:   9999;
